@@ -5,7 +5,10 @@ var gulp = require('gulp');
 var config = require('./gulp.config')();
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+<<<<<<< HEAD
 var changed = require('gulp-changed');
+=======
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
 var cleanCSS = require('gulp-clean-css');
 var clean = require('gulp-clean');
 var rename = require('gulp-rename');
@@ -18,8 +21,14 @@ gulp.task("clean:js", function (cb) {
 gulp.task("clean:css", function (cb) {
     return gulp.src('wwwroot/css/*.min.css', { read: false }).pipe(clean());
 });
+<<<<<<< HEAD
 gulp.task('publish-app-wwwroot:js', function (www) {
     return pump([
+=======
+
+gulp.task('publish-app-wwwroot:js', function (www) {
+    pump([
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
         gulp.src("app/**/*.js"),
         uglify(),
         rename({ suffix: '.min' }),
@@ -27,6 +36,10 @@ gulp.task('publish-app-wwwroot:js', function (www) {
     ],
         www)
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
 //Valutare, eventualmente, di concatenare tutti i file js in uno solo e minimizzarlo
 //gulp.task('all-in-one', function (cb) {
 //    pump([
@@ -38,6 +51,10 @@ gulp.task('publish-app-wwwroot:js', function (www) {
 //    ],
 //        cb)
 //});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
 gulp.task('minify:css', function () {
     return gulp.src(config.css)
         .pipe(cleanCSS())
@@ -84,6 +101,10 @@ gulp.task("copy:rxjs", function () {
         { base: config.node_modules })
         .pipe(gulp.dest(config.lib));
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
 gulp.task("copy:app", ["publish-app-wwwroot:js"], function () {
     return gulp.src(config.appOther)
         .pipe(gulp.dest(config.appDest));
@@ -101,6 +122,7 @@ gulp.task("copy:es6-shim", function () {
     return gulp.src(config.shim_es6,
         { base: config.node_modules + "es6-shim" })
         .pipe(gulp.dest(config.lib + "es6-shim"));
+<<<<<<< HEAD
 });
 gulp.task("copy:es5-shim", function () {
     return gulp.src(config.shim_es5,
@@ -117,6 +139,29 @@ gulp.task("copy:plugin_babel", function () {
         { base: config.node_modules + "systemjs-plugin-babel" })
         .pipe(gulp.dest(config.lib + "systemjs-plugin-babel"));
 });
+=======
+});
+
+gulp.task("copy:es5-shim", function () {
+    return gulp.src(config.shim_es5,
+        { base: config.node_modules + "es5-shim" })
+        .pipe(gulp.dest(config.lib + "es5-shim"));
+});
+
+gulp.task("copy:signalr", function () {
+    return gulp.src(config.signalr,
+        { base: config.node_modules + "@aspnet" })
+        .pipe(gulp.dest(config.lib));
+});
+
+gulp.task("copy:plugin_babel", function () {
+    return gulp.src(config.plugin_babel,
+        { base: config.node_modules + "systemjs-plugin-babel" })
+        .pipe(gulp.dest(config.lib + "systemjs-plugin-babel"));
+});
+
+
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
 gulp.task("dependencies", [
     "copy:angular",
     "copy:angularWebApi",
@@ -142,8 +187,13 @@ gulp.task('copy-changed:app', function (chg) {
             gulp.dest(config.appDest)
     ],chg)
 });
+<<<<<<< HEAD
 gulp.task("default", ["clean", 'minify', "dependencies"])
     .on('end',
     function () {
         return gulp.watch(config.app, ["copy-changed:app"]);
     });
+=======
+
+gulp.task("default", ["clean", 'minify', "dependencies","copy:app"]);
+>>>>>>> 3700395... Modified gulpfile to provide new tasks to publish only minified js
