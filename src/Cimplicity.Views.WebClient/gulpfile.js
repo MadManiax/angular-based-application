@@ -12,42 +12,58 @@ var rename = require('gulp-rename');
 var pump = require('pump');
 var $ = require('gulp-load-plugins')({ lazy: true });
 
+
+//***********************************************************************************
+//* Task to clean up 'dest' directories
+//***********************************************************************************
 gulp.task("clean:js", function (cb) {
     return gulp.src('wwwroot/js/*.min.js', { read: false }).pipe(clean());
 });
 gulp.task("clean:css", function (cb) {
-    return gulp.src('wwwroot/css/*.min.css', { read: false }).pipe(clean());
+    return gulp.src(config.cssDestDir + '/*.css', { read: false }).pipe(clean());
 });
-gulp.task('publish-app-wwwroot:js', function (www) {
-    return pump([
-        gulp.src("app/**/*.js"),
-        uglify(),
-        rename({ suffix: '.min' }),
-        gulp.dest(config.appDest)
-    ],
-        www)
-});
-//Valutare, eventualmente, di concatenare tutti i file js in uno solo e minimizzarlo
-//gulp.task('all-in-one', function (cb) {
-//    pump([
-//        gulp.src("app/**/*.js"),
-//        concat("all-in-one.js"),
-//        uglify(),
-//        rename({ suffix: '.min' }),
-//        gulp.dest(config.appDest + '/dist')
-//    ],
-//        cb)
-//});
+
+gulp.task("clean", ["clean:js", "clean:css"]);
+
+
+//***********************************************************************************
+//* Task to minify files in production
+//***********************************************************************************
 gulp.task('minify:css', function () {
-    return gulp.src(config.css)
+    return gulp.src(config.cssDestDir)
         .pipe(cleanCSS())
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest(config.cssDest));
+        .pipe(gulp.dest(config.cssDestDir));
 });
-gulp.task("clean", ["clean:js", "clean:css"]);
+
 gulp.task('minify', ['minify:css']);
+
+
+//***********************************************************************************
+//* Task to copy extra files (like HTML templates) in production
+//***********************************************************************************
+// Gulp task to copy HTML files to output directory
+gulp.task('copy:html_to_dist', function() {
+    gulp.src(config.htmlSource)
+        .pipe(gulp.dest(config.htmlDest));
+});
+
+
+
+//***********************************************************************************
+//* Task to handle style files (SCSS, CSS, etc)
+//***********************************************************************************
+gulp.task('copy:css_to_dist', function() {
+    gulp.src(config.cssSrc)
+        .pipe(gulp.dest(config.cssDestDir));
+});
+
+
+//***********************************************************************************
+//* Task to copy dependencies (lib, etc.) to dist
+//***********************************************************************************
 gulp.task("copy:angular", function () {
 
     return gulp.src(config.angular,
@@ -86,7 +102,7 @@ gulp.task("copy:rxjs", function () {
 });
 gulp.task("copy:app", ["publish-app-wwwroot:js"], function () {
     return gulp.src(config.appOther)
-        .pipe(gulp.dest(config.appDest));
+        .pipe(gulp.dest(config.destApp));
 });
 gulp.task("copy:index", function () {
     return gulp.src(config.index)
@@ -133,13 +149,69 @@ gulp.task("dependencies", [
     "copy:signalr",
     "copy:plugin_babel"
 ]);
-gulp.task('copy-changed:app', function (chg) {
+
+
+//***********************************************************************************
+//* Task to allow easy and fast debug
+//***********************************************************************************
+gulp.task('debug:create-fake-min-js', function (www) {
     return pump([
-        gulp.src(config.app),
-            changed(config.appDest),
+            gulp.src(config.sourceAppDir + "/**/*.js"),
             uglify(),
             rename({ suffix: '.min' }),
-            gulp.dest(config.appDest)
+            gulp.dest(config.destApp)
+        ],
+        www)
+});
+
+gulp.task('copy:all-js-dir', function() {
+    gulp.src(config.jsFilesSrc)
+        .pipe(gulp.dest(config.jsDest));
+});
+
+gulp.task("debug:copy-minimal", [
+    "clean:css",
+    "copy:css_to_dist",
+    "copy:html_to_dist",
+    "copy:all-js-dir"
+]);
+
+
+
+
+gulp.task('publish-app-wwwroot:js', function (www) {
+    return pump([
+        gulp.src("app/**/*.js"),
+        uglify(),
+        rename({ suffix: '.min' }),
+        gulp.dest(config.destApp)
+    ],
+        www)
+});
+
+
+
+
+//Valutare, eventualmente, di concatenare tutti i file js in uno solo e minimizzarlo
+//gulp.task('all-in-one', function (cb) {
+//    pump([
+//        gulp.src("app/**/*.js"),
+//        concat("all-in-one.js"),
+//        uglify(),
+//        rename({ suffix: '.min' }),
+//        gulp.dest(config.destApp + '/dist')
+//    ],
+//        cb)
+//});
+
+
+gulp.task('copy-changed:app', function (chg) {
+    return pump([
+        gulp.src(config.sourceApp),
+            changed(config.destApp),
+            uglify(),
+            rename({ suffix: '.min' }),
+            gulp.dest(config.destApp)
     ],chg)
 });
 gulp.task("default", ["clean", 'minify', "dependencies"])
