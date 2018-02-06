@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'my-app',
-    template: "<router-outlet></router-outlet>",
+    template: "<loading-screen></loading-screen><router-outlet></router-outlet>",
     // template: `
     //     <div class="container">
     //         <h1>Angular 2 & TypeScript web application</h1>

@@ -62,6 +62,19 @@ gulp.task('copy:css_to_dist', function() {
 
 
 //***********************************************************************************
+//* Task to copy assets
+//***********************************************************************************
+gulp.task("copy:images", function () {
+    gulp.src(config.imagesDirSrc + "/*.*")
+        .pipe(gulp.dest(config.imagesDirDest + "/"));
+});
+
+gulp.task('copy:all_assets', [
+    'copy:images'
+]);
+
+
+//***********************************************************************************
 //* Task to copy dependencies (lib, etc.) to dist
 //***********************************************************************************
 gulp.task("copy:angular", function () {
@@ -175,6 +188,7 @@ gulp.task("debug:copy-minimal", [
     "copy:html_to_dist",
     "copy:all-js-dir"
 ]);
+
 
 
 

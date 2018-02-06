@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { StationComponent } from './station/station.component';
+import {RulesReportService} from "./services/RulesReportService";
+import {LoadingScreenComponent} from "./components/loading_screen/LoadingScreenComponent";
 
 @NgModule({
     imports: [
@@ -18,10 +20,12 @@ import { StationComponent } from './station/station.component';
         AppComponent,
         HomeComponent,
         AboutComponent,
-        StationComponent
+        StationComponent,
+        LoadingScreenComponent
     ],
     bootstrap: [AppComponent],
     providers: [
+        RulesReportService
     ]
 })
 export class AppModule { }

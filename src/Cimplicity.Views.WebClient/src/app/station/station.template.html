@@ -32,6 +32,11 @@
             </tr>
         </tbody>
     </table>
+    <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
+        <div class="no-data-notice">
+            No data to display
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

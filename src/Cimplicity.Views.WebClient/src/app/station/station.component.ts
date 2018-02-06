@@ -11,6 +11,8 @@ import EventRule = ge.cim.models.EventRule;
 import * as jQuery from "jquery";
 import Utils = jsutils.Utils;
 import Rule = ge.cim.models.Rule;
+import {RulesReportService} from "../services/RulesReportService";
+import {LoadingScreen, LoadingScreenComponent} from "../components/loading_screen/LoadingScreenComponent";
 
 @Component({
     selector: 'station',
@@ -23,24 +25,46 @@ export class StationComponent implements OnInit
     private _oModal : JQuery;
     private _oRuleToEdit : Rule;
 
+    private _bIsDataLoading : boolean;
 
-    constructor()
+
+    /*
+     * TIPS on Services:
+     * The parameter '_oRulesReportService' simultaneously defines a private '_oRulesReportService' property
+     * and identifies it as a RulesReportService injection site.
+     * When Angular creates a the component, the Dependency Injection system
+     * sets the service parameter to the singleton instance of the service class
+     */
+    constructor(
+        private _oRulesReportService: RulesReportService
+    )
     {
         console.log('StationComponent -> constructor');
-
-        this._aoRulesList = [];
-        for (let i = 0; i < 10; i++)
-        {
-            let fRand = Math.random();
-            if(fRand < 0.33){ this._aoRulesList.push(new TimingRule().fillWithDummyData()); }
-            else if(fRand < 0.66){ this._aoRulesList.push(new CounterRule().fillWithDummyData()); }
-            else{this._aoRulesList.push(new EventRule().fillWithDummyData());}
-        }
 
     }
 
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
+
+        this._bIsDataLoading = true;
+        LoadingScreen.show();
+        this._oRulesReportService.getRules([])
+            .subscribe(
+            (aoRulesList) => {
+                this._aoRulesList = aoRulesList;
+
+                if( this._aoRulesList.length > 0)
+                {
+                    LoadingScreen.hide();
+                }
+            },
+            ()=>{},
+        ()=>{
+                this._bIsDataLoading = false;
+
+            }
+        );
+        console.log('StationComponent -> after request to the server');
     }
 
 
@@ -57,4 +81,8 @@ export class StationComponent implements OnInit
 
     public getRulesList() { return this._aoRulesList; }
     public getRuleToEdit(){ return this._oRuleToEdit; }
+    public isRulesListLoading(){ return this._bIsDataLoading; }
+    public showEmptyDataBox(): boolean{
+        return (Utils.isNullOrUndef(this._aoRulesList) == true || this._aoRulesList.length == 0)
+    } ;
 }
