@@ -25,17 +25,39 @@ export class RulesReportService
     {
         let aoRulesList: Rule[] = [] ;
 
+        let oObserver = new Observable<Rule[]>(observer => {
+            // Immediately return an empty array just to avoid
+            // undefined or null array
+            observer.next(aoRulesList);
 
-        setTimeout(()=>{
-            for (let i = 0; i < 10; i++)
-            {
-                let fRand = Math.random();
-                if(fRand < 0.33){ aoRulesList.push(new TimingRule().fillWithDummyData()); }
-                else if(fRand < 0.66){ aoRulesList.push(new CounterRule().fillWithDummyData()); }
-                else{aoRulesList.push(new EventRule().fillWithDummyData());}
-            }
-        }, 2000);
-        return of(aoRulesList);
+            // Then perform request
+            setTimeout(()=>{
+                for (let i = 0; i < 10; i++)
+                {
+                    let fRand = Math.random();
+                    if(fRand < 0.33){ aoRulesList.push(new TimingRule().fillWithDummyData()); }
+                    else if(fRand < 0.66){ aoRulesList.push(new CounterRule().fillWithDummyData()); }
+                    else{aoRulesList.push(new EventRule().fillWithDummyData());}
+                }
+                // set observer value and set it as 'completed'
+                observer.next(aoRulesList);
+                observer.complete();
+            }, 5000);
+        })
+        return oObserver;
     }
+
+    // public getRules(aoFilters : Filter[])
+    // {
+    //     let oPromise = new Promise((resolve, reject) => {
+    //         if(xxx) {
+    //             resolve('ok');
+    //         } else {
+    //             reject('error');
+    //         }
+    //     })
+    //
+    //     return oPromise;
+    // }
 
 }

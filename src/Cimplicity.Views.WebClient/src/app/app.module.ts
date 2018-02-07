@@ -9,6 +9,7 @@ import { AboutComponent } from './about/about.component';
 import { StationComponent } from './station/station.component';
 import {RulesReportService} from "./services/RulesReportService";
 import {LoadingScreenComponent} from "./components/loading_screen/LoadingScreenComponent";
+import {RulesReportRouteGuard} from "./route_guards/RulesReportRouteGuard";
 
 @NgModule({
     imports: [
@@ -25,6 +26,8 @@ import {LoadingScreenComponent} from "./components/loading_screen/LoadingScreenC
     ],
     bootstrap: [AppComponent],
     providers: [
+        RulesReportRouteGuard,
+
         RulesReportService
     ]
 })

@@ -46,27 +46,25 @@ export class StationComponent implements OnInit
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
 
+        this.doSearch();
+    }
+
+    public doSearch()
+    {
         this._bIsDataLoading = true;
         LoadingScreen.show();
         this._oRulesReportService.getRules([])
             .subscribe(
-            (aoRulesList) => {
-                this._aoRulesList = aoRulesList;
-
-                if( this._aoRulesList.length > 0)
-                {
+                (aoRulesList) => {
+                    this._aoRulesList = aoRulesList;
+                },
+                ()=>{},
+                ()=>{
+                    this._bIsDataLoading = false;
                     LoadingScreen.hide();
                 }
-            },
-            ()=>{},
-        ()=>{
-                this._bIsDataLoading = false;
-
-            }
-        );
-        console.log('StationComponent -> after request to the server');
+            );
     }
-
 
     public openEditRuleModal(oRule : Rule)
     {

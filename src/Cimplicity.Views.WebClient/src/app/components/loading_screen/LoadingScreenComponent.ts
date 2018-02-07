@@ -8,36 +8,59 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class LoadingScreenComponent implements OnInit
 {
-    public static IS_VISIBLE : boolean = false;
+    private static ELEM_ID : string = "geLoadingScreen";
+    private static ELEM_JQUERY : JQuery = null;
+
+    private static getLoadingScreenElem()
+    {
+        if( LoadingScreenComponent.ELEM_JQUERY == null)
+        {
+            LoadingScreenComponent.ELEM_JQUERY = $("#" + LoadingScreenComponent.ELEM_ID);
+        }
+        return LoadingScreenComponent.ELEM_JQUERY;
+    }
+
+    public static showLoadingScreen()
+    {
+        LoadingScreenComponent.getLoadingScreenElem().show();
+    }
+    public static hideLoadingScreen()
+    {
+        LoadingScreenComponent.getLoadingScreenElem().hide();
+    }
+
+
+    private _bIsVisible : boolean;
 
     constructor()
     {
         console.log('LoadingScreenComponent -> constructor');
+        this._bIsVisible = false;
     }
 
-    ngOnInit() {
+    ngOnInit()
+    {
         console.log('LoadingScreenComponent -> ngOnInit');
-
     }
 
-    @Input('externalVal')
-    set updateInternalVal(externalVal) {
-        this.internalVal = externalVal;
+    public setVisible(){ this._bIsVisible = true;}
+    public setHidden(){ this._bIsVisible = false;}
+
+    public isVisible()
+    {
+        return this._bIsVisible;
     }
 
-    public isVisible(){
-        return LoadingScreenComponent.IS_VISIBLE;
-    }
-
+    public getElemId(){ return LoadingScreenComponent.ELEM_ID; }
 }
 
 
 export class LoadingScreen{
     public static show(){
-        LoadingScreenComponent.IS_VISIBLE = true;
+       LoadingScreenComponent.showLoadingScreen();
     }
 
     public static hide(){
-        LoadingScreenComponent.IS_VISIBLE = false;
+        LoadingScreenComponent.hideLoadingScreen();
     }
 }

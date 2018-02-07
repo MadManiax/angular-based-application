@@ -1,6 +1,17 @@
 ﻿<div class="station-display-container">
-    <table>
-        <thead>
+    <div class="filters-container row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4 text-right">
+            <button class="btn btn-ge-cancel" (click)="doSearch()"><i class="fa fa-trash-o padding-right"></i>Clear filters</button>
+            <button class="btn btn-primary" (click)="doSearch()"><i class="fa fa-search padding-right"></i>Search</button>
+        </div>
+    </div>
+    <div class="order-by-container row col-lg-12">
+
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
             <tr>
                 <th rowspan="2">Work Cell</th>
                 <th rowspan="2">Work Unit</th>
@@ -15,8 +26,8 @@
                 <th>Remaining</th>
                 <th>Set</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr ng-repeat="getRulesList()" *ngFor='let oRule of getRulesList(); trackBy: index;'>
                 <td>{{oRule.WorkCell}}</td>
                 <td>{{oRule.WorkUnit}}</td>
@@ -30,15 +41,17 @@
                     <div class="rule-name-wrapper">{{oRule.RuleName}}</div>
                     <button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)">Edit</button></td>
             </tr>
-        </tbody>
-    </table>
-    <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
-        <div class="no-data-notice">
-            No data to display
+            </tbody>
+        </table>
+        <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
+            <div class="no-data-notice">
+                No data to display
+            </div>
         </div>
     </div>
 
-    <!-- Modal -->
+
+    <!-- Modal to edit rules -->
     <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog rule-editor-container" role="document">
             <div class="modal-content">
