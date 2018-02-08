@@ -1,0 +1,87 @@
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th rowspan="2">Work Cell</th>
+            <th rowspan="2">Work Unit</th>
+            <th rowspan="2">Actual</th>
+            <th rowspan="2">Remaining</th>
+            <th rowspan="2">Set</th>
+            <th colspan="2">Overflow</th>
+            <th rowspan="2">Rule Type</th>
+            <th rowspan="2">Rule Name</th>
+        </tr>
+        <tr>
+            <th>Remaining</th>
+            <th>Set</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
+            <td>{{oRule.WorkCell}}</td>
+            <td>{{oRule.WorkUnit}}</td>
+            <td>{{oRule.getActualToString()}}</td>
+            <td>{{oRule.getRemainingToString()}}</td>
+            <td>{{oRule.getSetToString()}}</td>
+            <td>{{oRule.OverflowRemaining}}</td>
+            <td>{{oRule.OverflowSet}}</td>
+            <td>{{oRule.getRuleType()}}</td>
+            <td>
+                <div class="rule-name-wrapper">{{oRule.RuleName}}</div>
+                <button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)" *ngIf="isEditButtonEnabled() == true">Edit</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
+        <div class="no-data-notice">
+            No data to display
+        </div>
+    </div>
+
+
+
+    <!-- Modal to edit rules -->
+    <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="EditRuleModal" aria-hidden="true">
+        <div class="modal-dialog rule-editor-container" role="document">
+            <div class="modal-content">
+                <!--<div class="modal-header">-->
+                <!--<h5 class="modal-title" id="exampleModalLabel">Edit rule</h5>-->
+                <!--&lt;!&ndash;<button type="button" class="close" data-dismiss="modal" aria-label="Close">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--</div>-->
+                <div class="modal-body" *ngIf="getRuleToEdit() != null">
+                    <div class="row rule-to-edit-summary">
+                    <div class="col-8 text-left">
+                    <label class="">Rule Name</label>
+                    <div>{{getRuleToEdit().RuleName}}</div>
+                    </div>
+                    <div class="col-4 text-right">
+                    <label>Set Value</label>
+                    {{getRuleToEdit().getSetToString()}}
+                    </div>
+                    </div>
+                    <div class="row rule-to-edit-editable-value actual-value">
+                    <div class="col-4 text-left">Actual Value</div>
+                    <div class="col-8 text-left">
+                    <!-- On the base of rule type the value editor is different -->
+                    <input type="text" [(ngModel)]="_oRuleToEdit.Actual">
+                    </div>
+                    </div>
+                    <div class="row rule-to-edit-editable-value comment">
+                    <div class="col-4 text-left">Comment</div>
+                    <div class="col-8 text-left">
+                    <textarea></textarea>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary float-left btn-trigger-next">Trigger next</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

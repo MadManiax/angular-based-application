@@ -6,6 +6,8 @@ module ge.cim.models {
     {
 
 
+
+
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
@@ -20,9 +22,14 @@ module ge.cim.models {
         //* Members
         //*******************************************************************************
 
+        private _sUserId : string;
+        private _sFirstName : string;
+        private _sLastName : string;
 
-        public constructor()
+
+        public constructor(sUserId:string)
         {
+            this._sUserId = sUserId;
         }
 
 
@@ -43,6 +50,35 @@ module ge.cim.models {
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        get sUserId(): string
+        {
+            return this._sUserId;
+        }
+
+        set sUserId(value: string)
+        {
+            this._sUserId = value;
+        }
+
+        get sFirstName(): string
+        {
+            return this._sFirstName;
+        }
+
+        set sFirstName(value: string)
+        {
+            this._sFirstName = value;
+        }
+
+        get sLastName(): string
+        {
+            return this._sLastName;
+        }
+
+        set sLastName(value: string)
+        {
+            this._sLastName = value;
+        }
 
         ///</editor-fold>
     }

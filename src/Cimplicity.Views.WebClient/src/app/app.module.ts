@@ -10,24 +10,31 @@ import { StationComponent } from './station/station.component';
 import {RulesReportService} from "./services/RulesReportService";
 import {LoadingScreenComponent} from "./components/loading_screen/LoadingScreenComponent";
 import {RulesReportRouteGuard} from "./route_guards/RulesReportRouteGuard";
+import {AuthService} from "./services/AuthService";
+import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
+import {FormsModule} from "@angular/forms";
+
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
-        AppRoutingModule
+        AppRoutingModule,
+        FormsModule         // required to use ngModel on input etc...
     ],
     declarations: [
         AppComponent,
         HomeComponent,
         AboutComponent,
         StationComponent,
-        LoadingScreenComponent
+        LoadingScreenComponent,
+        RulesReportTableComponent
     ],
     bootstrap: [AppComponent],
     providers: [
         RulesReportRouteGuard,
 
+        AuthService,
         RulesReportService
     ]
 })

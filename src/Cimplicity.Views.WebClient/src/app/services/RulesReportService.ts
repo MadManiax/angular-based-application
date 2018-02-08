@@ -42,7 +42,7 @@ export class RulesReportService
                 // set observer value and set it as 'completed'
                 observer.next(aoRulesList);
                 observer.complete();
-            }, 5000);
+            }, 1000);
         })
         return oObserver;
     }

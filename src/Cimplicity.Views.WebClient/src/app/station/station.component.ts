@@ -3,6 +3,7 @@
 ///<reference path="../../classes/models/CounterRule.ts"/>
 ///<reference path="../../classes/models/EventRule.ts"/>
 ///<reference path="../../classes/utils/Utils.ts"/>
+///<reference path="../services/AuthService.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -13,6 +14,7 @@ import Utils = jsutils.Utils;
 import Rule = ge.cim.models.Rule;
 import {RulesReportService} from "../services/RulesReportService";
 import {LoadingScreen, LoadingScreenComponent} from "../components/loading_screen/LoadingScreenComponent";
+import {AuthService} from "../services/AuthService";
 
 @Component({
     selector: 'station',
@@ -22,8 +24,6 @@ export class StationComponent implements OnInit
 {
     private _aoRulesList: ge.cim.models.Rule[];
 
-    private _oModal : JQuery;
-    private _oRuleToEdit : Rule;
 
     private _bIsDataLoading : boolean;
 
@@ -36,7 +36,8 @@ export class StationComponent implements OnInit
      * sets the service parameter to the singleton instance of the service class
      */
     constructor(
-        private _oRulesReportService: RulesReportService
+        private _oRulesReportService: RulesReportService,
+        private _oAuthService : AuthService
     )
     {
         console.log('StationComponent -> constructor');
@@ -66,21 +67,12 @@ export class StationComponent implements OnInit
             );
     }
 
-    public openEditRuleModal(oRule : Rule)
-    {
-        this._oRuleToEdit = oRule;
 
-        if( Utils.isNullOrUndef(this._oModal) == true)
-        {
-            this._oModal = $("#editRuleModal");
-        }
-        this._oModal.modal('show');
-    }
 
     public getRulesList() { return this._aoRulesList; }
-    public getRuleToEdit(){ return this._oRuleToEdit; }
+
     public isRulesListLoading(){ return this._bIsDataLoading; }
-    public showEmptyDataBox(): boolean{
-        return (Utils.isNullOrUndef(this._aoRulesList) == true || this._aoRulesList.length == 0)
-    } ;
+
+
+    public isEditButtonEnabled(){ return this._oAuthService.isLoggedUserAuthorizedRulesReport();}
 }
