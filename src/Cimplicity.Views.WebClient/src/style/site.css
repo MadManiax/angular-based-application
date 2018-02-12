@@ -23,6 +23,13 @@
       background-size: cover;
       background-repeat: no-repeat;
       margin: auto; }
+  .loading-screen-container #loadingScreenMessage {
+    bottom: 30px;
+    position: absolute;
+    color: whitesmoke;
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem; }
   .loading-screen-container #loader {
     display: block;
     position: absolute;
@@ -103,6 +110,18 @@
     margin-bottom: 10px; }
   .station-display-container .table-container {
     height: calc(100% - 112px); }
+  .station-display-container .pagination-container {
+    padding: 10px;
+    text-align: center; }
+    .station-display-container .pagination-container .pagination-changer span {
+      width: 60px;
+      display: inline-block;
+      font-size: 1.2rem; }
+    .station-display-container .pagination-container .pagination-changer .fa {
+      margin-left: 10px;
+      margin-right: 10px; }
+      .station-display-container .pagination-container .pagination-changer .fa:hover {
+        cursor: pointer; }
 
 .table-container {
   width: 100%;

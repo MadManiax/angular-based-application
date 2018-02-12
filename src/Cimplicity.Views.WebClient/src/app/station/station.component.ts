@@ -15,6 +15,7 @@ import Rule = ge.cim.models.Rule;
 import {RulesReportService} from "../services/RulesReportService";
 import {LoadingScreen, LoadingScreenComponent} from "../components/loading_screen/LoadingScreenComponent";
 import {AuthService} from "../services/AuthService";
+import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 
 @Component({
     selector: 'station',
@@ -26,6 +27,9 @@ export class StationComponent implements OnInit
 
 
     private _bIsDataLoading : boolean;
+    private _iCurrentPageNumber: number;
+    private _iTotalPagesCount: number;
+    private _iCurrentRowsPerPage: number;
 
 
     /*
@@ -42,25 +46,47 @@ export class StationComponent implements OnInit
     {
         console.log('StationComponent -> constructor');
 
+        this.initPagination();
     }
 
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
 
-        this.doSearch();
+        //this.doSearch();
     }
 
-    public doSearch()
+
+    private initPagination()
+    {
+        this._iCurrentRowsPerPage = 20;
+        this._iCurrentPageNumber = 0;
+        this._iTotalPagesCount = 0;
+    }
+
+    private doSearch()
     {
         this._bIsDataLoading = true;
         LoadingScreen.show();
-        this._oRulesReportService.getRules([])
+
+        let oParam : IRestRulesReportRequest = {
+            CurrentPage : this._iCurrentPageNumber,
+            RowsPerPage : this._iCurrentRowsPerPage,
+            Filters : []
+        };
+
+        let oTempResponse = null;
+        this._oRulesReportService.getRules(oParam)
             .subscribe(
-                (aoRulesList) => {
-                    this._aoRulesList = aoRulesList;
+                (oResponse) => {
+                    oTempResponse = oResponse;
+                    this._aoRulesList = oResponse.RulesList;
                 },
                 ()=>{},
                 ()=>{
+                    this._iTotalPagesCount = oTempResponse.TotalPages;
+                    this._iCurrentPageNumber = oTempResponse.CurrentPage;
+                    this._iCurrentRowsPerPage = oTempResponse.RowsPerPage;
+
                     this._bIsDataLoading = false;
                     LoadingScreen.hide();
                 }
@@ -68,6 +94,61 @@ export class StationComponent implements OnInit
     }
 
 
+
+    public reloadData()
+    {
+        this.initPagination();
+        this.doSearch();
+    }
+
+    public saveEditedRule(oRule : Rule)
+    {
+        LoadingScreen.updateMessage("Saving changes...");
+        LoadingScreen.show();
+        this._oRulesReportService.saveRule(oRule)
+            .then(()=>{
+                LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+                this.doSearch();
+            })
+    }
+
+    public goToPreviousTablePage(){
+        if(this._iCurrentPageNumber > 0){
+            this._iCurrentPageNumber--;
+            this.doSearch();
+        }
+
+    }
+    public goToNextTablePage(){
+        if(this._iCurrentPageNumber < this.getTotalPagesCount() - 1 ){
+            this._iCurrentPageNumber++;
+            this.doSearch();
+        }
+    }
+
+    public goFirstTablePage()
+    {
+        if( this.getTotalPagesCount() > 0) {
+            this._iCurrentPageNumber = 0;
+            this.doSearch();
+        }
+    }
+    public goLastTablePage()
+    {
+        if( this.getTotalPagesCount() > 0) {
+            this._iCurrentPageNumber = this.getTotalPagesCount() - 1;
+            this.doSearch();
+        }
+    }
+
+    public getCurrentPageNumerViewOnly(){ return this._iCurrentPageNumber + 1; }
+    public getTotalPagesCount(){ return this._iTotalPagesCount}
+    public getCurrentRowsPerPage(){ return this._iCurrentRowsPerPage; }
+
+    public triggerNext(oRule:Rule)
+    {
+
+    }
 
     public getRulesList() { return this._aoRulesList; }
 

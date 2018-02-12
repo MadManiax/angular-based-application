@@ -20,6 +20,11 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     private _bIsEditButtonEnabled : boolean;
     @Output('onEditClick')
     private _oEventEmitterEditClick= new EventEmitter<Rule>()
+    @Output('onSaveEditedRule')
+    private _oEventEmitterSaveRule= new EventEmitter<Rule>()
+    @Output('onTriggerNext')
+    private _oEventEmitterTriggerNext= new EventEmitter<Rule>()
+
 
 
     private _oRuleToEdit : Rule;
@@ -43,7 +48,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void
     {
-        
+
     }
 
 
@@ -61,8 +66,8 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     public getRuleToEdit(){ return this._oRuleToEdit; }
     public openEditRuleModal(oRule : Rule)
     {
-        this._oRuleToEdit = oRule;
-        debugger;
+        //this._oRuleToEdit = oRule;
+        this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(oRule), oRule)
 
         if( Utils.isNullOrUndef(this._oModal) == true)
         {
@@ -70,5 +75,9 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         }
         this._oModal.modal('show');
     }
+
+
+    public onSaveRule() { this._oEventEmitterSaveRule.emit(this._oRuleToEdit); }
+    public onTriggerNext(){ this._oEventEmitterTriggerNext.emit(this._oRuleToEdit);}
 
 }

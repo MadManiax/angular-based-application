@@ -21,4 +21,26 @@
         height: calc(100% - #{$size-filters-bar-total-height + $size-orderby-bar-total-height});
     }
 
+    .pagination-container{
+        padding: 10px;
+        text-align: center;
+
+        .pagination-changer{
+
+            span{
+                width: 60px;
+                display: inline-block;
+                font-size: 1.2rem;
+            }
+            .fa{
+                margin-left: 10px;
+                margin-right: 10px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+
+    }
 }

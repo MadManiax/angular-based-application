@@ -10,6 +10,7 @@ export class LoadingScreenComponent implements OnInit
 {
     private static ELEM_ID : string = "geLoadingScreen";
     private static ELEM_JQUERY : JQuery = null;
+    private static MESSAGE_ELEM_JQUERY : JQuery = null;
 
     private static getLoadingScreenElem()
     {
@@ -20,6 +21,15 @@ export class LoadingScreenComponent implements OnInit
         return LoadingScreenComponent.ELEM_JQUERY;
     }
 
+    private static getLoadingScreenMessageElem()
+    {
+        if( LoadingScreenComponent.MESSAGE_ELEM_JQUERY == null)
+        {
+            LoadingScreenComponent.MESSAGE_ELEM_JQUERY = $("#" + LoadingScreenComponent.ELEM_ID + " #loadingScreenMessage");
+        }
+        return LoadingScreenComponent.MESSAGE_ELEM_JQUERY;
+    }
+
     public static showLoadingScreen()
     {
         LoadingScreenComponent.getLoadingScreenElem().show();
@@ -27,6 +37,16 @@ export class LoadingScreenComponent implements OnInit
     public static hideLoadingScreen()
     {
         LoadingScreenComponent.getLoadingScreenElem().hide();
+    }
+
+    public static changeMessageElement(sText:string, oCss : {} = null)
+    {
+        let oMessageElem = LoadingScreenComponent.getLoadingScreenMessageElem();
+        oMessageElem.html(sText);
+        if( oCss != null)
+        {
+            oMessageElem.css(oCss);
+        }
     }
 
 
@@ -55,12 +75,19 @@ export class LoadingScreenComponent implements OnInit
 }
 
 
-export class LoadingScreen{
+export class LoadingScreen
+{
     public static show(){
        LoadingScreenComponent.showLoadingScreen();
     }
 
     public static hide(){
+        LoadingScreenComponent.changeMessageElement("");
         LoadingScreenComponent.hideLoadingScreen();
+    }
+
+    public static updateMessage(sMessage:string, oCss:{} = null)
+    {
+        LoadingScreenComponent.changeMessageElement(sMessage, oCss);
     }
 }
