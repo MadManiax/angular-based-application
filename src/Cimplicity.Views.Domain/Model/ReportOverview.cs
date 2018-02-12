@@ -4,6 +4,12 @@ namespace Cimplicity.Views.Domain.Model
 {
     public class ReportOverview
     {
+        public ReportOverview()
+        {
+            this.Rule = new Rule();
+            this.Overflow = new Overflow();
+        }
+
         public string WorkCell { get; set; }
         public string WorkUnit { get; set; }
         public int Actual { get; set; }

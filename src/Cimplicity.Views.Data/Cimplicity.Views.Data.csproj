@@ -52,6 +52,7 @@
     <Compile Include="Context\RepositoryFactory.cs" />
     <Compile Include="Extensions\PagingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IReportOverviewRepository.cs" />
     <Compile Include="Repository\IReportRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ITransactionManager.cs" />

@@ -1,9 +1,10 @@
 ﻿using System.Data;
 using AutoMapper;
+using Cimplicity.Views.Application.ViewModel;
 using Cimplicity.Views.Domain.Model;
 using Utils.Extensions.Data;
 
-namespace Cimplicity.Views.WebApi.Models
+namespace Cimplicity.Views.Application.Mappings
 {
     public class ReportOverviewMapProfile : Profile
     {
@@ -46,17 +47,5 @@ namespace Cimplicity.Views.WebApi.Models
                         source.GetValueByColumnName<string>(nameof(ReportOverviewViewModel.WorkUnit), false)));
 
         }
-    }
-
-    public class ReportOverviewViewModel
-    {
-        public string WorkCell { get; set; }
-        public string WorkUnit { get; set; }
-        public int? Actual { get; set; }
-        public int? Remaining { get; set; }
-        public int? Set { get; set; }
-        public int? OverflowRemaining { get; set; }
-        public int? OverflowSet { get; set; }
-        public string RuleName { get; set; }
     }
 }

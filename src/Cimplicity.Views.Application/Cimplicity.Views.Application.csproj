@@ -51,7 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\IApplicationService.cs" />
+    <Compile Include="Abstractions\IReportOverviewService.cs" />
+    <Compile Include="Errors\InternalError.cs" />
+    <Compile Include="Errors\IServiceError.cs" />
+    <Compile Include="Errors\ServerError.cs" />
+    <Compile Include="Errors\ServiceErrorBase.cs" />
+    <Compile Include="Errors\ServiceErrorFactory.cs" />
+    <Compile Include="Errors\ValidationError.cs" />
+    <Compile Include="Mappings\ReportOverviewMapProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\ResultStatus.cs" />
+    <Compile Include="Responses\ServiceResult.cs" />
+    <Compile Include="Responses\TypedServiceResult.cs" />
+    <Compile Include="ViewModel\ReportOverviewViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cimplicity.Views.Data\Cimplicity.Views.Data.csproj">
@@ -78,5 +91,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -52,6 +52,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -173,7 +176,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportOverViewController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Models\ReportOverviewViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,8 +243,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cimplicity.Views.Application\Cimplicity.Views.Application.csproj">
+      <Project>{EBC23844-BE92-49D7-B895-A0A925504102}</Project>
+      <Name>Cimplicity.Views.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cimplicity.Views.Domain\Cimplicity.Views.Domain.csproj">
       <Project>{550341EA-CB84-4916-AA38-377467DA37C7}</Project>
       <Name>Cimplicity.Views.Domain</Name>
