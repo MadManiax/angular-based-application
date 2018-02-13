@@ -1,0 +1,12 @@
+***************************************************************
+* To use Moment.js:
+***************************************************************
+Step 1 : npm install moment --save
+Step 2 : In your systemjs.config.js file's map array add:
+    'moment': 'node_modules/moment' (the path may change according with your project structure)
+to packages array add:
+    'moment': {
+        main : 'moment.js'  (or for example './min/moment.min.js', etc..)
+        defaultExtension: 'js'
+    }
+Step 3 : In your component.ts use: import * as moment from 'moment/moment';

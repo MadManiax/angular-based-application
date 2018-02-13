@@ -26,7 +26,7 @@ module ge.cim.models {
         private _Set: number;
         private _OverflowRemaining: number;
         private _OverflowSet: number;
-        private _RuleName: string;
+        private _Name: string;
 
 
         public constructor()
@@ -107,12 +107,12 @@ module ge.cim.models {
             this._OverflowSet = value;
         }
 
-        get RuleName(): string {
-            return this._RuleName;
+        get Name(): string {
+            return this._Name;
         }
 
-        set RuleName(value: string) {
-            this._RuleName = value;
+        set Name(value: string) {
+            this._Name = value;
         }
 
         public abstract getRemainingToString():string;

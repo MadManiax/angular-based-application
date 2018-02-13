@@ -113,10 +113,10 @@ gulp.task("copy:rxjs", function () {
         { base: config.node_modules })
         .pipe(gulp.dest(config.lib));
 });
-gulp.task("copy:app", ["publish-app-wwwroot:js"], function () {
-    return gulp.src(config.appOther)
-        .pipe(gulp.dest(config.destApp));
-});
+// gulp.task("copy:app", ["publish-app-wwwroot:js"], function () {
+//     return gulp.src(config.appOther)
+//         .pipe(gulp.dest(config.destApp));
+// });
 gulp.task("copy:index", function () {
     return gulp.src(config.index)
         .pipe(gulp.dest(config.indexDest));
@@ -146,6 +146,13 @@ gulp.task("copy:plugin_babel", function () {
         { base: config.node_modules + "systemjs-plugin-babel" })
         .pipe(gulp.dest(config.lib + "systemjs-plugin-babel"));
 });
+
+gulp.task("copy:moment", function () {
+    return gulp.src(config.moment,
+        { base: config.node_modules + "moment" })
+        .pipe(gulp.dest(config.lib + "moment"));
+});
+
 gulp.task("dependencies", [
     "copy:angular",
     "copy:angularWebApi",
@@ -155,12 +162,13 @@ gulp.task("dependencies", [
     "copy:systemjs",
     "copy:rxjs",
     "copy:jasmine",
-    "copy:app",
+    //"copy:app",
     "copy:es6-shim",
     "copy:es5-shim",
-    "copy:index",
+    //"copy:index",
     "copy:signalr",
-    "copy:plugin_babel"
+    "copy:plugin_babel",
+    "copy:moment"
 ]);
 
 

@@ -18,7 +18,8 @@
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'plugin-babel': 'npm:systemjs-plugin-babel/plugin-babel.js',
-            'systemjs-babel-build': 'npm:systemjs-plugin-babel/systemjs-babel-browser.js'
+            'systemjs-babel-build': 'npm:systemjs-plugin-babel/systemjs-babel-browser.js',
+            'moment': 'npm:moment/min'
         },
         packages: {
             app: {
@@ -32,6 +33,10 @@
             'angular2-in-memory-web-api': {
                 main: './index.js',
                 defaultExtension: 'js'
+            },
+            'moment': {
+                main: './moment-with-locales.min.js',
+                defaultExtension: 'min.js'
             }
         }
     });

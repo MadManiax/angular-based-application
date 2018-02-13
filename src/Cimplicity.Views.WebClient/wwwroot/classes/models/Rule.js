@@ -77,12 +77,12 @@ var ge;
                     enumerable: true,
                     configurable: true
                 });
-                Object.defineProperty(Rule.prototype, "RuleName", {
+                Object.defineProperty(Rule.prototype, "Name", {
                     get: function () {
-                        return this._RuleName;
+                        return this._Name;
                     },
                     set: function (value) {
-                        this._RuleName = value;
+                        this._Name = value;
                     },
                     enumerable: true,
                     configurable: true

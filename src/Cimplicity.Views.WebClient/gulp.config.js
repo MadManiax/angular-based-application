@@ -40,6 +40,8 @@
         shim_es5: base.node_modules + "es5-shim/es5*.*",
         signalr: base.node_modules + "@aspnet/signalr/dist/*/*.*",
         plugin_babel: base.node_modules + "systemjs-plugin-babel/*.js",
+        moment: base.node_modules + "moment/min/*.js",
+
         index: "index.html",
         indexDest: base.webroot
     };
