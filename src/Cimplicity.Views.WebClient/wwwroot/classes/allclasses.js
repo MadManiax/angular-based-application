@@ -87,12 +87,12 @@ var ge;
                     enumerable: true,
                     configurable: true
                 });
-                Object.defineProperty(Rule.prototype, "RuleName", {
+                Object.defineProperty(Rule.prototype, "Name", {
                     get: function () {
-                        return this._RuleName;
+                        return this._Name;
                     },
                     set: function (value) {
-                        this._RuleName = value;
+                        this._Name = value;
                     },
                     enumerable: true,
                     configurable: true
@@ -141,7 +141,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return CounterRule;
@@ -185,7 +185,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Event Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return EventRule;
@@ -200,14 +200,34 @@ var ge;
     (function (cim) {
         var models;
         (function (models) {
+            var Filter = (function () {
+                function Filter() {
+                }
+                return Filter;
+            }());
+            models.Filter = Filter;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
             var TimingRule = (function (_super) {
                 __extends(TimingRule, _super);
                 function TimingRule() {
                     return _super.call(this) || this;
                 }
+                TimingRule.prototype.calculateRemaining = function () {
+                    var oNow = moment();
+                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
+                    return this.Set - iDiff;
+                };
                 TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
                 TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
-                TimingRule.prototype.getActualToString = function () { return this.Actual + " sec"; };
+                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
                 TimingRule.prototype.getRuleType = function () { return "Timing"; };
                 TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
                     if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
@@ -219,11 +239,13 @@ var ge;
                     else {
                         this.WorkUnit = null;
                     }
+                    var oNow = moment();
                     this.Set = Math.round(Math.random() * 9999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 999);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
+                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
+                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
+                    this.Actual = oFakeActualDate.unix();
+                    this._oActualDateTime = moment.unix(this.Actual);
+                    this.Remaining = this.calculateRemaining();
                     this.OverflowSet = Math.round(Math.random() * 99);
                     if (Math.random() > 0.5) {
                         this.OverflowRemaining = Math.round(Math.random() * 10);
@@ -231,13 +253,59 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
-                TimingRule.JSON_FIELD_WORK_CELL = "WorkCell";
+                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
                 return TimingRule;
             }(models.Rule));
             models.TimingRule = TimingRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var User = (function () {
+                function User(sUserId) {
+                    this._sUserId = sUserId;
+                }
+                Object.defineProperty(User.prototype, "sUserId", {
+                    get: function () {
+                        return this._sUserId;
+                    },
+                    set: function (value) {
+                        this._sUserId = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sFirstName", {
+                    get: function () {
+                        return this._sFirstName;
+                    },
+                    set: function (value) {
+                        this._sFirstName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sLastName", {
+                    get: function () {
+                        return this._sLastName;
+                    },
+                    set: function (value) {
+                        this._sLastName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return User;
+            }());
+            models.User = User;
         })(models = cim.models || (cim.models = {}));
     })(cim = ge.cim || (ge.cim = {}));
 })(ge || (ge = {}));
@@ -762,65 +830,4 @@ var jsutils;
     }());
     jsutils.PathUtils = PathUtils;
 })(jsutils || (jsutils = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var Filter = (function () {
-                function Filter() {
-                }
-                return Filter;
-            }());
-            models.Filter = Filter;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var User = (function () {
-                function User(sUserId) {
-                    this._sUserId = sUserId;
-                }
-                Object.defineProperty(User.prototype, "sUserId", {
-                    get: function () {
-                        return this._sUserId;
-                    },
-                    set: function (value) {
-                        this._sUserId = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sFirstName", {
-                    get: function () {
-                        return this._sFirstName;
-                    },
-                    set: function (value) {
-                        this._sFirstName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sLastName", {
-                    get: function () {
-                        return this._sLastName;
-                    },
-                    set: function (value) {
-                        this._sLastName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                return User;
-            }());
-            models.User = User;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
 //# sourceMappingURL=allclasses.js.map

@@ -50,7 +50,7 @@ module ge.cim.models {
 
         getRuleType(): string {return "Event"; }
 
-        public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):TimingRule
+        public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):EventRule
         {
             this.WorkCell = "OP" + Math.round(Math.random() * 99);
             if(bUseNullWorkUnit == false) {
@@ -71,7 +71,7 @@ module ge.cim.models {
                 this.OverflowRemaining = null;
             }
 
-            this.RuleName = "Event Rule Name-" + Math.round(Math.random() * 9999);
+            this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
 
             return this;
         }

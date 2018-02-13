@@ -22,6 +22,7 @@
 		thead{
 			th{
 				text-align: center;
+				border: 2px solid $color-rules-table-header-border;
 			}
 		}
 
@@ -74,7 +75,8 @@
 
 		.rule-to-edit-summary{
 			text-align: center;
-			margin-bottom: 20px;
+			font-size: 1.3rem;
+			margin-bottom: 36px;
 
 			label{
 				font-weight: bold;
@@ -84,17 +86,21 @@
 		}
 
 		.rule-to-edit-editable-value{
+			$size-input-fields-padding: 2px 6px;
+
 			margin-top: 14px;
 
 			&.actual-value{
 				input{
 					width: 100%;
+					padding: $size-input-fields-padding;
 				}
 
 			}
 
 			&.comment{
 				textarea{
+					padding: $size-input-fields-padding;
 					width: 100%;
 					min-height: 110px;
 					max-height: 220px;

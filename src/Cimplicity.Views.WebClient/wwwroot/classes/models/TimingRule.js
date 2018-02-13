@@ -19,9 +19,15 @@ var ge;
                 function TimingRule() {
                     return _super.call(this) || this;
                 }
+                TimingRule.prototype.calculateRemaining = function () {
+                    var oNow = moment();
+                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
+                    return this.Set - iDiff;
+                };
                 TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
                 TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
-                TimingRule.prototype.getActualToString = function () { return this.Actual + " sec"; };
+                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
+                TimingRule.prototype.getActualAsDateTime = function () { return this._oActualDateTime; };
                 TimingRule.prototype.getRuleType = function () { return "Timing"; };
                 TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
                     if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
@@ -33,11 +39,13 @@ var ge;
                     else {
                         this.WorkUnit = null;
                     }
+                    var oNow = moment();
                     this.Set = Math.round(Math.random() * 9999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 999);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
+                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
+                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
+                    this.Actual = oFakeActualDate.unix();
+                    this._oActualDateTime = moment.unix(this.Actual);
+                    this.Remaining = this.calculateRemaining();
                     this.OverflowSet = Math.round(Math.random() * 99);
                     if (Math.random() > 0.5) {
                         this.OverflowRemaining = Math.round(Math.random() * 10);
@@ -45,10 +53,10 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
-                TimingRule.JSON_FIELD_WORK_CELL = "WorkCell";
+                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
                 return TimingRule;
             }(models.Rule));
             models.TimingRule = TimingRule;

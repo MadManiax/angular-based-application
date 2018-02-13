@@ -43,7 +43,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Event Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return EventRule;

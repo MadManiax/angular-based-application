@@ -45,7 +45,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.RuleName = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return CounterRule;

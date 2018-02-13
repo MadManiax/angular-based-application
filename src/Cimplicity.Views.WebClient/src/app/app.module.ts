@@ -13,6 +13,7 @@ import {RulesReportRouteGuard} from "./route_guards/RulesReportRouteGuard";
 import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
+import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {FormsModule} from "@angular/forms";
         AboutComponent,
         StationComponent,
         LoadingScreenComponent,
-        RulesReportTableComponent
+        RulesReportTableComponent,
+        DatetimePickerComponent
     ],
     bootstrap: [AppComponent],
     providers: [
