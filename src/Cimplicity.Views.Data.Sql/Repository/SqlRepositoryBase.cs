@@ -1,15 +1,39 @@
-﻿using Cimplicity.Views.Data.Repository;
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Runtime.Remoting.Messaging;
+using Cimplicity.Views.Data.Repository;
 using Cimplicity.Views.Infrastructure.Configuration;
+using Utils.Extensions.Reflection;
 
 namespace Cimplicity.Views.Data.Sql.Repository
 {
-    public class SqlRepositoryBase : RepositoryBase
+    public abstract class SqlRepositoryBase : RepositoryBase
     {
-        public string ConnectionString { get; set; }
+        protected string ConnectionString { get; set; }
 
-        public SqlRepositoryBase(ICimplicityViewsConfiguration configuration)
+        protected StorageType StorageType { get; set; }
+
+        protected SqlRepositoryBase(ICimplicityViewsConfiguration configuration)
         {
-            this.ConnectionString = configuration.Data.ConnectionString;
+            
+        }
+
+        public IDbDataParameter CreateDataParameter<TValueType>(string name, TValueType value)
+        {
+            var type = typeof(TValueType);
+            
+            switch (StorageType)
+            {
+                case StorageType.Default:
+                case StorageType.AdoNet:
+                    return new SqlParameter(name,type.GetDbType())
+                    {
+                        Value =  value
+                    };
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

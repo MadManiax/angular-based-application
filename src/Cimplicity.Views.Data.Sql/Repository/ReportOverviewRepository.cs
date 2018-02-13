@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Cimplicity.Views.Data.Repository;
+using Cimplicity.Views.Data.Sql.Context;
 using Cimplicity.Views.Domain.Model;
 using Cimplicity.Views.Infrastructure.Configuration;
 using Cimplicity.Views.Infrastructure.Mapping;
@@ -12,18 +13,17 @@ using Utils.Extensions.Data;
 
 namespace Cimplicity.Views.Data.Sql.Repository
 {
-    class SqlReportOverviewRepository : SqlDataReaderRepository, IReportOverviewRepository
+    public class ReportOverviewRepository : SqlDataReaderRepository, IReportOverviewRepository
     {
-        public SqlReportOverviewRepository(ICimplicityViewsConfiguration configuration) : base(configuration)
+        public ReportOverviewRepository(ICimplicityViewsConfiguration configuration) : base(configuration)
         {
         }
 
         public IEnumerable<ReportOverview> Get(string area)
         {
             var list = new List<ReportOverview>();
-
             IQueryOperations storageManager = StorageManagerFactory.CreateDatabaseManager(this.ConnectionString);
-            var set = storageManager.ExecuteCommand("sp_VCC_local_reportOverview", new[] { new SqlParameter("@workArea", area) });
+            var set = storageManager.ExecuteCommand(DataSqlConstants.Sampling.Report.ReportOverviewSP, new[] { new SqlParameter("@workArea", area) });
             if (set.IsEmpty())
             {
                 return list;

@@ -3,14 +3,9 @@
     public interface ICimplicityViewsConfiguration
     {
        
-        IDataInfo Data { get; }
+        IDataInfo ReadDataInfo { get; }
+        IDataInfo WriteDataInfo { get; }
         int RefreshFrequency { get; }
         string RepositoryAssemblyName { get; }
-    }
-
-    public interface IDataInfo
-    {
-        StorageType StorageType { get; }
-        string ConnectionString { get; }
     }
 }

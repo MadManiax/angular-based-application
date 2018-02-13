@@ -6,8 +6,14 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.WebApi;
 using AutoMapper;
+using Cimplicity.Views.Application;
 using Cimplicity.Views.Application.Mappings;
+using Cimplicity.Views.Data.Sql;
+using Cimplicity.Views.Data.Sql.Mappings;
+using Cimplicity.Views.Infrastructure;
 
 namespace Cimplicity.Views.WebApi
 {
@@ -22,10 +28,7 @@ namespace Cimplicity.Views.WebApi
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<ReportOverviewMapProfile>();
-            });
+            Bootstrapper.Start();
         }
     }
 }

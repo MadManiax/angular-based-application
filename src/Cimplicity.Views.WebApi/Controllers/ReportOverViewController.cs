@@ -26,7 +26,7 @@ namespace Cimplicity.Views.WebApi.Controllers
 
         public ReportOverViewController(IReportOverviewService service)
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["soadb"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["replica_soadb"].ConnectionString;
             _service = service;
         }
 

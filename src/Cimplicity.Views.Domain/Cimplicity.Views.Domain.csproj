@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Overflow.cs" />
     <Compile Include="Model\ReportOverview.cs" />
+    <Compile Include="Model\Rule.cs" />
+    <Compile Include="Model\RuleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,16 +14,16 @@ namespace Cimplicity.Views.Data.Sql.Mappings
                     .ForMember(target => target.Actual,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<int?>(nameof(ReportOverview.Actual), false)))
-                    .ForMember(target => target.Overflow.Remaining,
+                    .ForPath(target => target.Overflow.Remaining,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<int?>("OverflowRemainig", false)))
-                    .ForMember(target => target.Overflow.Set,
+                    .ForPath(target => target.Overflow.Set,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<int?>("OverflowSet", false)))
                     .ForMember(target => target.Remaining,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<int?>(nameof(ReportOverview.Remaining), false)))
-                    .ForMember(target => target.Rule.Name,
+                    .ForPath(target => target.Rule.Name,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<string>("RuleName", false)))
                     .ForMember(target => target.Set,

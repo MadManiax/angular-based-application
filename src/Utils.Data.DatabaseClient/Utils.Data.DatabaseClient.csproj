@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\DataBaseManager.cs" />
+    <Compile Include="Abstractions\StorageManager.cs" />
     <Compile Include="FileSystem\FileSystemStorageManager.cs" />
     <Compile Include="Oracle\OracleStorageManager.cs" />
     <Compile Include="Abstractions\IConnectionChecker.cs" />

@@ -6,9 +6,9 @@ using Utils.Extensions.Data;
 
 namespace Cimplicity.Views.Application.Mappings
 {
-    public class ReportOverviewMapProfile : Profile
+    public class ReportOverviewServiceMapProfile : Profile
     {
-        public ReportOverviewMapProfile()
+        public ReportOverviewServiceMapProfile()
         {
             CreateMap<ReportOverview, ReportOverviewViewModel>()
                 .ForMember(target => target.Actual, opt => opt.MapFrom(source => source.Actual))
