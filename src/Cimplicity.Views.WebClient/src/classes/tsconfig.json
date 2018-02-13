@@ -1,0 +1,10 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outFile": "../../wwwroot/classes/allclasses.js",
+		"sourceMap": true
+	},
+	"include": [
+		"**/*.ts"
+	]
+}

@@ -8,8 +8,8 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": true,
-    "rootDir": "app",
-    "outDir": "app",
+    "rootDir": "src",
+    "outDir": "wwwroot",
     "lib": [ "dom", "es6", "es5" ]
   },
   "compileOnSave": true,

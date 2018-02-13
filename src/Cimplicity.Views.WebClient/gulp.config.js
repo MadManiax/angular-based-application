@@ -1,6 +1,7 @@
 ﻿module.exports = function () {
 
     var base = {
+        source: "./src/",
         webroot: "./wwwroot/",
         node_modules: "./node_modules/"
     };
@@ -10,13 +11,22 @@
          * Files paths
          */
         angular: base.node_modules + "@angular/**/*.js",
-        appOther: "app/**/*.{html,txt,md}",
-        app: "app/**/*.{js,html,map}",
-        appDest: base.webroot + "app",
-        js: base.webroot + "js/*.js",
-        jsDest: base.webroot + 'js',
-        css: base.webroot + "css/*.css",
-        cssDest: base.webroot + 'css',
+        sourceAppOtherFiles:    base.source + "app/**/*.{html,txt,md}",
+        htmlSource:             base.source +  '**/*.html',
+        sourceAppDir:           base.source + "app",
+        sourceApp:              base.source + "app" + "/**/*.{js,html,map}",
+        cssSrc:                 base.source + "style/*.css",
+        jsFilesSrc:             base.source + "js/*.js",
+        assetsDirSrc:           base.source + "assets",
+        imagesDirSrc:           base.source + "assets/images",
+
+        destApp:        base.webroot + "app",
+        jsDest:         base.webroot + 'js',
+        cssDestDir:     base.webroot + 'css',
+        htmlDest:       base.webroot,
+        assetsDirDest:  base.webroot + "assets",
+        imagesDirDest:  base.webroot + "assets/images",
+
         lib: base.webroot + "lib/",
         node_modules: base.node_modules,
         angularWebApi: base.node_modules + "angular2-in-memory-web-api/*.js",

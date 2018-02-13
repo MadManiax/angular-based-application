@@ -1,0 +1,6 @@
+.btn{
+	&:focus{
+		// Avoid very bad shadow on buttons when clicked/focused
+		box-shadow: none !important;
+	}
+}

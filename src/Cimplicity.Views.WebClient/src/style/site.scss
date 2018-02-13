@@ -1,0 +1,21 @@
+﻿@import "vars";
+@import "mixins";
+@import "theme";
+@import "z_indices";
+
+@import "bootstrap_override";
+
+@import "../app/components/loading_screen/loading_screen";
+
+@import "buttons";
+@import "app";
+@import "station";
+@import "../app/components/rules_report_table/rules_report_table";
+
+//body {
+//	font-family: "Courier new";
+//	color:#2b2b5e;
+//}
+
+.padding-right{ padding: 8px; }
+.padding-left{ padding: 8px; }
