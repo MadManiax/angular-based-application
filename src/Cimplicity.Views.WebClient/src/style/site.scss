@@ -4,6 +4,7 @@
 @import "z_indices";
 
 @import "bootstrap_override";
+@import "vex_extra_styles";
 
 @import "../app/components/loading_screen/loading_screen";
 
@@ -17,5 +18,5 @@
 //	color:#2b2b5e;
 //}
 
-.padding-right{ padding: 8px; }
-.padding-left{ padding: 8px; }
+.padding-right{ padding-right: 8px; }
+.padding-left{ padding-left: 8px; }

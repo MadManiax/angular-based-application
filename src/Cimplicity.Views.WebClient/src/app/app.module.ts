@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import {BaseRequestOptions, Http, HttpModule} from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,12 +14,18 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
+//import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+// import {HttpClientTestingModule} from "@angular/common/http/testing";
+// import {MockHttpInterceptor} from "./test/MockHttpInterceptor";
+
+
 
 
 @NgModule({
     imports: [
         BrowserModule,
-        HttpModule,
+        //HttpClientModule,   // include HttpClientModule after BrowserModule
+        //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule         // required to use ngModel on input etc...
     ],
@@ -32,12 +38,18 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
         RulesReportTableComponent,
         DatetimePickerComponent
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [
+        AppComponent
+    ],
     providers: [
         RulesReportRouteGuard,
-
         AuthService,
-        RulesReportService
+        RulesReportService,
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: MockHttpInterceptor,
+        //     multi: true
+        // }
     ]
 })
 export class AppModule { }

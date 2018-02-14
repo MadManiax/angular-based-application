@@ -49,7 +49,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
 
     ngOnChanges(changes: SimpleChanges): void
     {
-        debugger;
+        //debugger;
     }
 
 

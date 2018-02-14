@@ -10,307 +10,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var ge;
 (function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var Rule = (function () {
-                function Rule() {
-                }
-                Object.defineProperty(Rule.prototype, "WorkCell", {
-                    get: function () {
-                        return this._WorkCell;
-                    },
-                    set: function (value) {
-                        this._WorkCell = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "WorkUnit", {
-                    get: function () {
-                        return this._WorkUnit;
-                    },
-                    set: function (value) {
-                        this._WorkUnit = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Actual", {
-                    get: function () {
-                        return this._Actual;
-                    },
-                    set: function (value) {
-                        this._Actual = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Remaining", {
-                    get: function () {
-                        return this._Remaining;
-                    },
-                    set: function (value) {
-                        this._Remaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Set", {
-                    get: function () {
-                        return this._Set;
-                    },
-                    set: function (value) {
-                        this._Set = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
-                    get: function () {
-                        return this._OverflowRemaining;
-                    },
-                    set: function (value) {
-                        this._OverflowRemaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowSet", {
-                    get: function () {
-                        return this._OverflowSet;
-                    },
-                    set: function (value) {
-                        this._OverflowSet = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Name", {
-                    get: function () {
-                        return this._Name;
-                    },
-                    set: function (value) {
-                        this._Name = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
-                return Rule;
-            }());
-            models.Rule = Rule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var CounterRule = (function (_super) {
-                __extends(CounterRule, _super);
-                function CounterRule() {
-                    return _super.call(this) || this;
-                }
-                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
-                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
-                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
-                CounterRule.prototype.getRuleType = function () { return "Counter"; };
-                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = Math.round(Math.random() * 999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 99);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                return CounterRule;
-            }(models.Rule));
-            models.CounterRule = CounterRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var EventRule = (function (_super) {
-                __extends(EventRule, _super);
-                function EventRule() {
-                    return _super.call(this) || this;
-                }
-                EventRule.prototype.getRemainingToString = function () { return ""; };
-                EventRule.prototype.getSetToString = function () { return ""; };
-                EventRule.prototype.getActualToString = function () { return ""; };
-                EventRule.prototype.getRuleType = function () { return "Event"; };
-                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = null;
-                    this.Actual = null;
-                    this.Remaining = null;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                return EventRule;
-            }(models.Rule));
-            models.EventRule = EventRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var Filter = (function () {
-                function Filter() {
-                }
-                return Filter;
-            }());
-            models.Filter = Filter;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var TimingRule = (function (_super) {
-                __extends(TimingRule, _super);
-                function TimingRule() {
-                    return _super.call(this) || this;
-                }
-                TimingRule.prototype.calculateRemaining = function () {
-                    var oNow = moment();
-                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
-                    return this.Set - iDiff;
-                };
-                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
-                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
-                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
-                TimingRule.prototype.getRuleType = function () { return "Timing"; };
-                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    var oNow = moment();
-                    this.Set = Math.round(Math.random() * 9999);
-                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
-                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
-                    this.Actual = oFakeActualDate.unix();
-                    this._oActualDateTime = moment.unix(this.Actual);
-                    this.Remaining = this.calculateRemaining();
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
-                return TimingRule;
-            }(models.Rule));
-            models.TimingRule = TimingRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var User = (function () {
-                function User(sUserId) {
-                    this._sUserId = sUserId;
-                }
-                Object.defineProperty(User.prototype, "sUserId", {
-                    get: function () {
-                        return this._sUserId;
-                    },
-                    set: function (value) {
-                        this._sUserId = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sFirstName", {
-                    get: function () {
-                        return this._sFirstName;
-                    },
-                    set: function (value) {
-                        this._sFirstName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sLastName", {
-                    get: function () {
-                        return this._sLastName;
-                    },
-                    set: function (value) {
-                        this._sLastName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                return User;
-            }());
-            models.User = User;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
     var CookieManager = (function () {
         function CookieManager() {
         }
@@ -830,4 +529,393 @@ var jsutils;
     }());
     jsutils.PathUtils = PathUtils;
 })(jsutils || (jsutils = {}));
+var jsutils;
+(function (jsutils) {
+    var VexUtils = (function () {
+        function VexUtils() {
+        }
+        VexUtils.setDefaultTheme = function (sThemeName) {
+            if (sThemeName === void 0) { sThemeName = 'vex-theme-plain'; }
+            vex.defaultOptions.className = sThemeName;
+        };
+        VexUtils.showErrorAlert = function (sMessage) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "An error occurred, please try again later. If error persist contact IT support.";
+            }
+            var sIcon = "<i class=\"fa fa-exclamation-circle padding-right red-cancel-no-etc-text error\" aria-hidden=\"true\"></i>";
+            var sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>Error</span></div><div class='vex-custom-content'>" + sMessage + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.alert({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        resolve(value === true);
+                    }
+                });
+            });
+            return oPromise;
+        };
+        VexUtils.showConfirm = function (sMessage, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = null; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "An error occurred, please try again later. If error persist contact IT support.";
+            }
+            if (jsutils.Utils.isNullOrUndef(sFaIcon) == true) {
+                sFaIcon = "fa-question-circle-o";
+            }
+            var sIcon = "<i class=\"fa " + sFaIcon + " padding-right confirm-dialog-icon\" aria-hidden=\"true\"></i>";
+            if (jsutils.Utils.isNullOrUndef(sTitle) == true) {
+                sTitle = "";
+            }
+            var sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>" + sTitle + "</span></div><div class='vex-custom-content'>" + sMessage + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.confirm({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        resolve(value === true);
+                    }
+                });
+            });
+            return oPromise;
+        };
+        VexUtils.showEnterData = function (sMessage, sPlaceholder, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sPlaceholder === void 0) { sPlaceholder = ""; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = null; }
+            return VexUtils.showPrompt(sMessage, sPlaceholder, sTitle, sFaIcon);
+        };
+        VexUtils.showPrompt = function (sMessage, sPlaceholder, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sPlaceholder === void 0) { sPlaceholder = ""; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = null; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "Enter value";
+            }
+            var sIcon = "<i class=\"fa fa-pencil-square-o padding-right prompt\" aria-hidden=\"true\"></i>";
+            var sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>" + sTitle + "</span></div><div class='vex-custom-content'>" + sMessage + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.prompt({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        if (value != false) {
+                            resolve(value);
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                });
+            });
+            return oPromise;
+        };
+        return VexUtils;
+    }());
+    jsutils.VexUtils = VexUtils;
+})(jsutils || (jsutils = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var Rule = (function () {
+                function Rule() {
+                }
+                Object.defineProperty(Rule.prototype, "WorkCell", {
+                    get: function () {
+                        return this._WorkCell;
+                    },
+                    set: function (value) {
+                        this._WorkCell = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "WorkUnit", {
+                    get: function () {
+                        return this._WorkUnit;
+                    },
+                    set: function (value) {
+                        this._WorkUnit = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Actual", {
+                    get: function () {
+                        return this._Actual;
+                    },
+                    set: function (value) {
+                        this._Actual = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Remaining", {
+                    get: function () {
+                        return this._Remaining;
+                    },
+                    set: function (value) {
+                        this._Remaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Set", {
+                    get: function () {
+                        return this._Set;
+                    },
+                    set: function (value) {
+                        this._Set = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
+                    get: function () {
+                        return this._OverflowRemaining;
+                    },
+                    set: function (value) {
+                        this._OverflowRemaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowSet", {
+                    get: function () {
+                        return this._OverflowSet;
+                    },
+                    set: function (value) {
+                        this._OverflowSet = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Name", {
+                    get: function () {
+                        return this._Name;
+                    },
+                    set: function (value) {
+                        this._Name = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
+                return Rule;
+            }());
+            models.Rule = Rule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var CounterRule = (function (_super) {
+                __extends(CounterRule, _super);
+                function CounterRule() {
+                    return _super.call(this) || this;
+                }
+                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
+                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
+                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
+                CounterRule.prototype.getRuleType = function () { return "Counter"; };
+                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = Math.round(Math.random() * 999);
+                    do {
+                        this.Actual = Math.round(Math.random() * 99);
+                    } while (this.Actual > this.Set);
+                    this.Remaining = this.Set - this.Actual;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return CounterRule;
+            }(models.Rule));
+            models.CounterRule = CounterRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var EventRule = (function (_super) {
+                __extends(EventRule, _super);
+                function EventRule() {
+                    return _super.call(this) || this;
+                }
+                EventRule.prototype.getRemainingToString = function () { return ""; };
+                EventRule.prototype.getSetToString = function () { return ""; };
+                EventRule.prototype.getActualToString = function () { return ""; };
+                EventRule.prototype.getRuleType = function () { return "Event"; };
+                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = null;
+                    this.Actual = null;
+                    this.Remaining = null;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return EventRule;
+            }(models.Rule));
+            models.EventRule = EventRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var Filter = (function () {
+                function Filter() {
+                }
+                return Filter;
+            }());
+            models.Filter = Filter;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var TimingRule = (function (_super) {
+                __extends(TimingRule, _super);
+                function TimingRule() {
+                    return _super.call(this) || this;
+                }
+                TimingRule.prototype.calculateRemaining = function () {
+                    var oNow = moment();
+                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
+                    return this.Set - iDiff;
+                };
+                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
+                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
+                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
+                TimingRule.prototype.getActualAsDateTime = function () { return this._oActualDateTime; };
+                TimingRule.prototype.getRuleType = function () { return "Timing"; };
+                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    var oNow = moment();
+                    this.Set = Math.round(Math.random() * 9999);
+                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
+                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
+                    this.Actual = oFakeActualDate.unix();
+                    this._oActualDateTime = moment.unix(this.Actual);
+                    this.Remaining = this.calculateRemaining();
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+                return TimingRule;
+            }(models.Rule));
+            models.TimingRule = TimingRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var User = (function () {
+                function User(sUserId) {
+                    this._sUserId = sUserId;
+                }
+                Object.defineProperty(User.prototype, "sUserId", {
+                    get: function () {
+                        return this._sUserId;
+                    },
+                    set: function (value) {
+                        this._sUserId = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sFirstName", {
+                    get: function () {
+                        return this._sFirstName;
+                    },
+                    set: function (value) {
+                        this._sFirstName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sLastName", {
+                    get: function () {
+                        return this._sLastName;
+                    },
+                    set: function (value) {
+                        this._sLastName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return User;
+            }());
+            models.User = User;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
 //# sourceMappingURL=allclasses.js.map
