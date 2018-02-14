@@ -73,6 +73,10 @@
 
 		}
 
+		.modal-footer{
+			position: relative;
+		}
+
 		.rule-to-edit-summary{
 			text-align: center;
 			font-size: 1.3rem;
@@ -111,6 +115,7 @@
 		.btn-trigger-next{
 			position: absolute;
 			left: 16px;
+			top: 16px;
 		}
 	}
 }
