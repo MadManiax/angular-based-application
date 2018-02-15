@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
     "rootDir": "src",
     "outDir": "wwwroot",
     "lib": [ "dom", "es6", "es5" ]

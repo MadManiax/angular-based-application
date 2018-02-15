@@ -1,0 +1,29 @@
+.vex{
+	.vex-dialog-top-bar{
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 8px;
+		margin-bottom: 8px;
+
+		.fa{
+			font-size: 24px;
+
+			&.confirm-dialog-icon{
+				color: #31708f;
+			}
+
+			&.error{
+				color: $color-cancel-border-hover;
+			}
+		}
+
+		span{
+			font-size: 1.4rem;
+			position: relative;
+			top: -2px;
+		}
+	}
+
+	.vex-custom-content{
+		margin-bottom: 10px;
+	}
+}

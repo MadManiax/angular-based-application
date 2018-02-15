@@ -18,7 +18,7 @@ import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
 export class RulesReportService
 {
 
-    constructor()
+    constructor(/*protected _oHtpClient: HttpClient*/)
     {
 
     }

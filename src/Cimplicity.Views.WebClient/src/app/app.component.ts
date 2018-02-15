@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import VexUtils = jsutils.VexUtils;
 
 @Component({
     selector: 'my-app',
@@ -24,5 +25,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         console.log('AppComponent -> ngOnInit');
+        VexUtils.setDefaultTheme();
     }
 }

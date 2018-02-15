@@ -15,10 +15,14 @@
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@aspnet/signalr': 'npm:signalr/dist/browser/signalr.min.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+            //'@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
+            //'@angular/common/http/testing' : 'npm:@angular/common/bundles/common-http-testing.umd.js',
+            //'tslib': 'npm:tslib/tslib.js',
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'plugin-babel': 'npm:systemjs-plugin-babel/plugin-babel.js',
-            'systemjs-babel-build': 'npm:systemjs-plugin-babel/systemjs-babel-browser.js'
+            'systemjs-babel-build': 'npm:systemjs-plugin-babel/systemjs-babel-browser.js',
+            'moment': 'npm:moment/min'
         },
         packages: {
             app: {
@@ -32,6 +36,10 @@
             'angular2-in-memory-web-api': {
                 main: './index.js',
                 defaultExtension: 'js'
+            },
+            'moment': {
+                main: './moment-with-locales.min.js',
+                defaultExtension: 'min.js'
             }
         }
     });

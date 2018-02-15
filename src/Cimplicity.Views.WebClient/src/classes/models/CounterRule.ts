@@ -50,7 +50,7 @@ module ge.cim.models {
 
         getRuleType(): string {return "Counter"; }
 
-        public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):TimingRule
+        public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):CounterRule
         {
             this.WorkCell = "OP" + Math.round(Math.random() * 99);
             if(bUseNullWorkUnit == false) {
@@ -73,7 +73,7 @@ module ge.cim.models {
                 this.OverflowRemaining = null;
             }
 
-            this.RuleName = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+            this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
 
             return this;
         }

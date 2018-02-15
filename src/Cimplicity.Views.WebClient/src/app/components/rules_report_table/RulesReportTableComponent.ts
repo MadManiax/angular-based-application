@@ -1,9 +1,12 @@
 ///<reference path="../../../classes/utils/Utils.ts"/>
 
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Utils = jsutils.Utils;
 import Rule = ge.cim.models.Rule;
 import EventRule = ge.cim.models.EventRule;
+import * as moment from 'moment/moment'
+import CounterRule = ge.cim.models.CounterRule;
+import TimingRule = ge.cim.models.TimingRule;
 
 
 @Component({
@@ -12,7 +15,6 @@ import EventRule = ge.cim.models.EventRule;
 })
 export class RulesReportTableComponent implements OnInit, OnChanges
 {
-
 
     @Input('rulesList')
     private _aoRulesList: Rule[];
@@ -26,8 +28,10 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     private _oEventEmitterTriggerNext= new EventEmitter<Rule>()
 
 
-
+    private _oRuleToEditOriginal : Rule;
     private _oRuleToEdit : Rule;
+    private _sActualAsStringForTimingRule : string;
+    //private _sActualForTimingRuleDateTimeFormat : string;
     private _oModal : JQuery;
 
 
@@ -35,21 +39,19 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     {
         console.log('RulesReportTableComponent -> constructor');
         this._oRuleToEdit = null;
-
     }
 
-    ngOnInit() {
+    ngOnInit()
+    {
         console.log('RulesReportTableComponent -> ngOnInit');
-
-        setInterval(()=>{
-            console.debug(this.getRulesList());
-        },500);
+        this._oRuleToEdit = null;
     }
 
     ngOnChanges(changes: SimpleChanges): void
     {
-
+        //debugger;
     }
+
 
 
     public getRulesList() { return this._aoRulesList; }
@@ -57,17 +59,43 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         return (Utils.isNullOrUndef(this._aoRulesList) == true || this._aoRulesList.length == 0)
     } ;
 
-    public isEditButtonEnabled(){ return this._bIsEditButtonEnabled;}
-    public onEditBtnClick(oRule:Rule)
+    public isActualValueValid()
     {
-        this._oEventEmitterEditClick.emit(oRule);
+        if(this.isCounterRule() == true)
+        {
+            return (this._oRuleToEdit.Actual > this._oRuleToEditOriginal.Actual && this._oRuleToEdit.Actual < this._oRuleToEditOriginal.Set)
+        }
+        if(this.isTimingRule() == true)
+        {
+            let oDateTime = moment(this._sActualAsStringForTimingRule, TimingRule.DATETIME_FORMAT);
+            return oDateTime.isBefore( (<TimingRule>this._oRuleToEditOriginal).getActualAsDateTime());
+        }
     }
+
+    public isCounterRule(){ return (this._oRuleToEdit instanceof CounterRule); }
+    public isTimingRule(){ return (this._oRuleToEdit instanceof TimingRule); }
+
+
+
+    public isEditButtonEnabled(oRule:Rule)
+    {
+        if(oRule instanceof EventRule){
+            return false;
+        }
+        return this._bIsEditButtonEnabled;
+    }
+    // public onEditBtnClick(oRule:Rule)
+    // {
+    //     this._oEventEmitterEditClick.emit(oRule);
+    // }
 
     public getRuleToEdit(){ return this._oRuleToEdit; }
     public openEditRuleModal(oRule : Rule)
     {
         //this._oRuleToEdit = oRule;
-        this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(oRule), oRule)
+        this._oRuleToEditOriginal = oRule;
+        this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(oRule), oRule);
+        this._sActualAsStringForTimingRule = this._oRuleToEdit.getActualToString();
 
         if( Utils.isNullOrUndef(this._oModal) == true)
         {

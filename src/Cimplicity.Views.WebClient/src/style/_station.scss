@@ -21,6 +21,40 @@
         height: calc(100% - #{$size-filters-bar-total-height + $size-orderby-bar-total-height});
     }
 
+    .search-toolbar-wrapper{
+        & > div{
+            .report-autorefresh-configurator-container{
+                width: 260px;
+                text-align: left;
+                float: left;
+                position: relative;
+                top: -4px;
+
+                &:not(.fa){
+                    font-size: 0.9rem;
+                }
+
+                .fa-toggle{
+                    &-off{color: #ccc;}
+                    &-on{color: $color-green-ok-accept-etc-bg;}
+                    &-on, &-off{
+                        font-size: 1.1rem;
+                        position: relative;
+                        top: 1px;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            button{
+                float: right;
+            }
+        }
+    }
+
+
     .pagination-container{
         padding: 10px;
         text-align: center;

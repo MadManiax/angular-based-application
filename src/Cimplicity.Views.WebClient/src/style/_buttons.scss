@@ -1,7 +1,36 @@
 
 .btn-ge{
+	font-size: 1.1rem;
+	font-weight: bold;
+
 	&-default{
-		border: 1px solid #666666;
+		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		background-color: $color-cimplicity-gray-light;
+		&:hover{
+			background-color: lighten($color-cimplicity-gray-light, 4%);
+		}
+	}
+
+	&-primary{
+		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		background-color: $color-cimplicity-gray-light;
+		color: $color-cimplicity-blue-dark;
+
+		&:hover{
+			//background-color: lighten($color-cimplicity-gray-light, 4%);
+			background-color: $color-cimplicity-btn-hover-light;
+			border-color: $color-cimplicity-btn-hover-dark;
+		}
+	}
+
+	&-outline-primary{
+		border: 1px solid $color-cimplicity-blue-dark;
+		background-color: transparent;
+		color: $color-cimplicity-blue-dark;
+		&:hover{
+			background-color: $color-cimplicity-blue-dark;
+			color: whitesmoke;
+		}
 	}
 
 	&-cancel{

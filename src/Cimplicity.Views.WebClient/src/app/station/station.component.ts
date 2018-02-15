@@ -16,6 +16,7 @@ import {RulesReportService} from "../services/RulesReportService";
 import {LoadingScreen, LoadingScreenComponent} from "../components/loading_screen/LoadingScreenComponent";
 import {AuthService} from "../services/AuthService";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
+import VexUtils = jsutils.VexUtils;
 
 @Component({
     selector: 'station',
@@ -30,6 +31,9 @@ export class StationComponent implements OnInit
     private _iCurrentPageNumber: number;
     private _iTotalPagesCount: number;
     private _iCurrentRowsPerPage: number;
+    private _iAutoRefreshIntervalId: number;
+    private _oLatestRefresh : moment.Moment;
+    private _iAutoRefreshIntervalInSeconds: number;
 
 
     /*
@@ -45,6 +49,8 @@ export class StationComponent implements OnInit
     )
     {
         console.log('StationComponent -> constructor');
+        this._iAutoRefreshIntervalId = null;
+        this._iAutoRefreshIntervalInSeconds = 5;
 
         this.initPagination();
     }
@@ -52,6 +58,7 @@ export class StationComponent implements OnInit
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
 
+        //this.enableAutoRefresh(this._iAutoRefreshIntervalInSeconds);
         //this.doSearch();
     }
 
@@ -88,7 +95,10 @@ export class StationComponent implements OnInit
                     this._iCurrentRowsPerPage = oTempResponse.RowsPerPage;
 
                     this._bIsDataLoading = false;
+                    this._oLatestRefresh = moment();
                     LoadingScreen.hide();
+
+
                 }
             );
     }
@@ -99,6 +109,12 @@ export class StationComponent implements OnInit
     {
         this.initPagination();
         this.doSearch();
+    }
+
+
+    public onOpenRuleEditor()
+    {
+        this.disableAutoRefresh();
     }
 
     public saveEditedRule(oRule : Rule)
@@ -143,6 +159,16 @@ export class StationComponent implements OnInit
 
     public getCurrentPageNumerViewOnly(){ return this._iCurrentPageNumber + 1; }
     public getTotalPagesCount(){ return this._iTotalPagesCount}
+
+    public getLatestRefreshDatetimeAsString(){
+        if(Utils.isNullOrUndef(this._oLatestRefresh) == false)
+        {
+            return this._oLatestRefresh.format(TimingRule.DATETIME_FORMAT);
+        }else{
+            return "";
+        }
+    }
+
     public getCurrentRowsPerPage(){ return this._iCurrentRowsPerPage; }
 
     public triggerNext(oRule:Rule)
@@ -156,4 +182,45 @@ export class StationComponent implements OnInit
 
 
     public isEditButtonEnabled(){ return this._oAuthService.isLoggedUserAuthorizedRulesReport();}
+
+    public isAutoRefreshEnabled(){ return (this._iAutoRefreshIntervalId != null); }
+    public getAutoRefreshIntervalInSeconds(){ return this._iAutoRefreshIntervalInSeconds; }
+    public enableAutoRefresh()
+    {
+        this._iAutoRefreshIntervalId = <any>setInterval(()=>{
+            this.reloadData();
+        }, this._iAutoRefreshIntervalInSeconds * 1000);
+    }
+
+    public disableAutoRefresh()
+    {
+        clearInterval(this._iAutoRefreshIntervalId);
+        this._iAutoRefreshIntervalId = null;
+    }
+
+    public openAutoRefreshTimeConfigurator()
+    {
+        // Save state and stop the auto-refresh while edit its config
+        let bWasAutoRefreshEnabled = this.isAutoRefreshEnabled();
+        this.disableAutoRefresh();
+        VexUtils.showPrompt("Enter new interval in seconds (enter value greater or equals 5 seconds).", "", "Auto-refresh interval")
+            .then((oValue)=>{
+                if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 5)
+                {
+                    this._iAutoRefreshIntervalInSeconds = parseInt(oValue);
+                }
+                else{
+                    VexUtils.showErrorAlert("Error while updating auto-refresh interval value. Please enter a number greater or equals thant 5 seconds.")
+                }
+
+                if( bWasAutoRefreshEnabled == true) {
+                    this.enableAutoRefresh();
+                }
+            })
+            .catch(()=>{
+                if( bWasAutoRefreshEnabled == true) {
+                    this.enableAutoRefresh();
+                }
+            });
+    }
 }
