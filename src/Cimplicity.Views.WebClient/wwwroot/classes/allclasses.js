@@ -10,239 +10,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var ge;
 (function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var Rule = (function () {
-                function Rule() {
-                }
-                Object.defineProperty(Rule.prototype, "WorkCell", {
-                    get: function () {
-                        return this._WorkCell;
-                    },
-                    set: function (value) {
-                        this._WorkCell = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "WorkUnit", {
-                    get: function () {
-                        return this._WorkUnit;
-                    },
-                    set: function (value) {
-                        this._WorkUnit = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Actual", {
-                    get: function () {
-                        return this._Actual;
-                    },
-                    set: function (value) {
-                        this._Actual = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Remaining", {
-                    get: function () {
-                        return this._Remaining;
-                    },
-                    set: function (value) {
-                        this._Remaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Set", {
-                    get: function () {
-                        return this._Set;
-                    },
-                    set: function (value) {
-                        this._Set = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
-                    get: function () {
-                        return this._OverflowRemaining;
-                    },
-                    set: function (value) {
-                        this._OverflowRemaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowSet", {
-                    get: function () {
-                        return this._OverflowSet;
-                    },
-                    set: function (value) {
-                        this._OverflowSet = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "RuleName", {
-                    get: function () {
-                        return this._RuleName;
-                    },
-                    set: function (value) {
-                        this._RuleName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
-                return Rule;
-            }());
-            models.Rule = Rule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var CounterRule = (function (_super) {
-                __extends(CounterRule, _super);
-                function CounterRule() {
-                    return _super.call(this) || this;
-                }
-                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
-                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
-                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
-                CounterRule.prototype.getRuleType = function () { return "Counter"; };
-                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = Math.round(Math.random() * 999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 99);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.RuleName = "Counter Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                return CounterRule;
-            }(models.Rule));
-            models.CounterRule = CounterRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var EventRule = (function (_super) {
-                __extends(EventRule, _super);
-                function EventRule() {
-                    return _super.call(this) || this;
-                }
-                EventRule.prototype.getRemainingToString = function () { return ""; };
-                EventRule.prototype.getSetToString = function () { return ""; };
-                EventRule.prototype.getActualToString = function () { return ""; };
-                EventRule.prototype.getRuleType = function () { return "Event"; };
-                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = null;
-                    this.Actual = null;
-                    this.Remaining = null;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.RuleName = "Event Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                return EventRule;
-            }(models.Rule));
-            models.EventRule = EventRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var TimingRule = (function (_super) {
-                __extends(TimingRule, _super);
-                function TimingRule() {
-                    return _super.call(this) || this;
-                }
-                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
-                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
-                TimingRule.prototype.getActualToString = function () { return this.Actual + " sec"; };
-                TimingRule.prototype.getRuleType = function () { return "Timing"; };
-                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = Math.round(Math.random() * 9999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 999);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.RuleName = "Timing Rule Name-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                TimingRule.JSON_FIELD_WORK_CELL = "WorkCell";
-                return TimingRule;
-            }(models.Rule));
-            models.TimingRule = TimingRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
     var CookieManager = (function () {
         function CookieManager() {
         }
@@ -768,12 +535,245 @@ var ge;
     (function (cim) {
         var models;
         (function (models) {
+            var Rule = (function () {
+                function Rule() {
+                }
+                Object.defineProperty(Rule.prototype, "WorkCell", {
+                    get: function () {
+                        return this._WorkCell;
+                    },
+                    set: function (value) {
+                        this._WorkCell = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "WorkUnit", {
+                    get: function () {
+                        return this._WorkUnit;
+                    },
+                    set: function (value) {
+                        this._WorkUnit = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Actual", {
+                    get: function () {
+                        return this._Actual;
+                    },
+                    set: function (value) {
+                        this._Actual = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Remaining", {
+                    get: function () {
+                        return this._Remaining;
+                    },
+                    set: function (value) {
+                        this._Remaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Set", {
+                    get: function () {
+                        return this._Set;
+                    },
+                    set: function (value) {
+                        this._Set = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
+                    get: function () {
+                        return this._OverflowRemaining;
+                    },
+                    set: function (value) {
+                        this._OverflowRemaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowSet", {
+                    get: function () {
+                        return this._OverflowSet;
+                    },
+                    set: function (value) {
+                        this._OverflowSet = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "RuleName", {
+                    get: function () {
+                        return this._RuleName;
+                    },
+                    set: function (value) {
+                        this._RuleName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
+                return Rule;
+            }());
+            models.Rule = Rule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var CounterRule = (function (_super) {
+                __extends(CounterRule, _super);
+                function CounterRule() {
+                    return _super.call(this) || this;
+                }
+                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
+                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
+                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
+                CounterRule.prototype.getRuleType = function () { return "Counter"; };
+                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = Math.round(Math.random() * 999);
+                    do {
+                        this.Actual = Math.round(Math.random() * 99);
+                    } while (this.Actual > this.Set);
+                    this.Remaining = this.Set - this.Actual;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.RuleName = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return CounterRule;
+            }(models.Rule));
+            models.CounterRule = CounterRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var EventRule = (function (_super) {
+                __extends(EventRule, _super);
+                function EventRule() {
+                    return _super.call(this) || this;
+                }
+                EventRule.prototype.getRemainingToString = function () { return ""; };
+                EventRule.prototype.getSetToString = function () { return ""; };
+                EventRule.prototype.getActualToString = function () { return ""; };
+                EventRule.prototype.getRuleType = function () { return "Event"; };
+                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = null;
+                    this.Actual = null;
+                    this.Remaining = null;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.RuleName = "Event Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return EventRule;
+            }(models.Rule));
+            models.EventRule = EventRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
             var Filter = (function () {
                 function Filter() {
                 }
                 return Filter;
             }());
             models.Filter = Filter;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var TimingRule = (function (_super) {
+                __extends(TimingRule, _super);
+                function TimingRule() {
+                    return _super.call(this) || this;
+                }
+                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
+                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
+                TimingRule.prototype.getActualToString = function () { return this.Actual + " sec"; };
+                TimingRule.prototype.getRuleType = function () { return "Timing"; };
+                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = Math.round(Math.random() * 9999);
+                    do {
+                        this.Actual = Math.round(Math.random() * 999);
+                    } while (this.Actual > this.Set);
+                    this.Remaining = this.Set - this.Actual;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.RuleName = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                TimingRule.JSON_FIELD_WORK_CELL = "WorkCell";
+                return TimingRule;
+            }(models.Rule));
+            models.TimingRule = TimingRule;
         })(models = cim.models || (cim.models = {}));
     })(cim = ge.cim || (ge.cim = {}));
 })(ge || (ge = {}));

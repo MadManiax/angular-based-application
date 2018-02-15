@@ -54,7 +54,6 @@
     <Compile Include="DataSqlModule.cs" />
     <Compile Include="Mappings\ReportOverviewMapProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ReportOverviewRepository.cs" />
     <Compile Include="Repository\SqlDataReaderRepository.cs" />
     <Compile Include="Repository\SqlDataWriterRepository.cs" />
     <Compile Include="Repository\SqlReportOverviewRepository.cs" />

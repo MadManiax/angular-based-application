@@ -1,0 +1,46 @@
+﻿{
+  "name": "cache.manifest",
+  "path": "C:\\inetpub\\GE\\cim-views-angular\\",
+  "version": "1.0",
+  "cache": [
+    {
+      "path": "app",
+      "type": "Folder"
+    },
+    {
+      "path": "css",
+      "type": "Folder"
+    },
+    {
+      "path": "js",
+      "type": "Folder"
+    },
+    {
+      "path": "app/obj",
+      "type": "Folder",
+      "exclude": true 
+    },
+    {
+      "path": "lib",
+      "type": "Folder",
+      "exclude" : true 
+    },
+    {
+      "path": "index.html",
+      "type": "File"
+    },
+    {
+      "path": "excludeme.js",
+      "type": "File",
+      "exclude": true
+    },
+    {
+      "path": "wwwroot",
+      "type": "Folder",
+      "exclude": true
+    }
+  ],
+
+  "network": [],
+  "fallback": []
+}

@@ -16,7 +16,7 @@ namespace Cimplicity.Views.Data.Sql.Mappings
                             source.GetValueByColumnName<int?>(nameof(ReportOverview.Actual), false)))
                     .ForPath(target => target.Overflow.Remaining,
                         opt => opt.MapFrom(source =>
-                            source.GetValueByColumnName<int?>("OverflowRemainig", false)))
+                            source.GetValueByColumnName<int?>("OverFlowRemaining", false)))
                     .ForPath(target => target.Overflow.Set,
                         opt => opt.MapFrom(source =>
                             source.GetValueByColumnName<int?>("OverflowSet", false)))

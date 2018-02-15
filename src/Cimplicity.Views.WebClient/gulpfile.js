@@ -195,12 +195,12 @@ gulp.task("debug:copy-minimal", [
 
 gulp.task('publish-app-wwwroot:js', function (www) {
     return pump([
-        gulp.src("app/**/*.js"),
-        uglify(),
-        rename({ suffix: '.min' }),
-        gulp.dest(config.destApp)
-    ],
-        www)
+            gulp.src("app/**/*.js"),
+            uglify(),
+            rename({ suffix: '.min' }),
+            gulp.dest(config.destApp)
+        ],
+        www);
 });
 
 
@@ -221,12 +221,13 @@ gulp.task('publish-app-wwwroot:js', function (www) {
 
 gulp.task('copy-changed:app', function (chg) {
     return pump([
-        gulp.src(config.sourceApp),
+            gulp.src(config.sourceApp),
             changed(config.destApp),
             uglify(),
             rename({ suffix: '.min' }),
             gulp.dest(config.destApp)
-    ],chg)
+        ],
+        chg);
 });
 gulp.task("default", ["clean", 'minify', "dependencies"])
     .on('end',
