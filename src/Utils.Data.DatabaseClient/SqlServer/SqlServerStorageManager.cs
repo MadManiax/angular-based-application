@@ -38,7 +38,7 @@ namespace Utils.Data.DatabaseClient.SqlServer
         /// </summary>
         private bool _transactionActive;
 
-        public SqlServerStorageManager(string connectionString) : base(connectionString)
+        internal SqlServerStorageManager(string connectionString) : base(connectionString)
         {
             _sqlConnection = new SqlConnection(connectionString);
             _sqlCommand = new SqlCommand();

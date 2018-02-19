@@ -9,7 +9,7 @@ using Utils.Extensions.Collections;
 
 namespace Utils.Data.DatabaseClient.FileSystem
 {
-    public class FileSystemStorageManager : IStorageManager
+    internal class FileSystemStorageManager : IStorageManager
     {
         private const string QueryFileName = "query.log";
 

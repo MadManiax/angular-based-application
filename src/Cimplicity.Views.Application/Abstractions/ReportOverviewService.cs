@@ -10,15 +10,15 @@ namespace Cimplicity.Views.Application.Abstractions
 {
     class ReportOverviewService : IReportOverviewService
     {
-        private IReportOverviewRepository _repository;
-        
-
         public ReportOverviewService(IReportOverviewRepository repository)
         {
-            _repository = repository;
+            Repository = repository;
         }
 
-        public TypedServiceResult<IEnumerable<ReportOverviewViewModel>> Get(string area)
+        public IReportOverviewRepository Repository { get; set; }
+        
+
+        public TypedServiceResult<IEnumerable<ReportOverviewViewModel>> Get(string area, string workCellFilter = null, string ruleTypeFilter = null, int pageNumber = 1, int pageSize = 20)
         {
             if (string.IsNullOrEmpty(area)) throw new ArgumentException("Value cannot be null or empty.", nameof(area));
             var result =
@@ -29,7 +29,7 @@ namespace Cimplicity.Views.Application.Abstractions
 
             try
             {
-                result.Result = _repository.Get(area).MapTo<IEnumerable<ReportOverviewViewModel>>();
+                result.Result = Repository.Get(area,workCellFilter,ruleTypeFilter, pageNumber, pageSize).MapTo<IEnumerable<ReportOverviewViewModel>>();
 
             }
             catch (Exception exception)

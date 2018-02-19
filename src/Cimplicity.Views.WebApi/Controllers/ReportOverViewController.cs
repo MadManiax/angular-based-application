@@ -31,13 +31,13 @@ namespace Cimplicity.Views.WebApi.Controllers
         }
 
 
-        public HttpResponseMessage GetReportOverview(string area)
+        public HttpResponseMessage GetReportOverview(string area, int pageNumber, int pageSize)
         {
             
             try
             {
                 if (string.IsNullOrEmpty(area)) throw new ArgumentException("Value cannot be null or empty.", nameof(area));
-                var result =  _service.Get(area);
+                var result =  _service.Get(area, pageNumber:pageNumber, pageSize:pageSize);
                 if (result.Status != ResultStatus.Error)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, result, Configuration.Formatters.JsonFormatter);
