@@ -22,7 +22,7 @@ namespace Cimplicity.Views.Tests.IoC
            
             var workArea = "WL900001";
             var serviceMock = new Mock<IReportOverviewRepository>();
-            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea),It.IsAny<string>(),It.IsAny<string>(), It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
+            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null,It.IsAny<string>(),It.IsAny<string>(), null, It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
                 .Returns(new List<ReportOverview>()
                 {
                     new ReportOverview()
@@ -48,7 +48,7 @@ namespace Cimplicity.Views.Tests.IoC
 
             var workArea = "WL900001";
             var serviceMock = new Mock<IReportOverviewRepository>();
-            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), It.IsAny<string>(), It.IsAny<string>(), It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
+            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null, It.IsAny<string>(), It.IsAny<string>(), null, It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
                 .Returns((IEnumerable<ReportOverview>) null);
 
             using (var scope = this.ContainerBuilder.BeginLifetimeScope())
@@ -70,7 +70,7 @@ namespace Cimplicity.Views.Tests.IoC
             var workArea = "WL900001";
             var serviceMock = new Mock<IReportOverviewRepository>();
             var exceptionMessageExpected = "mocked exception";
-            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), It.IsAny<string>(), It.IsAny<string>(), It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
+            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null, It.IsAny<string>(), It.IsAny<string>(), null, It.Is<int>(prm => prm == 1), It.Is<int>(prm => prm == 20)))
                 .Throws(new Exception(exceptionMessageExpected));
 
             using (var scope = this.ContainerBuilder.BeginLifetimeScope())
@@ -124,7 +124,7 @@ namespace Cimplicity.Views.Tests.IoC
             var pageSize = 5;
             
             var serviceMock = new Mock<IReportOverviewRepository>();
-            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea),It.IsAny<string>(), It.IsAny<string>(),
+            serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null,It.IsAny<string>(), It.IsAny<string>(), null,
                     It.Is<int>(prm => prm == pageNumber), It.Is<int>(prm => prm == pageSize)))
                 .Returns(list.Skip((pageNumber-1)*pageSize).Take(pageSize));
 
@@ -150,7 +150,7 @@ namespace Cimplicity.Views.Tests.IoC
                 pageNumber = 2;
                 pageSize = 10;
 
-                serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), It.IsAny<string>(), It.IsAny<string>(),
+                serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null, It.IsAny<string>(), It.IsAny<string>(), null,
                         It.Is<int>(prm => prm == pageNumber), It.Is<int>(prm => prm == pageSize)))
                     .Returns(list.Skip((pageNumber - 1) * pageSize).Take(pageSize));
                 service.Repository = serviceMock.Object;
@@ -172,7 +172,7 @@ namespace Cimplicity.Views.Tests.IoC
                 pageNumber = 10;
                 pageSize = 100;
 
-                serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), It.IsAny<string>(), It.IsAny<string>(),
+                serviceMock.Setup(repository => repository.Get(It.Is<string>(prm => prm == workArea), null, It.IsAny<string>(), It.IsAny<string>(), null,
                         It.Is<int>(prm => prm == pageNumber), It.Is<int>(prm => prm == pageSize)))
                     .Returns(list.Skip((pageNumber - 1) * pageSize).Take(pageSize));
                 service.Repository = serviceMock.Object;

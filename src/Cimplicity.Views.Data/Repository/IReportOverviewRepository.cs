@@ -5,6 +5,6 @@ namespace Cimplicity.Views.Data.Repository
 {
     public interface IReportOverviewRepository
     {
-        IEnumerable<ReportOverview> Get(string area, string workCellFilter, string ruleTypeFilter, int pageNumber, int pageSize);
+        IEnumerable<ReportOverview> Get(string workArea,string productionLineFilter, string workCellFilter, string ruleTypeFilter,string materialFilter, int pageNumber, int pageSize);
     }
 }

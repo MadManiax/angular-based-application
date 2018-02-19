@@ -46,7 +46,7 @@ namespace Cimplicity.Views.Tests.Data
                 var repository = scope.Resolve<IReportOverviewRepository>();
                 repository.Should().NotBeNull();
 
-                var result = repository.Get("IM900002", null, null, 1, 5);
+                var result = repository.Get("IM900002", null, null, null, null, 1, 5);
                 result.Should().NotBeNull().And.NotBeEmpty().And.HaveCount(5);
             }
         }

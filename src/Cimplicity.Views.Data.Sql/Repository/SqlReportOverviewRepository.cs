@@ -18,7 +18,9 @@ namespace Cimplicity.Views.Data.Sql.Repository
         {
         }
 
-        public IEnumerable<ReportOverview> Get(string area, string workCellFilter, string ruleTypeFilter,
+        public IEnumerable<ReportOverview> Get(string workArea, string productionLineFilter, string workCellFilter,
+            string ruleTypeFilter,
+            string materialFilter,
             int pageNumber, int pageSize)
         {
             var list = new List<ReportOverview>();
@@ -27,11 +29,13 @@ namespace Cimplicity.Views.Data.Sql.Repository
             var set = storageManager.ExecuteCommand("sp_VCC_local_reportOverview", 
                 new[]
                 {
-                    this.CreateDataParameter("@workArea",area),
-                    this.CreateDataParameter("@pageNumber",pageNumber),
-                    this.CreateDataParameter("@pageSize",pageSize),
+                    this.CreateDataParameter("@workArea",workArea),
+                    this.CreateDataParameter("@productionLineFilter",productionLineFilter),
                     this.CreateDataParameter("@workCellFilter",workCellFilter),
                     this.CreateDataParameter("@ruleTypeFilter",ruleTypeFilter),
+                    this.CreateDataParameter("@materialFilter",materialFilter),
+                    this.CreateDataParameter("@pageNumber",pageNumber),
+                    this.CreateDataParameter("@pageSize",pageSize),
 
                 });
             if (set.IsEmpty())

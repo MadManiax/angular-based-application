@@ -182,7 +182,7 @@ gulp.task('debug:create-fake-min-js', function (www) {
             rename({ suffix: '.min' }),
             gulp.dest(config.destApp)
         ],
-        www)
+        www);
 });
 
 gulp.task('copy:all-js-dir', function() {

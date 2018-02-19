@@ -72,6 +72,11 @@
     <Compile Include="Responses\ResultStatus.cs" />
     <Compile Include="Responses\ServiceResult.cs" />
     <Compile Include="Responses\TypedServiceResult.cs" />
+    <Compile Include="ViewModel\OrderByInfo.cs" />
+    <Compile Include="ViewModel\OrderByType.cs" />
+    <Compile Include="ViewModel\PagingInfo.cs" />
+    <Compile Include="ViewModel\ReportOverViewFilters.cs" />
+    <Compile Include="ViewModel\ReportOverviewFilterViewModel.cs" />
     <Compile Include="ViewModel\ReportOverviewViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
