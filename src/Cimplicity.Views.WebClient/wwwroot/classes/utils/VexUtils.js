@@ -81,6 +81,34 @@ var jsutils;
             });
             return oPromise;
         };
+        VexUtils.showPromptNumberOnly = function (sMessage, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = null; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "Enter value";
+            }
+            var sExtraUi = "<div class='vex-prompt-number-container'><i class='fa fa-plus'></i><input type='number' id='vex-prompt-number-input'><i class='fa fa-minus'></i></div>";
+            var sIcon = "<i class=\"fa fa-pencil-square-o padding-right prompt\" aria-hidden=\"true\"></i>";
+            var sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>" + sTitle + "</span></div><div class='vex-custom-content'>"
+                + sMessage
+                + sExtraUi
+                + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.open({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        if (value != false) {
+                            resolve(value);
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                });
+            });
+            return oPromise;
+        };
         return VexUtils;
     }());
     jsutils.VexUtils = VexUtils;

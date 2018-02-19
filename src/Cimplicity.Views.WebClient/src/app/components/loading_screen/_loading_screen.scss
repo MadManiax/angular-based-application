@@ -7,8 +7,22 @@
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
-	background-color: rgba(0,0,0, 0.7);
-	z-index: $z-index-loading-screen;
+
+	&:not(.main-app-loading) {
+		background-color: rgba(0, 0, 0, 0.7);
+		z-index: $z-index-loading-screen;
+	}
+
+	&.main-app-loading{
+		#loadingScreenMessage{
+			color: #888;
+			bottom: 110px;
+		}
+
+		.loading-screen-content{
+			margin-top: 16%;
+		}
+	}
 
 	.loading-screen-content{
 		width: 300px;
@@ -27,6 +41,10 @@
 		}
 	}
 
+	@mixin create-spinning-circle($fSpeedInSeconds)
+	{
+		@include animation(spin $fSpeedInSeconds linear infinite);
+	}
 
 	#loadingScreenMessage{
 		bottom: 30px;
@@ -37,53 +55,62 @@
 		font-size: 1.3rem;
 	}
 
+	.loader-container{
+		background-color: rgba(200,200,200,0.4);
+		@include makeSquare($size-spinning-circles-diameter);
+		margin: auto;
+	}
 
 
 	#loader {
+		$common-border-style: 3px solid transparent;
+		$common-border-radius: 50%;
+
+		$speed-external: 2s;
+		$speed-medium: 3s;
+		$speed-internal: 2s;
+
 		display: block;
-		//position: relative;
-		//left: 50%;
-		//top: 50%;
 		position: absolute;
 		left: 100px;
 		top: 22px;
-		@include makeSquare($size-spinning-circles-diameter);
+		z-index: 1001;
 		margin: -75px 0 0 -75px;
-		border-radius: 50%;
-		border: 3px solid transparent;
-		border-top-color: $color-loading-screen-spinning-circle-external;
-		-webkit-animation: spin 2s linear infinite;
-		animation: spin 2s linear infinite;
-		z-index: 1001
+		@include makeSquare($size-spinning-circles-diameter);
+		border-top-color: $color-loading-screen-spinning-circle-external !important;
+		@include create-spinning-circle($speed-external);
+
+
+		&, &:before, &:after{
+			border-radius: $common-border-radius;
+			border: $common-border-style;
+		}
+		&:before, &:after{
+			content: "";
+			position: absolute;
+		}
+
+
+		&:before {
+			top: 5px;
+			left: 5px;
+			right: 5px;
+			bottom: 5px;
+			border-top-color: $color-loading-screen-spinning-circle-medium;
+			@include create-spinning-circle($speed-medium);
+		}
+
+		&:after {
+			top: 15px;
+			left: 15px;
+			right: 15px;
+			bottom: 15px;
+			border-top-color: $color-loading-screen-spinning-circle-internal;
+			@include create-spinning-circle($speed-internal);
+		}
 	}
 
-	#loader:before {
-		content: "";
-		position: absolute;
-		top: 5px;
-		left: 5px;
-		right: 5px;
-		bottom: 5px;
-		border-radius: 50%;
-		border: 3px solid transparent;
-		border-top-color: $color-loading-screen-spinning-circle-medium;
-		-webkit-animation: spin 3s linear infinite;
-		animation: spin 3s linear infinite
-	}
 
-	#loader:after {
-		content: "";
-		position: absolute;
-		top: 15px;
-		left: 15px;
-		right: 15px;
-		bottom: 15px;
-		border-radius: 50%;
-		border: 3px solid transparent;
-		border-top-color: $color-loading-screen-spinning-circle-internal;
-		-webkit-animation: spin 1.5s linear infinite;
-		animation: spin 1.5s linear infinite
-	}
 
 	@-webkit-keyframes spin {
 		0% {

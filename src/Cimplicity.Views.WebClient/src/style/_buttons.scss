@@ -1,7 +1,14 @@
 
 .btn-ge{
-	font-size: 1.1rem;
+	font-size: 1rem;
 	font-weight: bold;
+
+	&:not(.no-icon-padding){
+		.fa{
+			@extend .padding-right;
+		}
+	}
+
 
 	&-default{
 		border: 1px solid darken($color-cimplicity-gray-light, 20%);
@@ -34,13 +41,19 @@
 	}
 
 	&-cancel{
-		color: $color-cancel-text;
-		background-color: $color-cancel-bg;
-		border-color: $color-cancel-border;
-
+		//color: $color-cancel-text;
+		//background-color: $color-cancel-bg;
+		//border-color: $color-cancel-border;
+		//
+		//&:hover{
+		//	background-color: $color-cancel-bg-hover;
+		//	border-color: $color-cancel-border-hover;
+		//}
+		color: #333;
+		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		background-color: $color-cimplicity-gray-light;
 		&:hover{
-			background-color: $color-cancel-bg-hover;
-			border-color: $color-cancel-border-hover;
+			background-color: lighten($color-cimplicity-gray-light, 4%);
 		}
 	}
 }

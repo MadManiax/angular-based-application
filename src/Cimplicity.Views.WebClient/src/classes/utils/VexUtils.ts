@@ -106,5 +106,39 @@ module jsutils
 
             return oPromise;
         }
+
+
+        public static showPromptNumberOnly(sMessage:string = null, sTitle:string=null, sFaIcon:string=null):Promise<any>
+        {
+            if(Utils.isNullOrUndef(sMessage) == true)
+            {
+                sMessage = "Enter value";
+            }
+
+            let sExtraUi = "<div class='vex-prompt-number-container'><i class='fa fa-plus'></i><input type='number' id='vex-prompt-number-input'><i class='fa fa-minus'></i></div>";
+
+            let sIcon = "<i class=\"fa fa-pencil-square-o padding-right prompt\" aria-hidden=\"true\"></i>";
+            let sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>" + sTitle + "</span></div><div class='vex-custom-content'>"
+                + sMessage
+                + sExtraUi
+                +"</div>";
+
+            var oPromise = new Promise<any>(function(resolve, reject) {
+
+                vex.dialog.open({
+                    unsafeMessage : sHtml,
+                    callback: function (value) {
+                        if( value != false) {
+                            resolve(value);
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                })
+            });
+
+            return oPromise;
+        }
     }
 }

@@ -1,9 +1,12 @@
 ///<reference path="Rule.ts"/>
-///<reference path="../../../node_modules/moment/moment.d.ts"/>
+///<reference path="../../../typings/index.d.ts"/>
+
+
 
 module ge.cim.models
 {
     //import * as moment from 'moment/moment';
+    //var moment = require('moment');
 
     export class TimingRule extends Rule
     {
@@ -64,7 +67,7 @@ module ge.cim.models
 
         public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):TimingRule
         {
-            this.WorkCell = "OP" + Math.round(Math.random() * 99);
+            this.WorkCell = "ABCDEFGH" + Math.round(Math.random() * 99);
             if(bUseNullWorkUnit == false) {
                 this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
             }else{
@@ -95,7 +98,7 @@ module ge.cim.models
                 this.OverflowRemaining = null;
             }
 
-            this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+            this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
 
             return this;
         }

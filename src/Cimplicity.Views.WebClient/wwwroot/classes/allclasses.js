@@ -612,6 +612,34 @@ var jsutils;
             });
             return oPromise;
         };
+        VexUtils.showPromptNumberOnly = function (sMessage, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = null; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "Enter value";
+            }
+            var sExtraUi = "<div class='vex-prompt-number-container'><i class='fa fa-plus'></i><input type='number' id='vex-prompt-number-input'><i class='fa fa-minus'></i></div>";
+            var sIcon = "<i class=\"fa fa-pencil-square-o padding-right prompt\" aria-hidden=\"true\"></i>";
+            var sHtml = "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>" + sTitle + "</span></div><div class='vex-custom-content'>"
+                + sMessage
+                + sExtraUi
+                + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.open({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        if (value != false) {
+                            resolve(value);
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                });
+            });
+            return oPromise;
+        };
         return VexUtils;
     }());
     jsutils.VexUtils = VexUtils;
@@ -749,7 +777,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.Name = "Counter Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return CounterRule;
@@ -793,7 +821,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 return EventRule;
@@ -841,7 +869,7 @@ var ge;
                 TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
                     if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
                     if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    this.WorkCell = "ABCDEFGH" + Math.round(Math.random() * 99);
                     if (bUseNullWorkUnit == false) {
                         this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
                     }
@@ -862,7 +890,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";

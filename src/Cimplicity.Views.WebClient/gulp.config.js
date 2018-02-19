@@ -10,7 +10,7 @@
         /**
          * Files paths
          */
-        angular: base.node_modules + "@angular/**/*.js",
+        angular: base.node_modules + "@angular/**/*.{js,ts,json}",
         sourceAppOtherFiles:    base.source + "app/**/*.{html,txt,md}",
         htmlSource:             base.source +  '**/*.html',
         sourceAppDir:           base.source + "app",

@@ -1,3 +1,24 @@
+//****************************************************************************************************
+//* Some useful/cool mixins:
+//* - http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/
+//****************************************************************************************************
+
+
+/*
+ * Generate the animation CSS to match all browsers selectors
+ */
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};
+}
+
+
+/*
+ * Set height = width for the element which use it
+ */
 @mixin makeSquare($size) {
 	width: $size;
 	height: $size;

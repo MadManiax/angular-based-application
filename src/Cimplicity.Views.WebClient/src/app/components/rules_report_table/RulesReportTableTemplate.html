@@ -2,29 +2,30 @@
     <table>
         <thead>
         <tr>
-            <th rowspan="2">Work Cell</th>
-            <th rowspan="2">Work Unit</th>
-            <th rowspan="2">Actual</th>
-            <th rowspan="2">Remaining</th>
-            <th rowspan="2">Set</th>
-            <th colspan="2">Overflow</th>
-            <th rowspan="2">Rule Type</th>
-            <th rowspan="2">Rule Name</th>
+            <th rowspan="1">Work Cell</th>
+            <th rowspan="1">Work Unit</th>
+            <th rowspan="1" class="col-actual">Actual</th>
+            <th rowspan="1">Remaining</th>
+            <th rowspan="1">Set</th>
+            <th rowspan="1" class="col-overflow">Overflow Remaining</th>
+            <th rowspan="1" class="col-overflow-set">Overflow Set</th>
+            <th rowspan="1">Rule Type</th>
+            <th rowspan="1">Rule Name</th>
         </tr>
-        <tr>
-            <th>Remaining</th>
-            <th>Set</th>
-        </tr>
+        <!--<tr>-->
+            <!--<th>Remaining</th>-->
+            <!--<th>Set</th>-->
+        <!--</tr>-->
         </thead>
         <tbody>
         <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
             <td>{{oRule.WorkCell}}</td>
             <td>{{oRule.WorkUnit}}</td>
-            <td>{{oRule.getActualToString()}}</td>
+            <td class="col-actual">{{oRule.getActualToString()}}</td>
             <td>{{oRule.getRemainingToString()}}</td>
             <td>{{oRule.getSetToString()}}</td>
-            <td>{{oRule.OverflowRemaining}}</td>
-            <td>{{oRule.OverflowSet}}</td>
+            <td class="col-overflow">{{oRule.OverflowRemaining}}</td>
+            <td class="col-overflow-set">{{oRule.OverflowSet}}</td>
             <td>{{oRule.getRuleType()}}</td>
             <td>
                 <div class="rule-name-wrapper">{{oRule.Name}}</div>

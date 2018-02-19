@@ -57,7 +57,6 @@ export class StationComponent implements OnInit
 
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
-
         //this.enableAutoRefresh(this._iAutoRefreshIntervalInSeconds);
         //this.doSearch();
     }

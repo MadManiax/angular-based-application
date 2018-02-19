@@ -71,7 +71,9 @@ module ge.cim.models {
                 this.OverflowRemaining = null;
             }
 
-            this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
+            //this.Name = "Event Rule Name-" + Math.round(Math.random() * 9999);
+            this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
+
 
             return this;
         }

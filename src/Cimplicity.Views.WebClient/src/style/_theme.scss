@@ -9,22 +9,25 @@ $color-cimplicity-text: whitesmoke;
 //**************************************************************
 
 
-$color-cancel-text: #fff;
-$color-cancel-bg: #dc3545;
-$color-cancel-border: #dc3545;
-$color-cancel-bg-hover: #c82333;
-$color-cancel-border-hover: #bd2130;
+$color-cancel-text			: #fff !default;
+$color-cancel-bg			: #dc3545 !default;
+$color-cancel-border		: #dc3545 !default;
+$color-cancel-bg-hover		: #c82333 !default;
+$color-cancel-border-hover	: #bd2130 !default;
 
-$color-green-ok-accept-etc-bg: #28a745;
+$color-green-ok-accept-etc-bg	: #28a745 !default;
 
 
-$color-rules-table-border: 			$color-cimplicity-blue-dark;	//#2b2b5e;
-$color-rules-table-header-border: 	#5076b7;						//#2b2b5e;
-$color-rules-table-header-bg: 		$color-cimplicity-blue-dark;	//#5076b7;
-$color-rules-table-header-text: 	whitesmoke;
+$color-rules-table-border: 			$color-cimplicity-blue-dark !default;	//#2b2b5e;
+$color-rules-table-header-border: 	#5076b7 !default;						//#2b2b5e;
+$color-rules-table-header-bg: 		$color-cimplicity-blue-dark !default;	//#5076b7;
+$color-rules-table-header-text: 	whitesmoke !default;;
 
 
 // For the loading screen spinning circle use Volvo logo color palette
-$color-loading-screen-spinning-circle-external: #e2e2e2; 	//#3498db;
-$color-loading-screen-spinning-circle-medium: 	#cfcfcf;	//#e74c3c;
-$color-loading-screen-spinning-circle-internal: #a8a8a8;	//#f9c922;
+$color-loading-screen-spinning-circle-external: #e2e2e2 !default; 	//#3498db;
+$color-loading-screen-spinning-circle-medium: 	#cfcfcf !default;	//#e74c3c;
+$color-loading-screen-spinning-circle-internal: #a8a8a8 !default;	//#f9c922;
+
+
+@import "theme_improved";

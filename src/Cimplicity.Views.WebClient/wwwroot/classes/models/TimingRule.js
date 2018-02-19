@@ -32,7 +32,7 @@ var ge;
                 TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
                     if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
                     if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    this.WorkCell = "ABCDEFGH" + Math.round(Math.random() * 99);
                     if (bUseNullWorkUnit == false) {
                         this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
                     }
@@ -53,7 +53,7 @@ var ge;
                     else {
                         this.OverflowRemaining = null;
                     }
-                    this.Name = "Timing Rule Name-" + Math.round(Math.random() * 9999);
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
                     return this;
                 };
                 TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
