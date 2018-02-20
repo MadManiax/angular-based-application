@@ -10,6 +10,382 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var ge;
 (function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var Rule = (function () {
+                function Rule() {
+                }
+                Object.defineProperty(Rule.prototype, "WorkCell", {
+                    get: function () {
+                        return this._WorkCell;
+                    },
+                    set: function (value) {
+                        this._WorkCell = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "WorkUnit", {
+                    get: function () {
+                        return this._WorkUnit;
+                    },
+                    set: function (value) {
+                        this._WorkUnit = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Actual", {
+                    get: function () {
+                        return this._Actual;
+                    },
+                    set: function (value) {
+                        this._Actual = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Remaining", {
+                    get: function () {
+                        return this._Remaining;
+                    },
+                    set: function (value) {
+                        this._Remaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Set", {
+                    get: function () {
+                        return this._Set;
+                    },
+                    set: function (value) {
+                        this._Set = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
+                    get: function () {
+                        return this._OverflowRemaining;
+                    },
+                    set: function (value) {
+                        this._OverflowRemaining = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "OverflowSet", {
+                    get: function () {
+                        return this._OverflowSet;
+                    },
+                    set: function (value) {
+                        this._OverflowSet = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Rule.prototype, "Name", {
+                    get: function () {
+                        return this._Name;
+                    },
+                    set: function (value) {
+                        this._Name = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
+                return Rule;
+            }());
+            models.Rule = Rule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var CounterRule = (function (_super) {
+                __extends(CounterRule, _super);
+                function CounterRule() {
+                    return _super.call(this) || this;
+                }
+                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
+                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
+                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
+                CounterRule.prototype.getRuleType = function () { return "Counter"; };
+                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = Math.round(Math.random() * 999);
+                    do {
+                        this.Actual = Math.round(Math.random() * 99);
+                    } while (this.Actual > this.Set);
+                    this.Remaining = this.Set - this.Actual;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return CounterRule;
+            }(models.Rule));
+            models.CounterRule = CounterRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var EventRule = (function (_super) {
+                __extends(EventRule, _super);
+                function EventRule() {
+                    return _super.call(this) || this;
+                }
+                EventRule.prototype.getRemainingToString = function () { return ""; };
+                EventRule.prototype.getSetToString = function () { return ""; };
+                EventRule.prototype.getActualToString = function () { return ""; };
+                EventRule.prototype.getRuleType = function () { return "Event"; };
+                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    this.Set = null;
+                    this.Actual = null;
+                    this.Remaining = null;
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                return EventRule;
+            }(models.Rule));
+            models.EventRule = EventRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var Filter = (function () {
+                function Filter() {
+                }
+                return Filter;
+            }());
+            models.Filter = Filter;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var Settings = (function () {
+                function Settings() {
+                }
+                return Settings;
+            }());
+            models.Settings = Settings;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var ReportOverviewSetting = (function (_super) {
+                __extends(ReportOverviewSetting, _super);
+                function ReportOverviewSetting() {
+                    var _this = _super.call(this) || this;
+                    _this.sSettingsName = "ReportOverviewSettings";
+                    return _this;
+                }
+                ReportOverviewSetting.createDefault = function () {
+                    var oRetval = new ReportOverviewSetting();
+                    oRetval._iRowsPerPage = 20;
+                    return oRetval;
+                };
+                Object.defineProperty(ReportOverviewSetting.prototype, "rowsPerPage", {
+                    get: function () { return this._iRowsPerPage; },
+                    set: function (value) { this._iRowsPerPage = value; },
+                    enumerable: true,
+                    configurable: true
+                });
+                return ReportOverviewSetting;
+            }(models.Settings));
+            models.ReportOverviewSetting = ReportOverviewSetting;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var TableColumn = (function () {
+                function TableColumn(sCaption) {
+                    if (sCaption === void 0) { sCaption = ""; }
+                    this._sCaption = sCaption;
+                    this._sCssClasses = "";
+                }
+                Object.defineProperty(TableColumn.prototype, "caption", {
+                    get: function () { return this._sCaption; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(TableColumn.prototype, "cssClasses", {
+                    get: function () { return this._sCssClasses; },
+                    enumerable: true,
+                    configurable: true
+                });
+                TableColumn.prototype.setCssClasses = function (sClasses) { this._sCssClasses = sClasses; return this; };
+                return TableColumn;
+            }());
+            models.TableColumn = TableColumn;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var TimingRule = (function (_super) {
+                __extends(TimingRule, _super);
+                function TimingRule() {
+                    return _super.call(this) || this;
+                }
+                TimingRule.prototype.calculateRemaining = function () {
+                    var oNow = moment();
+                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
+                    return this.Set - iDiff;
+                };
+                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
+                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
+                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
+                TimingRule.prototype.getActualAsDateTime = function () { return this._oActualDateTime; };
+                TimingRule.prototype.getRuleType = function () { return "Timing"; };
+                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
+                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
+                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
+                    this.WorkCell = "ABCDEFGH" + Math.round(Math.random() * 99);
+                    if (bUseNullWorkUnit == false) {
+                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.WorkUnit = null;
+                    }
+                    var oNow = moment();
+                    this.Set = Math.round(Math.random() * 9999);
+                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
+                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
+                    this.Actual = oFakeActualDate.unix();
+                    this._oActualDateTime = moment.unix(this.Actual);
+                    this.Remaining = this.calculateRemaining();
+                    this.OverflowSet = Math.round(Math.random() * 99);
+                    if (Math.random() > 0.5) {
+                        this.OverflowRemaining = Math.round(Math.random() * 10);
+                    }
+                    else {
+                        this.OverflowRemaining = null;
+                    }
+                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
+                    return this;
+                };
+                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+                return TimingRule;
+            }(models.Rule));
+            models.TimingRule = TimingRule;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
+    var cim;
+    (function (cim) {
+        var models;
+        (function (models) {
+            var User = (function () {
+                function User(sUserId) {
+                    this._sUserId = sUserId;
+                }
+                Object.defineProperty(User.prototype, "sUserId", {
+                    get: function () {
+                        return this._sUserId;
+                    },
+                    set: function (value) {
+                        this._sUserId = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sFirstName", {
+                    get: function () {
+                        return this._sFirstName;
+                    },
+                    set: function (value) {
+                        this._sFirstName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(User.prototype, "sLastName", {
+                    get: function () {
+                        return this._sLastName;
+                    },
+                    set: function (value) {
+                        this._sLastName = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return User;
+            }());
+            models.User = User;
+        })(models = cim.models || (cim.models = {}));
+    })(cim = ge.cim || (ge.cim = {}));
+})(ge || (ge = {}));
+var ge;
+(function (ge) {
     var CookieManager = (function () {
         function CookieManager() {
         }
@@ -555,6 +931,29 @@ var jsutils;
             });
             return oPromise;
         };
+        VexUtils.showGeneralAlert = function (sMessage, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = "fa-info-circle"; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "";
+            }
+            var sHtml = "";
+            if (jsutils.Utils.isStrNullOrEmpty(sTitle) == false) {
+                var sIcon = "<i class=\"fa " + sFaIcon + " padding-right \" aria-hidden=\"true\"></i>";
+                sHtml += "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>Error</span></div>";
+            }
+            sHtml += "<div class='vex-custom-content'>" + sMessage + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.alert({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        resolve(value === true);
+                    }
+                });
+            });
+            return oPromise;
+        };
         VexUtils.showConfirm = function (sMessage, sTitle, sFaIcon) {
             if (sMessage === void 0) { sMessage = null; }
             if (sTitle === void 0) { sTitle = null; }
@@ -650,299 +1049,28 @@ var ge;
     (function (cim) {
         var models;
         (function (models) {
-            var Rule = (function () {
-                function Rule() {
+            var RulesReportTableColumn = (function (_super) {
+                __extends(RulesReportTableColumn, _super);
+                function RulesReportTableColumn(sCaption) {
+                    if (sCaption === void 0) { sCaption = ""; }
+                    var _this = _super.call(this, sCaption) || this;
+                    _this._bAllowFilters = false;
+                    _this._bAllowSorting = false;
+                    return _this;
                 }
-                Object.defineProperty(Rule.prototype, "WorkCell", {
-                    get: function () {
-                        return this._WorkCell;
-                    },
-                    set: function (value) {
-                        this._WorkCell = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "WorkUnit", {
-                    get: function () {
-                        return this._WorkUnit;
-                    },
-                    set: function (value) {
-                        this._WorkUnit = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Actual", {
-                    get: function () {
-                        return this._Actual;
-                    },
-                    set: function (value) {
-                        this._Actual = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Remaining", {
-                    get: function () {
-                        return this._Remaining;
-                    },
-                    set: function (value) {
-                        this._Remaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Set", {
-                    get: function () {
-                        return this._Set;
-                    },
-                    set: function (value) {
-                        this._Set = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowRemaining", {
-                    get: function () {
-                        return this._OverflowRemaining;
-                    },
-                    set: function (value) {
-                        this._OverflowRemaining = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "OverflowSet", {
-                    get: function () {
-                        return this._OverflowSet;
-                    },
-                    set: function (value) {
-                        this._OverflowSet = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(Rule.prototype, "Name", {
-                    get: function () {
-                        return this._Name;
-                    },
-                    set: function (value) {
-                        this._Name = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Rule.JSON_FIELD_WORK_CELL = "WorkCell";
-                return Rule;
-            }());
-            models.Rule = Rule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var CounterRule = (function (_super) {
-                __extends(CounterRule, _super);
-                function CounterRule() {
-                    return _super.call(this) || this;
-                }
-                CounterRule.prototype.getRemainingToString = function () { return this.Remaining.toString(); };
-                CounterRule.prototype.getSetToString = function () { return this.Set.toString(); };
-                CounterRule.prototype.getActualToString = function () { return this.Actual.toString(); };
-                CounterRule.prototype.getRuleType = function () { return "Counter"; };
-                CounterRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
+                RulesReportTableColumn.prototype.allowFilters = function () { this._bAllowFilters = true; return this; };
+                RulesReportTableColumn.prototype.allowSorting = function () { this._bAllowSorting = true; return this; };
+                RulesReportTableColumn.prototype.isSortingAllowed = function () { return this._bAllowSorting; };
+                RulesReportTableColumn.prototype.getCssClasses = function () {
+                    var sClasses = this.cssClasses;
+                    if (this._bAllowSorting == true) {
+                        sClasses += " " + "col-allow-sorting";
                     }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = Math.round(Math.random() * 999);
-                    do {
-                        this.Actual = Math.round(Math.random() * 99);
-                    } while (this.Actual > this.Set);
-                    this.Remaining = this.Set - this.Actual;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
-                    return this;
+                    return sClasses;
                 };
-                return CounterRule;
-            }(models.Rule));
-            models.CounterRule = CounterRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var EventRule = (function (_super) {
-                __extends(EventRule, _super);
-                function EventRule() {
-                    return _super.call(this) || this;
-                }
-                EventRule.prototype.getRemainingToString = function () { return ""; };
-                EventRule.prototype.getSetToString = function () { return ""; };
-                EventRule.prototype.getActualToString = function () { return ""; };
-                EventRule.prototype.getRuleType = function () { return "Event"; };
-                EventRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "OP" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    this.Set = null;
-                    this.Actual = null;
-                    this.Remaining = null;
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                return EventRule;
-            }(models.Rule));
-            models.EventRule = EventRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var Filter = (function () {
-                function Filter() {
-                }
-                return Filter;
-            }());
-            models.Filter = Filter;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var TimingRule = (function (_super) {
-                __extends(TimingRule, _super);
-                function TimingRule() {
-                    return _super.call(this) || this;
-                }
-                TimingRule.prototype.calculateRemaining = function () {
-                    var oNow = moment();
-                    var iDiff = oNow.diff(this._oActualDateTime, "seconds");
-                    return this.Set - iDiff;
-                };
-                TimingRule.prototype.getRemainingToString = function () { return this.Remaining + " sec"; };
-                TimingRule.prototype.getSetToString = function () { return this.Set + " sec"; };
-                TimingRule.prototype.getActualToString = function () { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); };
-                TimingRule.prototype.getActualAsDateTime = function () { return this._oActualDateTime; };
-                TimingRule.prototype.getRuleType = function () { return "Timing"; };
-                TimingRule.prototype.fillWithDummyData = function (bUseNullWorkUnit, bUseNoOverflow) {
-                    if (bUseNullWorkUnit === void 0) { bUseNullWorkUnit = false; }
-                    if (bUseNoOverflow === void 0) { bUseNoOverflow = false; }
-                    this.WorkCell = "ABCDEFGH" + Math.round(Math.random() * 99);
-                    if (bUseNullWorkUnit == false) {
-                        this.WorkUnit = this.WorkCell + ":" + Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.WorkUnit = null;
-                    }
-                    var oNow = moment();
-                    this.Set = Math.round(Math.random() * 9999);
-                    var iDiffInSeconds = this.Set - Math.round(Math.random() * 999);
-                    var oFakeActualDate = moment(oNow).add(-1 * iDiffInSeconds, 'seconds');
-                    this.Actual = oFakeActualDate.unix();
-                    this._oActualDateTime = moment.unix(this.Actual);
-                    this.Remaining = this.calculateRemaining();
-                    this.OverflowSet = Math.round(Math.random() * 99);
-                    if (Math.random() > 0.5) {
-                        this.OverflowRemaining = Math.round(Math.random() * 10);
-                    }
-                    else {
-                        this.OverflowRemaining = null;
-                    }
-                    this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
-                    return this;
-                };
-                TimingRule.DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
-                return TimingRule;
-            }(models.Rule));
-            models.TimingRule = TimingRule;
-        })(models = cim.models || (cim.models = {}));
-    })(cim = ge.cim || (ge.cim = {}));
-})(ge || (ge = {}));
-var ge;
-(function (ge) {
-    var cim;
-    (function (cim) {
-        var models;
-        (function (models) {
-            var User = (function () {
-                function User(sUserId) {
-                    this._sUserId = sUserId;
-                }
-                Object.defineProperty(User.prototype, "sUserId", {
-                    get: function () {
-                        return this._sUserId;
-                    },
-                    set: function (value) {
-                        this._sUserId = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sFirstName", {
-                    get: function () {
-                        return this._sFirstName;
-                    },
-                    set: function (value) {
-                        this._sFirstName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                Object.defineProperty(User.prototype, "sLastName", {
-                    get: function () {
-                        return this._sLastName;
-                    },
-                    set: function (value) {
-                        this._sLastName = value;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                return User;
-            }());
-            models.User = User;
+                return RulesReportTableColumn;
+            }(models.TableColumn));
+            models.RulesReportTableColumn = RulesReportTableColumn;
         })(models = cim.models || (cim.models = {}));
     })(cim = ge.cim || (ge.cim = {}));
 })(ge || (ge = {}));

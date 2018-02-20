@@ -157,19 +157,19 @@
     border: 1px solid #aeaeae;
     background-color: #ebebeb !important; }
     .btn-ge-secondary:hover {
-      background-color: #aeaeae !important; }
+      background-color: #c8c8c8 !important; }
   .btn-ge-success {
     border: 1px solid #010086;
     background-color: #3f3fa0;
-    color: whitesmoke; }
+    color: white; }
     .btn-ge-success:hover {
       background-color: #010086; }
   .btn-ge-cancel {
     color: #333;
     border: 1px solid #aeaeae;
-    background-color: #e1e1e1; }
+    background-color: #fbfbfb; }
     .btn-ge-cancel:hover {
-      background-color: #c8c8c8; }
+      background-color: #e1e1e1; }
 
 .app-container {
   width: 100vw;
@@ -206,8 +206,9 @@
   .station-display-container .search-toolbar-wrapper > div button {
     float: right; }
   .station-display-container .pagination-container {
-    padding: 10px;
-    text-align: center; }
+    margin: 10px 0px;
+    text-align: center;
+    position: relative; }
     .station-display-container .pagination-container .pagination-changer span {
       width: 60px;
       display: inline-block;
@@ -217,23 +218,28 @@
       margin-right: 10px; }
       .station-display-container .pagination-container .pagination-changer .fa:hover {
         cursor: pointer; }
+    .station-display-container .pagination-container .pagination-summary-configurator {
+      position: absolute;
+      right: 0px;
+      top: 4px; }
 
 .table-container {
   width: 100%;
   height: 100%;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  border-bottom: 1px solid #ccc; }
   .table-container table {
     width: 100%;
     border-collapse: collapse;
     margin: 0; }
     .table-container table th, .table-container table td {
-      border: 2px solid #b6cdf5;
+      border: 1px solid #b6cdf5;
       padding: 7px 10px;
       height: 76px; }
     .table-container table thead th {
       font-size: 1.2rem;
       text-align: center;
-      border: 2px solid #5076b7;
+      border: 1px solid #5076b7;
       background-color: #010086;
       color: whitesmoke;
       font-weight: bold; }
@@ -243,7 +249,7 @@
       vertical-align: middle; }
     .table-container table .col-actual {
       width: 130px; }
-    .table-container table .col-overflow {
+    .table-container table .col-overflow, .table-container table .col-overflow-set {
       width: 140px; }
       .table-container table .col-overflow-set {
         padding-left: 18px;
@@ -252,10 +258,22 @@
       padding-top: 0px;
       padding-bottom: 0px; }
       .table-container table .col-rule-name .rule-name-wrapper {
-        padding-top: 7px;
+        padding-top: 9px;
         padding-bottom: 7px;
         height: 56px;
         overflow: hidden; }
+    .table-container table .col-allow-sorting {
+      text-decoration: underline; }
+      .table-container table .col-allow-sorting:hover {
+        cursor: pointer; }
+    .table-container table .cell-actual-equals-to-set {
+      background-color: #008040;
+      color: whitesmoke; }
+    .table-container table .cell-warning {
+      background-color: ffea51; }
+    .table-container table .cell-no-more-overflow-available {
+      background-color: rgba(194, 0, 0, 0.91);
+      color: whitesmoke; }
     .table-container table .rule-name-wrapper {
       width: calc(100% - 94px);
       display: inline-block;
@@ -268,9 +286,10 @@
         margin-top: 18px; }
   .table-container .fake-empty-table {
     width: 100%;
-    height: calc(100% - 100px);
+    height: calc(100% - 77px);
     border: 2px solid #b6cdf5;
-    border-top: 0px; }
+    border-top: 0px;
+    border-bottom: 0px; }
     .table-container .fake-empty-table .no-data-notice {
       text-align: center;
       margin: auto;
@@ -298,5 +317,8 @@
         width: 100%;
         min-height: 110px;
         max-height: 220px; }
+
+.clickable:hover {
+  cursor: pointer; }
 
 /*# sourceMappingURL=site.css.map */

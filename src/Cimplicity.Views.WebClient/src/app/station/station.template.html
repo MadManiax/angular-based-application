@@ -40,7 +40,9 @@
             <i class="fa fa-chevron-right" (click)="goToNextTablePage()"></i>
             <i class="fa fa-step-forward" (click)="goLastTablePage()"></i>
         </div>
-        <div>{{getCurrentRowsPerPage()}} results per page</div>
+        <div class="pagination-summary-configurator">
+            {{getCurrentRowsPerPage()}} results per page<i class="fa fa-cog padding-left clickable" aria-hidden="true" (click)="openPaginationConfigurator()"></i>
+        </div>
 
     </div>
 

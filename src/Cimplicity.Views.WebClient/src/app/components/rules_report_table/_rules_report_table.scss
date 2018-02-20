@@ -5,14 +5,15 @@
 	$size-row-total-height: 76px;
 	$size-rule-name-wrapper-height: 56px;
 
+	$size-table-border-thickness: 1px;
+
 	$font-size-header: 1.2rem;
 	$font-size-data: 1.1rem;
 
 	width: 100%;
 	height: 100%;
 	overflow-y: scroll;
-
-
+	border-bottom: 1px solid #ccc;
 
 	table {
 		width: 100%;
@@ -21,7 +22,7 @@
 		//box-shadow: 5px 5px 9px 1px #282b50;
 
 		th, td{
-			border: 2px solid $color-rules-table-border;
+			border: $size-table-border-thickness solid $color-rules-table-border;
 			padding: $size-cell-padding-top-bottom $size-cell-padding-left-right;
 			height: 76px;
 		}
@@ -30,7 +31,7 @@
 			th{
 				font-size: $font-size-header;
 				text-align: center;
-				border: 2px solid $color-rules-table-header-border;
+				border: $size-table-border-thickness solid $color-rules-table-header-border;
 				background-color: $color-rules-table-header-bg;
 				color: $color-rules-table-header-text;
 				font-weight: bold;
@@ -47,9 +48,6 @@
 			}
 		}
 
-
-
-
 		.col{
 			&-actual{
 				width: 130px;
@@ -57,6 +55,7 @@
 			&-overflow{
 				width: 140px;
 				&-set{
+					@extend .col-overflow;
 					padding-left: 18px;
 					padding-right: 18px;
 				}
@@ -66,7 +65,7 @@
 				padding-bottom: 0px;
 
 				.rule-name-wrapper{
-					padding-top: $size-cell-padding-top-bottom;
+					padding-top: $size-cell-padding-top-bottom + 2px;
 					padding-bottom: $size-cell-padding-top-bottom;
 					height: $size-rule-name-wrapper-height;
 					overflow: hidden;
@@ -75,6 +74,28 @@
 				.edit-trigger-btns-wrapper{
 
 				}
+			}
+
+			&-allow-sorting{
+				text-decoration: underline;
+				&:hover{
+					cursor: pointer;
+				}
+			}
+		}
+
+
+		.cell{
+			&-actual-equals-to-set{
+				background-color: $color-rule-cell-green-bg;
+				color: $color-rule-cell-green-text;
+			}
+			&-warning{
+				background-color: $color-rule-cell-yellow-bg;
+			}
+			&-no-more-overflow-available{
+				background-color: $color-rule-cell-red-bg;
+				color: $color-rule-cell-red-text;
 			}
 		}
 
@@ -100,14 +121,12 @@
 	}
 
 
-
-
-
 	.fake-empty-table{
 		width: 100%;
-		height: calc(100% - 100px);
+		height: calc(100% - 77px);
 		border: 2px solid $color-rules-table-border;
 		border-top: 0px;
+		border-bottom: 0px;
 
 		.no-data-notice{
 			text-align: center;
@@ -161,10 +180,5 @@
 				}
 			}
 		}
-
-		//.btn-trigger-next{
-		//	position: absolute;
-		//	left: 16px;
-		//}
 	}
 }

@@ -2,15 +2,11 @@
     <table>
         <thead>
         <tr>
-            <th rowspan="1">Work Cell</th>
-            <th rowspan="1">Work Unit</th>
-            <th rowspan="1" class="col-actual">Actual</th>
-            <th rowspan="1">Remaining</th>
-            <th rowspan="1">Set</th>
-            <th rowspan="1" class="col-overflow">Overflow Remaining</th>
-            <th rowspan="1" class="col-overflow-set">Overflow Set</th>
-            <th rowspan="1">Rule Type</th>
-            <th rowspan="1" class="col-rule-name">Rule Name</th>
+            <th *ngFor="let oColumn of getColumnsList(); trackBy: index;"
+                ngClass="{{oColumn.getCssClasses()}}"
+                (click)="onColumnHeaderClick(oColumn)"
+            >{{oColumn.caption}}</th>
+
         </tr>
         <!--<tr>-->
             <!--<th>Remaining</th>-->
@@ -21,13 +17,13 @@
         <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
             <td>{{oRule.WorkCell}}</td>
             <td>{{oRule.WorkUnit}}</td>
-            <td class="col-actual">{{oRule.getActualToString()}}</td>
+            <td class="col-actual" ngClass="{{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
             <td>{{oRule.getRemainingToString()}}</td>
             <td>{{oRule.getSetToString()}}</td>
-            <td class="col-overflow">{{oRule.OverflowRemaining}}</td>
+            <td class="col-overflow" ngClass="{{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
             <td class="col-overflow-set">{{oRule.OverflowSet}}</td>
             <td>{{oRule.getRuleType()}}</td>
-            <td class="col-rule-name">
+            <td class="col-rule-name" ngClass="{{getRuleNameCellCssClass(oRule)}}">
                 <div class="rule-name-wrapper">{{oRule.Name}}</div>
                 <div class="edit-trigger-btns-wrapper">
                     <!--<button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"-->
@@ -73,16 +69,16 @@
                         </div>
                     </div>
                     <div class="row rule-to-edit-editable-value actual-value" [hidden]="isDialogModeEditRule() == false">
-                        <div class="col-4 text-left">Actual Value</div>
-                        <div class="col-8 text-left">
+                        <div class="col-3 text-left">Actual Value</div>
+                        <div class="col text-left">
                             <!-- On the base of rule type the value editor is different -->
                             <input type="number" *ngIf="isCounterRule() == true" [(ngModel)]="_oRuleToEdit.Actual">
                             <input type="text" *ngIf="isTimingRule() == true" ([ngModel])="_sActualAsStringForTimingRule">
                         </div>
                     </div>
                     <div class="row rule-to-edit-editable-value comment">
-                        <div class="col-4 text-left">Comment</div>
-                        <div class="col-8 text-left">
+                        <div class="col-3 text-left">Comment</div>
+                        <div class="col text-left">
                             <textarea></textarea>
                         </div>
                     </div>
@@ -92,7 +88,7 @@
                     <button type="button" class="btn btn-ge-success" data-dismiss="modal"
                             (click)="onSaveRule()"
                             [hidden]="isDialogModeEditRule() == false">Save changes</button>
-                    <button type="button" class="btn btn-ge-outline-primary btn-trigger-next" data-dismiss="modal"
+                    <button type="button" class="btn btn-ge-success" data-dismiss="modal"
                             (click)="onTriggerNext()"
                             [hidden]="isDialogModeTriggerNext() == false">Trigger next</button>
                 </div>

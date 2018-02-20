@@ -1,4 +1,5 @@
 ///<reference path="../../../classes/utils/Utils.ts"/>
+///<reference path="../../../classes/models/RulesReportTableColumn.ts"/>
 
 import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Utils = jsutils.Utils;
@@ -7,6 +8,8 @@ import EventRule = ge.cim.models.EventRule;
 import * as moment from 'moment/moment'
 import CounterRule = ge.cim.models.CounterRule;
 import TimingRule = ge.cim.models.TimingRule;
+import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
+import VexUtils = jsutils.VexUtils;
 
 
 enum DialogMode {EDIT_RULE, TRIGER_NEXT};
@@ -30,20 +33,37 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     private _oEventEmitterTriggerNext= new EventEmitter<Rule>()
 
 
-
-
     private _oRuleToEditOriginal : Rule;
     private _oRuleToEdit : Rule;
     private _sActualAsStringForTimingRule : string;
     //private _sActualForTimingRuleDateTimeFormat : string;
     private _oModal : JQuery;
     private _oDialogMode: DialogMode;
+    private _aoColumns : RulesReportTableColumn[];
 
 
     constructor()
     {
         console.log('RulesReportTableComponent -> constructor');
         this._oRuleToEdit = null;
+
+        /**
+         * >>> From FdS <<<
+         * All columns with the underlined header text are sortable: "Work Cell", "Remaining Overflow", "Rule Type" and "Rule Name".
+         * Work unit is not sortable directly, but it is included in the Work Cell criteria.
+         * "Remaining" will be sortable only if the rules in the report are either only timing rules or only counter rules.
+         */
+        this._aoColumns = [
+            new RulesReportTableColumn("Work Cell").allowSorting(),
+            new RulesReportTableColumn("Work Unit"),
+            new RulesReportTableColumn("Actual").setCssClasses("col-actual"),
+            new RulesReportTableColumn("Remaining"),
+            new RulesReportTableColumn("Set"),
+            new RulesReportTableColumn("Overflow Remaining").allowSorting().setCssClasses("col-overflow"),
+            new RulesReportTableColumn("Overflow Set").setCssClasses("col-overflow-set"),
+            new RulesReportTableColumn("Rule Type").allowSorting(),
+            new RulesReportTableColumn("Rule Name").allowSorting().setCssClasses("col-rule-name")
+        ]
     }
 
     ngOnInit()
@@ -58,6 +78,12 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     }
 
 
+
+
+    //*******************************************************************************
+    //* Private methods
+    //*******************************************************************************
+    ///<editor-fold desc="Private methods (+)>
     private openEditRuleOrTriggerNextModal(oRule:Rule, oMode:DialogMode)
     {
         this._oDialogMode = oMode;
@@ -73,13 +99,88 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         }
         this._oModal.modal('show');
     }
+    ///</editor-fold>
 
+    //*******************************************************************************
+    //* Private methods
+    //*******************************************************************************
+    ///<editor-fold desc="Protected methods (+)>
+    ///</editor-fold>
 
+    //*******************************************************************************
+    //* Public methods
+    //*******************************************************************************
+    ///<editor-fold desc="Public methods (+)>
+    public getColumnsList(){ return this._aoColumns;}
     public getRulesList() { return this._aoRulesList; }
     public showEmptyDataBox(): boolean{
         return (Utils.isNullOrUndef(this._aoRulesList) == true || this._aoRulesList.length == 0)
     } ;
 
+
+    /**
+     * Get the CSS class for the 'Actual' acording to FdS:
+     *      Actual cell will be GREEN when it reaches the target value for that rule (the value displayed in the cell Set).
+     *      As soon as, the rule is again triggered and the actual value changes, the previous background color will be restored
+ *     So, in short way, when the 'Remaining' is zero (this simplify check for bot Counter and Timing)
+     * @param {ge.cim.models.Rule} oRule
+     */
+    public getActualCellCssClass(oRule : Rule)
+    {
+        //if(Utils.isNullOrUndef(oRule.Actual) == false && Utils.isNullOrUndef(oRule.Set) == false && oRule.Actual == oRule.Set)
+        if(Utils.isNullOrUndef(oRule.Remaining) == false && oRule.Remaining == 0)
+        {
+            return "cell-actual-equals-to-set";
+        }
+        return "";
+    }
+
+    /**
+     * Get the CSS class for the 'Overflow Remaining' acording to FdS:
+     *      Remaining Overflow cell is RED when the Remaining overflow is 0 and it remains red until the sampling result is received.
+     *	    The machine is blocked if the overflow is 0 and the cell is RED.
+     *	    As soon as the sampling result is received, the previous background color will be restored and the Remaining overflow cell will be cleaned
+     * @param {ge.cim.models.Rule} oRule
+     */
+    public getOverflowRemainingCellCssClass(oRule : Rule)
+    {
+        if(Utils.isNullOrUndef(oRule.OverflowRemaining) == false && oRule.OverflowRemaining == 0){
+            return "cell-no-more-overflow-available";
+        }
+        return "";
+    }
+
+    /**
+     * Get the CSS class for the 'Rule Name' acording to FdS:
+     *      Rule Name cell will be YELLOW when the target value for that rule is reached and it will remain yellow
+     *		until the sampling result is received and the overflow is reset again to the configured value
+     * @param {ge.cim.models.Rule} oRule
+     */
+    public getRuleNameCellCssClass(oRule : Rule)
+    {
+        if(oRule.Actual == oRule.Set || oRule.OverflowRemaining < oRule.OverflowSet){
+            return "cell-warning";
+        }
+        return "";
+    }
+
+    /**
+     * Callback to handle click on the column header
+     * @param {ge.cim.models.RulesReportTableColumn} oColumn
+     */
+    public onColumnHeaderClick(oColumn : RulesReportTableColumn)
+    {
+        // Add the column to the sorting panel only if it
+        // is a sortable column
+        if(oColumn.isSortingAllowed() == true)
+        {
+            VexUtils.showGeneralAlert("TODO: column '"+ oColumn.caption +"' will be added to 'sorting panel'");
+        }
+    }
+
+    /**
+     * @returns {boolean} TRUE if the actual value set in for the rule in the 'Edit dialog' is valid, FALSE otherwise
+     */
     public isActualValueValid()
     {
         if(this.isCounterRule() == true)
@@ -95,7 +196,6 @@ export class RulesReportTableComponent implements OnInit, OnChanges
 
     public isCounterRule(){ return (this._oRuleToEdit instanceof CounterRule); }
     public isTimingRule(){ return (this._oRuleToEdit instanceof TimingRule); }
-
 
 
     public isEditButtonEnabled(oRule:Rule)
@@ -127,5 +227,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
 
     public onSaveRule() { this._oEventEmitterSaveRule.emit(this._oRuleToEdit); }
     public onTriggerNext(){ this._oEventEmitterTriggerNext.emit(this._oRuleToEdit);}
+    //public abstract setDefault();
+
 
 }

@@ -2,6 +2,7 @@
 ///<reference path="../../classes/models/TimingRule.ts"/>
 ///<reference path="../../classes/models/CounterRule.ts"/>
 ///<reference path="../../classes/models/EventRule.ts"/>
+///<reference path="../../classes/models/ReportOverviewSetting.ts"/>
 ///<reference path="../../classes/utils/Utils.ts"/>
 ///<reference path="../services/AuthService.ts"/>
 
@@ -17,6 +18,7 @@ import {LoadingScreen, LoadingScreenComponent} from "../components/loading_scree
 import {AuthService} from "../services/AuthService";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import VexUtils = jsutils.VexUtils;
+import ReportOverviewSetting = ge.cim.models.ReportOverviewSetting;
 
 @Component({
     selector: 'station',
@@ -220,6 +222,24 @@ export class StationComponent implements OnInit
                 if( bWasAutoRefreshEnabled == true) {
                     this.enableAutoRefresh();
                 }
+            });
+    }
+
+
+    public openPaginationConfigurator()
+    {
+        VexUtils.showPrompt("Enter the amount of rows to display in each page:", "", "Rows per page")
+            .then((oValue)=>{
+                if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 0)
+                {
+                    this._iCurrentRowsPerPage = parseInt(oValue);
+                }
+                else{
+                    VexUtils.showErrorAlert("Error while updating the amount of rows to display in each page. Please enter a number greater or equals thant 0.")
+                }
+            })
+            .catch(()=>{
+                this._iCurrentRowsPerPage = ReportOverviewSetting.createDefault().rowsPerPage;
             });
     }
 }

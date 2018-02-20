@@ -24,6 +24,29 @@ var jsutils;
             });
             return oPromise;
         };
+        VexUtils.showGeneralAlert = function (sMessage, sTitle, sFaIcon) {
+            if (sMessage === void 0) { sMessage = null; }
+            if (sTitle === void 0) { sTitle = null; }
+            if (sFaIcon === void 0) { sFaIcon = "fa-info-circle"; }
+            if (jsutils.Utils.isNullOrUndef(sMessage) == true) {
+                sMessage = "";
+            }
+            var sHtml = "";
+            if (jsutils.Utils.isStrNullOrEmpty(sTitle) == false) {
+                var sIcon = "<i class=\"fa " + sFaIcon + " padding-right \" aria-hidden=\"true\"></i>";
+                sHtml += "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>Error</span></div>";
+            }
+            sHtml += "<div class='vex-custom-content'>" + sMessage + "</div>";
+            var oPromise = new Promise(function (resolve, reject) {
+                vex.dialog.alert({
+                    unsafeMessage: sHtml,
+                    callback: function (value) {
+                        resolve(value === true);
+                    }
+                });
+            });
+            return oPromise;
+        };
         VexUtils.showConfirm = function (sMessage, sTitle, sFaIcon) {
             if (sMessage === void 0) { sMessage = null; }
             if (sTitle === void 0) { sTitle = null; }

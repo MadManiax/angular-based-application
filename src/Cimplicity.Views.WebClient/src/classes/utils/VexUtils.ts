@@ -39,6 +39,35 @@ module jsutils
             return oPromise;
         }
 
+        public static showGeneralAlert(sMessage:string = null, sTitle:string=null, sFaIcon:string="fa-info-circle")
+        {
+            if(Utils.isNullOrUndef(sMessage) == true)
+            {
+                sMessage = ""
+            }
+
+            let sHtml = "";
+            if( Utils.isStrNullOrEmpty(sTitle) == false)
+            {
+                let sIcon = "<i class=\"fa "+ sFaIcon +" padding-right \" aria-hidden=\"true\"></i>";
+                sHtml += "<div class=\"vex-dialog-top-bar\">" + sIcon + "</i><span>Error</span></div>"
+            }
+
+            sHtml += "<div class='vex-custom-content'>" + sMessage +"</div>";
+
+            var oPromise = new Promise(function(resolve, reject) {
+
+                vex.dialog.alert({
+                    unsafeMessage : sHtml,
+                    callback: function (value) {
+                        resolve(value === true);
+                    }
+                })
+            });
+
+            return oPromise;
+        }
+
         /**
          * Generate a 'confirm' dialog using promises, so action when user click on 'OK' or 'Cancel'
          * @param sMessage
