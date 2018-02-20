@@ -255,8 +255,6 @@
       color: #ccc; }
   .table-container .rule-editor-container {
     max-width: 600px; }
-    .table-container .rule-editor-container .modal-footer {
-      position: relative; }
     .table-container .rule-editor-container .rule-to-edit-summary {
       text-align: center;
       font-size: 1.3rem;
@@ -277,7 +275,6 @@
         max-height: 220px; }
     .table-container .rule-editor-container .btn-trigger-next {
       position: absolute;
-      left: 16px;
-      top: 16px; }
+      left: 16px; }
 
 /*# sourceMappingURL=site.css.map */

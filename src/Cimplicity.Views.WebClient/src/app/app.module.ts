@@ -14,11 +14,7 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
-import {MatTableModule} from "@angular/material";
-//import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-// import {HttpClientTestingModule} from "@angular/common/http/testing";
-// import {MockHttpInterceptor} from "./test/MockHttpInterceptor";
-
+//import {MatTableModule} from "@angular/material";
 
 
 
@@ -29,7 +25,7 @@ import {MatTableModule} from "@angular/material";
         //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
-        MatTableModule
+        //MatTableModule
     ],
     declarations: [
         AppComponent,
