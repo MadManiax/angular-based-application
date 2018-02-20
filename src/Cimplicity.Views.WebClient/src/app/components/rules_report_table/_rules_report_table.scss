@@ -1,5 +1,10 @@
 .table-container{
 	$size-edit-btn-width: 80px;
+	$size-cell-padding-top-bottom: 7px;
+	$size-cell-padding-left-right: 10px;
+	$size-row-total-height: 76px;
+	$size-rule-name-wrapper-height: 56px;
+
 	$font-size-header: 1.2rem;
 	$font-size-data: 1.1rem;
 
@@ -7,14 +12,7 @@
 	height: 100%;
 	overflow-y: scroll;
 
-	button{
-		min-width: 80px;
-	}
 
-	.rule-name-wrapper{
-		width: calc(100% - #{$size-edit-btn-width + 10px});
-		display: inline-block;
-	}
 
 	table {
 		width: 100%;
@@ -24,7 +22,7 @@
 
 		th, td{
 			border: 2px solid $color-rules-table-border;
-			padding: 7px 10px;
+			padding: $size-cell-padding-top-bottom $size-cell-padding-left-right;
 			height: 76px;
 		}
 
@@ -44,6 +42,7 @@
 				td {
 					font-size: $font-size-data;
 					font-weight: normal;
+					vertical-align: middle;
 				}
 			}
 		}
@@ -61,6 +60,41 @@
 					padding-left: 18px;
 					padding-right: 18px;
 				}
+			}
+			&-rule-name{
+				padding-top: 0px;
+				padding-bottom: 0px;
+
+				.rule-name-wrapper{
+					padding-top: $size-cell-padding-top-bottom;
+					padding-bottom: $size-cell-padding-top-bottom;
+					height: $size-rule-name-wrapper-height;
+					overflow: hidden;
+				}
+
+				.edit-trigger-btns-wrapper{
+
+				}
+			}
+		}
+
+
+		.rule-name-wrapper{
+			width: calc(100% - #{$size-edit-btn-width + 14px});
+			display: inline-block;
+			float: left;
+		}
+		.edit-trigger-btns-wrapper{
+			width: $size-edit-btn-width;
+			float: right;
+			height: 100%;
+
+			.btn-group{
+				margin-top: 18px;
+			}
+
+			button{
+				//min-width: 80px;
 			}
 		}
 	}
@@ -128,9 +162,9 @@
 			}
 		}
 
-		.btn-trigger-next{
-			position: absolute;
-			left: 16px;
-		}
+		//.btn-trigger-next{
+		//	position: absolute;
+		//	left: 16px;
+		//}
 	}
 }

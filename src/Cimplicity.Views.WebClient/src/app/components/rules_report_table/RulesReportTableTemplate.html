@@ -10,7 +10,7 @@
             <th rowspan="1" class="col-overflow">Overflow Remaining</th>
             <th rowspan="1" class="col-overflow-set">Overflow Set</th>
             <th rowspan="1">Rule Type</th>
-            <th rowspan="1">Rule Name</th>
+            <th rowspan="1" class="col-rule-name">Rule Name</th>
         </tr>
         <!--<tr>-->
             <!--<th>Remaining</th>-->
@@ -27,11 +27,18 @@
             <td class="col-overflow">{{oRule.OverflowRemaining}}</td>
             <td class="col-overflow-set">{{oRule.OverflowSet}}</td>
             <td>{{oRule.getRuleType()}}</td>
-            <td>
+            <td class="col-rule-name">
                 <div class="rule-name-wrapper">{{oRule.Name}}</div>
-                <button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"
-                        *ngIf="isEditButtonEnabled(oRule) == true">Edit
-                </button>
+                <div class="edit-trigger-btns-wrapper">
+                    <!--<button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"-->
+                            <!--*ngIf="isEditButtonEnabled(oRule) == true">Edit-->
+                    <!--</button>-->
+                    <div class="btn-group" role="group" *ngIf="isEditButtonEnabled(oRule) == true">
+                        <button type="button" class="btn btn-ge-secondary" (click)="openEditRuleModal(oRule)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-ge-secondary" (click)="openTriggerNextModal(oRule)"><i class="fa fa-play" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
             </td>
         </tr>
         </tbody>
@@ -65,7 +72,7 @@
                             {{getRuleToEdit().getSetToString()}}
                         </div>
                     </div>
-                    <div class="row rule-to-edit-editable-value actual-value">
+                    <div class="row rule-to-edit-editable-value actual-value" [hidden]="isDialogModeEditRule() == false">
                         <div class="col-4 text-left">Actual Value</div>
                         <div class="col-8 text-left">
                             <!-- On the base of rule type the value editor is different -->
@@ -81,13 +88,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-ge-outline-primary float-left btn-trigger-next"
-                            data-dismiss="modal" (click)="onTriggerNext()">Trigger next
-                    </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onSaveRule()">Save
-                        changes
-                    </button>
+                    <button type="button" class="btn btn-ge-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-ge-success" data-dismiss="modal"
+                            (click)="onSaveRule()"
+                            [hidden]="isDialogModeEditRule() == false">Save changes</button>
+                    <button type="button" class="btn btn-ge-outline-primary btn-trigger-next" data-dismiss="modal"
+                            (click)="onTriggerNext()"
+                            [hidden]="isDialogModeTriggerNext() == false">Trigger next</button>
                 </div>
             </div>
         </div>

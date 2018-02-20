@@ -9,6 +9,8 @@ import CounterRule = ge.cim.models.CounterRule;
 import TimingRule = ge.cim.models.TimingRule;
 
 
+enum DialogMode {EDIT_RULE, TRIGER_NEXT};
+
 @Component({
     selector: 'rules-table',
     templateUrl: 'app/components/rules_report_table/RulesReportTableTemplate.html'
@@ -28,11 +30,14 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     private _oEventEmitterTriggerNext= new EventEmitter<Rule>()
 
 
+
+
     private _oRuleToEditOriginal : Rule;
     private _oRuleToEdit : Rule;
     private _sActualAsStringForTimingRule : string;
     //private _sActualForTimingRuleDateTimeFormat : string;
     private _oModal : JQuery;
+    private _oDialogMode: DialogMode;
 
 
     constructor()
@@ -52,6 +57,22 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         //debugger;
     }
 
+
+    private openEditRuleOrTriggerNextModal(oRule:Rule, oMode:DialogMode)
+    {
+        this._oDialogMode = oMode;
+
+        //this._oRuleToEdit = oRule;
+        this._oRuleToEditOriginal = oRule;
+        this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(oRule), oRule);
+        this._sActualAsStringForTimingRule = this._oRuleToEdit.getActualToString();
+
+        if( Utils.isNullOrUndef(this._oModal) == true)
+        {
+            this._oModal = $("#editRuleModal");
+        }
+        this._oModal.modal('show');
+    }
 
 
     public getRulesList() { return this._aoRulesList; }
@@ -92,17 +113,16 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     public getRuleToEdit(){ return this._oRuleToEdit; }
     public openEditRuleModal(oRule : Rule)
     {
-        //this._oRuleToEdit = oRule;
-        this._oRuleToEditOriginal = oRule;
-        this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(oRule), oRule);
-        this._sActualAsStringForTimingRule = this._oRuleToEdit.getActualToString();
-
-        if( Utils.isNullOrUndef(this._oModal) == true)
-        {
-            this._oModal = $("#editRuleModal");
-        }
-        this._oModal.modal('show');
+        this.openEditRuleOrTriggerNextModal(oRule, DialogMode.EDIT_RULE);
     }
+
+    public openTriggerNextModal(oRule : Rule)
+    {
+        this.openEditRuleOrTriggerNextModal(oRule, DialogMode.TRIGER_NEXT);
+    }
+
+    public isDialogModeEditRule(){ return this._oDialogMode == DialogMode.EDIT_RULE; }
+    public isDialogModeTriggerNext(){ return this._oDialogMode == DialogMode.TRIGER_NEXT; }
 
 
     public onSaveRule() { this._oEventEmitterSaveRule.emit(this._oRuleToEdit); }

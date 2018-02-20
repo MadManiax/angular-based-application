@@ -40,6 +40,25 @@
 		}
 	}
 
+	&-secondary{
+		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		background-color: #ebebeb !important;
+		&:hover{
+			background-color: darken($color-cimplicity-gray-light, 20%) !important;
+		}
+	}
+
+	&-success{
+		border: 1px solid $color-cimplicity-blue-dark;
+		background-color: #3f3fa0; //lighten($color-cimplicity-blue-dark, 10%);
+		color: whitesmoke;
+
+		&:hover{
+			//background-color: lighten($color-cimplicity-gray-light, 4%);
+			background-color: $color-cimplicity-blue-dark;
+		}
+	}
+
 	&-cancel{
 		//color: $color-cancel-text;
 		//background-color: $color-cancel-bg;
@@ -53,7 +72,7 @@
 		border: 1px solid darken($color-cimplicity-gray-light, 20%);
 		background-color: $color-cimplicity-gray-light;
 		&:hover{
-			background-color: lighten($color-cimplicity-gray-light, 4%);
+			background-color: darken($color-cimplicity-gray-light, 10%);
 		}
 	}
 }

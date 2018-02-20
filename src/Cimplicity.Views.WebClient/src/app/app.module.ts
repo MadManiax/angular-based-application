@@ -14,8 +14,6 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
-//import {MatTableModule} from "@angular/material";
-
 
 
 @NgModule({
@@ -25,7 +23,6 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
         //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
-        //MatTableModule
     ],
     declarations: [
         AppComponent,

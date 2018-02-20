@@ -153,12 +153,23 @@
     .btn-ge-outline-primary:hover {
       background-color: #010086;
       color: whitesmoke; }
+  .btn-ge-secondary {
+    border: 1px solid #aeaeae;
+    background-color: #ebebeb !important; }
+    .btn-ge-secondary:hover {
+      background-color: #aeaeae !important; }
+  .btn-ge-success {
+    border: 1px solid #010086;
+    background-color: #3f3fa0;
+    color: whitesmoke; }
+    .btn-ge-success:hover {
+      background-color: #010086; }
   .btn-ge-cancel {
     color: #333;
     border: 1px solid #aeaeae;
     background-color: #e1e1e1; }
     .btn-ge-cancel:hover {
-      background-color: #ebebeb; }
+      background-color: #c8c8c8; }
 
 .app-container {
   width: 100vw;
@@ -211,11 +222,6 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll; }
-  .table-container button {
-    min-width: 80px; }
-  .table-container .rule-name-wrapper {
-    width: calc(100% - 90px);
-    display: inline-block; }
   .table-container table {
     width: 100%;
     border-collapse: collapse;
@@ -233,7 +239,8 @@
       font-weight: bold; }
     .table-container table tbody tr td {
       font-size: 1.1rem;
-      font-weight: normal; }
+      font-weight: normal;
+      vertical-align: middle; }
     .table-container table .col-actual {
       width: 130px; }
     .table-container table .col-overflow {
@@ -241,6 +248,24 @@
       .table-container table .col-overflow-set {
         padding-left: 18px;
         padding-right: 18px; }
+    .table-container table .col-rule-name {
+      padding-top: 0px;
+      padding-bottom: 0px; }
+      .table-container table .col-rule-name .rule-name-wrapper {
+        padding-top: 7px;
+        padding-bottom: 7px;
+        height: 56px;
+        overflow: hidden; }
+    .table-container table .rule-name-wrapper {
+      width: calc(100% - 94px);
+      display: inline-block;
+      float: left; }
+    .table-container table .edit-trigger-btns-wrapper {
+      width: 80px;
+      float: right;
+      height: 100%; }
+      .table-container table .edit-trigger-btns-wrapper .btn-group {
+        margin-top: 18px; }
   .table-container .fake-empty-table {
     width: 100%;
     height: calc(100% - 100px);
@@ -273,8 +298,5 @@
         width: 100%;
         min-height: 110px;
         max-height: 220px; }
-    .table-container .rule-editor-container .btn-trigger-next {
-      position: absolute;
-      left: 16px; }
 
 /*# sourceMappingURL=site.css.map */
