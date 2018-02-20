@@ -153,6 +153,13 @@ gulp.task("copy:moment", function () {
         .pipe(gulp.dest(config.lib + "moment"));
 });
 
+gulp.task("copy:tslib", function () {
+
+    return gulp.src(config.tslib,
+        { base: config.node_modules + "tslib/" })
+        .pipe(gulp.dest(config.lib + "tslib/"));
+});
+
 gulp.task("dependencies", [
     "copy:angular",
     "copy:angularWebApi",
@@ -168,7 +175,8 @@ gulp.task("dependencies", [
     //"copy:index",
     "copy:signalr",
     "copy:plugin_babel",
-    "copy:moment"
+    "copy:moment",
+    "copy:tslib"
 ]);
 
 

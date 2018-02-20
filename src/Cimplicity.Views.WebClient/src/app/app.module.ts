@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿///<reference path="../../node_modules/@angular/material/button/typings/button-module.d.ts"/>
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BaseRequestOptions, Http, HttpModule} from '@angular/http';
 
@@ -14,7 +15,7 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
-//import {MatTableModule} from "@angular/material";
+import {MatButtonModule, MatTableModule} from "@angular/material";
 
 
 
@@ -25,7 +26,8 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
         //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
-        //MatTableModule
+        MatTableModule,
+        MatButtonModule
     ],
     declarations: [
         AppComponent,
