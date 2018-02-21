@@ -47,15 +47,15 @@ gulp.task('compile:typescript', function() {
         '!' + config.srcBaseDir + '/classes/**/*.ts',
         '!' + config.srcLibDir + '/**/*.ts'
     ]) // or tsProjectApp.src()
-    .pipe(tsProjectApp());
+        .pipe(tsProjectApp());
     oRetval = tsResult.js.pipe(gulp.dest(config.destBaseDir));
 
     var tsProjectClasses = ts.createProject('tsconfig.json');
     tsResult = gulp.src([
         config.srcBaseDir + '/classes/**/*.ts',
         //'!' + config.srcLibDir + '/**/*.ts'
-        ]) // or tsProjectApp.src()
-    .pipe(tsProjectClasses());
+    ]) // or tsProjectApp.src()
+        .pipe(tsProjectClasses());
     oRetval = tsResult.js.pipe(gulp.dest(config.destBaseDir + '/classes'));
 
     return oRetval;
@@ -76,10 +76,10 @@ gulp.task('minify:css', function () {
 
 /* Minify all .js files into 'wwwroot/app' dir */
 gulp.task('minify:dist-js-in-app-dir', function () {
-        gulp.src([
-            config.destApp + "/**/*.js",
-            '!' + config.destApp + "/**/*.min.js"   // ignore already min file
-        ])
+    gulp.src([
+        config.destApp + "/**/*.js",
+        '!' + config.destApp + "/**/*.min.js"   // ignore already min file
+    ])
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(config.destApp));
@@ -88,9 +88,9 @@ gulp.task('minify:dist-js-in-app-dir', function () {
 /* Minify all .js files into 'wwwroot/js' dir */
 gulp.task('minify:dist-js-in-js-dir', function () {
     gulp.src([
-            config.destJS + "/**/*.js",
-            '!' + config.destJS + "/**/*.min.js"
-        ])
+        config.destJS + "/**/*.js",
+        '!' + config.destJS + "/**/*.min.js"
+    ])
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(config.destJS));
@@ -270,9 +270,8 @@ gulp.task("debug:copy-minimal-and-minify", function(){
 gulp.task("release:debug-clean-copy-minify-compile", function(){
     runSequence(
         'clean',
-        'compile:typescript'
-        'debug:copy-minimal-and-minify',
-
+        'compile:typescript',
+        'debug:copy-minimal-and-minify'
     );
 });
 
@@ -315,6 +314,6 @@ gulp.task("release:debug-clean-copy-minify-compile", function(){
 // });
 gulp.task("default", ["clean", 'minify', "dependencies"])
     .on('end',
-    function () {
-        return gulp.watch(config.app, ["copy-changed:app"]);
-    });
+        function () {
+            return gulp.watch(config.app, ["copy-changed:app"]);
+        });
