@@ -380,8 +380,8 @@ src/lib
 !src/js/systemjs.config.js
 !typings/
 
-# Exclude, from dist, all libraries
-wwwroot/lib
+# Exclude dist folder
+wwwroot
 
 # Exclude Node.js moduls
 node_modules

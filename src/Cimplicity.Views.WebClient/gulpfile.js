@@ -2,6 +2,7 @@
 "use strict";
 
 var gulp = require('gulp');
+var runSequence = require('run-sequence');
 var config = require('./gulp.config')();
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -27,7 +28,7 @@ gulp.task("clean", ["clean:js", "clean:css"]);
 
 
 //***********************************************************************************
-//* Task to minify files in production
+//* Task to minify files in production (so in 'wwwroot' folder)
 //***********************************************************************************
 gulp.task('minify:css', function () {
     return gulp.src(config.cssDestDir)
@@ -38,6 +39,32 @@ gulp.task('minify:css', function () {
         .pipe(gulp.dest(config.cssDestDir));
 });
 
+/* Minify all .js files into 'wwwroot/app' dir */
+gulp.task('minify:dist-js-in-app-dir', function () {
+        gulp.src([
+            config.destApp + "/**/*.js",
+            '!' + config.destApp + "/**/*.min.js"   // ignore already min file
+        ])
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(config.destApp));
+});
+
+/* Minify all .js files into 'wwwroot/js' dir */
+gulp.task('minify:dist-js-in-js-dir', function () {
+    gulp.src([
+            config.destJS + "/**/*.js",
+            '!' + config.destJS + "/**/*.min.js"
+        ])
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(config.destJS));
+});
+
+/* Task to execute all .js minification tasks */
+gulp.task('minify:dist-js', ['minify:dist-js-in-app-dir', 'minify:dist-js-in-js-dir']);
+
+/* Task to execute all .css and .js files tasks */
 gulp.task('minify', ['minify:css']);
 
 
@@ -175,19 +202,19 @@ gulp.task("dependencies", [
 //***********************************************************************************
 //* Task to allow easy and fast debug
 //***********************************************************************************
-gulp.task('debug:create-fake-min-js', function (www) {
-    return pump([
-            gulp.src(config.sourceAppDir + "/**/*.js"),
-            uglify(),
-            rename({ suffix: '.min' }),
-            gulp.dest(config.destApp)
-        ],
-        www)
-});
+// gulp.task('debug:create-fake-min-js', function (www) {
+//     return pump([
+//             gulp.src(config.sourceAppDir + "/**/*.js"),
+//             uglify(),
+//             rename({ suffix: '.min' }),
+//             gulp.dest(config.destApp)
+//         ],
+//         www)
+// });
 
 gulp.task('copy:all-js-dir', function() {
     gulp.src(config.jsFilesSrc)
-        .pipe(gulp.dest(config.jsDest));
+        .pipe(gulp.dest(config.destJS));
 });
 
 gulp.task("debug:copy-minimal", [
@@ -196,6 +223,13 @@ gulp.task("debug:copy-minimal", [
     "copy:html_to_dist",
     "copy:all-js-dir"
 ]);
+
+gulp.task("debug:copy-minimal-and-minify", function(){
+    runSequence(
+        'debug:copy-minimal',
+        'minify'
+    );
+});
 
 
 
