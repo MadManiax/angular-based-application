@@ -1,4 +1,5 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿///<reference path="../classes/utils/VexUtils.ts"/>
+import { Component, OnInit } from '@angular/core';
 import VexUtils = jsutils.VexUtils;
 
 @Component({

@@ -6,13 +6,11 @@
 ///<reference path="../../classes/utils/Utils.ts"/>
 ///<reference path="../../dummy_data/report_dummy.ts"/>
 import { Injectable } from '@angular/core';
-import Filter = ge.cim.models.Filter;
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
 import EventRule = ge.cim.models.EventRule;
 import {Observable} from "rxjs/Observable";
 import Rule = ge.cim.models.Rule;
-import {of} from "rxjs/observable/of";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
 import Utils = jsutils.Utils;

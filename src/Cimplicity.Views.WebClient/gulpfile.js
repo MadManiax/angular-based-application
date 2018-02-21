@@ -13,18 +13,53 @@ var rename = require('gulp-rename');
 var pump = require('pump');
 var $ = require('gulp-load-plugins')({ lazy: true });
 
+var ts = require('gulp-typescript');
+
+
 
 //***********************************************************************************
 //* Task to clean up 'dest' directories
 //***********************************************************************************
 gulp.task("clean:js", function (cb) {
-    return gulp.src('wwwroot/js/*.min.js', { read: false }).pipe(clean());
+    return gulp.src('wwwroot/js/*.js', { read: false }).pipe(clean());
 });
 gulp.task("clean:css", function (cb) {
     return gulp.src(config.cssDestDir + '/*.css', { read: false }).pipe(clean());
 });
 
 gulp.task("clean", ["clean:js", "clean:css"]);
+
+
+
+//***********************************************************************************
+//* Task to compyle TypeScript
+//***********************************************************************************
+gulp.task('compile:typescript', function() {
+
+    var tsResult, oRetval;
+
+    var tsProjectApp = ts.createProject('tsconfig.json');
+    tsResult = gulp.src([
+        // Include ALL .ts files in 'src' except 'lib' and 'classes'
+        // (the 'classes' dir will be compiled below separately as unique file
+        //config.sourceAppDir + '/**/*.ts',
+        config.srcBaseDir + '/**/*.ts',
+        '!' + config.srcBaseDir + '/classes/**/*.ts',
+        '!' + config.srcLibDir + '/**/*.ts'
+    ]) // or tsProjectApp.src()
+    .pipe(tsProjectApp());
+    oRetval = tsResult.js.pipe(gulp.dest(config.destBaseDir));
+
+    var tsProjectClasses = ts.createProject('tsconfig.json');
+    tsResult = gulp.src([
+        config.srcBaseDir + '/classes/**/*.ts',
+        //'!' + config.srcLibDir + '/**/*.ts'
+        ]) // or tsProjectApp.src()
+    .pipe(tsProjectClasses());
+    oRetval = tsResult.js.pipe(gulp.dest(config.destBaseDir + '/classes'));
+
+    return oRetval;
+});
 
 
 //***********************************************************************************
@@ -202,48 +237,55 @@ gulp.task("dependencies", [
 //***********************************************************************************
 //* Task to allow easy and fast debug
 //***********************************************************************************
-// gulp.task('debug:create-fake-min-js', function (www) {
-//     return pump([
-//             gulp.src(config.sourceAppDir + "/**/*.js"),
-//             uglify(),
-//             rename({ suffix: '.min' }),
-//             gulp.dest(config.destApp)
-//         ],
-//         www)
-// });
-
 gulp.task('copy:all-js-dir', function() {
     gulp.src(config.jsFilesSrc)
         .pipe(gulp.dest(config.destJS));
 });
 
 gulp.task("debug:copy-minimal", [
-    "clean:css",
     "copy:css_to_dist",
     "copy:html_to_dist",
     "copy:all-js-dir"
 ]);
 
+gulp.task("debug:copy-minimal-clean-first", function() {
+    runSequence(
+        "clean:css",
+        'debug:copy-minimal'
+    )
+});
+
 gulp.task("debug:copy-minimal-and-minify", function(){
     runSequence(
-        'debug:copy-minimal',
+        'debug:copy-minimal-clean-first',
         'minify'
     );
 });
 
 
 
+//***********************************************************************************
+//* Task to release
+//***********************************************************************************
+gulp.task("release:debug-clean-copy-minify-compile", function(){
+    runSequence(
+        'clean',
+        'compile:typescript'
+        'debug:copy-minimal-and-minify',
 
-
-gulp.task('publish-app-wwwroot:js', function (www) {
-    return pump([
-            gulp.src("app/**/*.js"),
-            uglify(),
-            rename({ suffix: '.min' }),
-            gulp.dest(config.destApp)
-        ],
-        www);
+    );
 });
+
+
+// gulp.task('publish-app-wwwroot:js', function (www) {
+//     return pump([
+//             gulp.src("app/**/*.js"),
+//             uglify(),
+//             rename({ suffix: '.min' }),
+//             gulp.dest(config.destApp)
+//         ],
+//         www);
+// });
 
 
 
@@ -261,16 +303,16 @@ gulp.task('publish-app-wwwroot:js', function (www) {
 //});
 
 
-gulp.task('copy-changed:app', function (chg) {
-    return pump([
-            gulp.src(config.sourceApp),
-            changed(config.destApp),
-            uglify(),
-            rename({ suffix: '.min' }),
-            gulp.dest(config.destApp)
-        ],
-        chg);
-});
+// gulp.task('copy-changed:app', function (chg) {
+//     return pump([
+//             gulp.src(config.sourceApp),
+//             changed(config.destApp),
+//             uglify(),
+//             rename({ suffix: '.min' }),
+//             gulp.dest(config.destApp)
+//         ],
+//         chg);
+// });
 gulp.task("default", ["clean", 'minify', "dependencies"])
     .on('end',
     function () {

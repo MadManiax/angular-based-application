@@ -1,4 +1,5 @@
 ///<reference path="../classes/models/Rule.ts"/>
+///<reference path="../classes/models/Filter.ts"/>
 module ge.cim {
 
     import Filter = ge.cim.models.Filter;

@@ -1,5 +1,6 @@
 ///<reference path="../../../classes/utils/Utils.ts"/>
 ///<reference path="../../../classes/models/RulesReportTableColumn.ts"/>
+///<reference path="../../../classes/utils/VexUtils.ts"/>
 
 import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Utils = jsutils.Utils;
