@@ -33,7 +33,7 @@
                 hashCode = (hashCode * 397) ^ Set.GetHashCode();
                 hashCode = (hashCode * 397) ^ OverflowRemaining.GetHashCode();
                 hashCode = (hashCode * 397) ^ OverflowSet.GetHashCode();
-                hashCode = (hashCode * 397) ^ (RuleName != null ? RuleName.GetHashCode() : 0),
+                hashCode = (hashCode * 397) ^ (RuleName != null ? RuleName.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (RuleType != null ? RuleType.GetHashCode() : 0);
                 return hashCode;
             }

@@ -44,16 +44,16 @@ namespace Cimplicity.Views.Application.Abstractions
 
         public TypedServiceResult<IEnumerable<ReportOverviewViewModel>> Get(ReportOverviewFilterViewModel model)
         {
-            var result = this.Get(model.WorkArea, model.Filters?.ProductionLineFilter, model.Filters?.WorkCellFilter,
+            var response = this.Get(model.WorkArea, model.Filters?.ProductionLineFilter, model.Filters?.WorkCellFilter,
                 model.Filters?.RuleTypeFilter, model.Filters?.MaterialDefinitionFilter, model.Paging.PageNumber,
                 model.Paging.PageSize);
 
-            if (result.Status == ResultStatus.Error || !result.Result.Any())
+            if (response.Status == ResultStatus.Error || !response.Result.Any())
             {
-                return result;
+                return response;
             }
 
-            var list = result.Result;
+            var list = response.Result;
             foreach (var orderByInfo in model.OrderBy)
             {
                 if (orderByInfo.FieldName == "WL/WT")
@@ -90,14 +90,10 @@ namespace Cimplicity.Views.Application.Abstractions
                         ? list.OrderBy(el => el.Remaining)
                         : list.OrderByDescending(el => el.Remaining);
                 }
-
-                if (orderByInfo.FieldName == "RuleType")
-                {
-                    list = orderByInfo.Type == OrderByType.Asc
-                        ? list.OrderBy(el => el.RuleType)
-                        : list.OrderByDescending(el => el.RuleType);
-                }
             }
+
+            response.Result = list;
+            return response;
         }
     }
 }
