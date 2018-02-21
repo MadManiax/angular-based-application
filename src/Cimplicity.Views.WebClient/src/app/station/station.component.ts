@@ -199,6 +199,9 @@ export class StationComponent implements OnInit
         this._iAutoRefreshIntervalId = null;
     }
 
+    /**
+     * Open dialog to configure auto-refresh (intervall, etc)
+     */
     public openAutoRefreshTimeConfigurator()
     {
         // Save state and stop the auto-refresh while edit its config
@@ -225,7 +228,9 @@ export class StationComponent implements OnInit
             });
     }
 
-
+    /**
+     * Open dialog to configure pagination (rows per page, etc)
+     */
     public openPaginationConfigurator()
     {
         VexUtils.showPrompt("Enter the amount of rows to display in each page:", "", "Rows per page")
@@ -233,6 +238,7 @@ export class StationComponent implements OnInit
                 if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 0)
                 {
                     this._iCurrentRowsPerPage = parseInt(oValue);
+                    this.doSearch();
                 }
                 else{
                     VexUtils.showErrorAlert("Error while updating the amount of rows to display in each page. Please enter a number greater or equals thant 0.")

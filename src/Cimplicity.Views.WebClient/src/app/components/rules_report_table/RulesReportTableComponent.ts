@@ -127,8 +127,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
      */
     public getActualCellCssClass(oRule : Rule)
     {
-        //if(Utils.isNullOrUndef(oRule.Actual) == false && Utils.isNullOrUndef(oRule.Set) == false && oRule.Actual == oRule.Set)
-        if(Utils.isNullOrUndef(oRule.Remaining) == false && oRule.Remaining == 0)
+        if(oRule.isActualEqualsSet() == true)
         {
             return "cell-actual-equals-to-set";
         }
@@ -144,7 +143,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
      */
     public getOverflowRemainingCellCssClass(oRule : Rule)
     {
-        if(Utils.isNullOrUndef(oRule.OverflowRemaining) == false && oRule.OverflowRemaining == 0){
+        if(oRule.hasOverflowReachedLimit() == true){
             return "cell-no-more-overflow-available";
         }
         return "";
@@ -158,7 +157,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges
      */
     public getRuleNameCellCssClass(oRule : Rule)
     {
-        if(oRule.Actual == oRule.Set || oRule.OverflowRemaining < oRule.OverflowSet){
+        if(oRule.isInWarning()){
             return "cell-warning";
         }
         return "";

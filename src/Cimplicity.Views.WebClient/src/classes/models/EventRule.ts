@@ -1,6 +1,9 @@
 ///<reference path="Rule.ts"/>
+///<reference path="../utils/Utils.ts"/>
 
 module ge.cim.models {
+
+    import Utils = jsutils.Utils;
 
     export class EventRule extends Rule
     {
@@ -9,12 +12,17 @@ module ge.cim.models {
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
+        private static RULE_TYPE = "Event";
 
 
         //*******************************************************************************
         //* Static methods
         //*******************************************************************************
-
+        public static isMyJsonInstance(oJson:any)
+        {
+            let sType = Utils.getObjectProperty(oJson, Rule.JSON_FIELD_TYPE, null);
+            return (sType == EventRule.RULE_TYPE);
+        }
 
         //*******************************************************************************
         //* Members
@@ -49,6 +57,28 @@ module ge.cim.models {
         public getActualToString():string { return ""; }
 
         getRuleType(): string {return "Event"; }
+
+
+        public isActualEqualsSet():boolean
+        {
+            return false;
+
+        }
+        public isInWarning():boolean
+        {
+            if( this.isActualEqualsSet() == true){ return true}
+            else if( Utils.isNullOrUndef(this.OverflowRemaining) == false && Utils.isNullOrUndef(this.OverflowSet) == false )
+            {
+                return this.OverflowRemaining < this.OverflowSet;
+            }
+        }
+        public hasOverflowReachedLimit():boolean
+        {
+            if( Utils.isNullOrUndef(this.OverflowRemaining) == false ){
+                return this.OverflowRemaining == 0 }
+            return false;
+        }
+
 
         public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):EventRule
         {

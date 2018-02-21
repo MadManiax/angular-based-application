@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outFile": "../../wwwroot/dummy_data/all.js",
+		"sourceMap": true
+	},
+	"include": [
+		"*.ts",
+		"**/*.ts"
+	]
+}

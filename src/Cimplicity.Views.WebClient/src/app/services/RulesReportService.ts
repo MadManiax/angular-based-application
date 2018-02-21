@@ -3,6 +3,8 @@
 ///<reference path="../../classes/models/EventRule.ts"/>
 ///<reference path="../../classes/models/Rule.ts"/>
 ///<reference path="../../interfaces/IRestRulesReport.ts"/>
+///<reference path="../../classes/utils/Utils.ts"/>
+///<reference path="../../dummy_data/report_dummy.ts"/>
 import { Injectable } from '@angular/core';
 import Filter = ge.cim.models.Filter;
 import TimingRule = ge.cim.models.TimingRule;
@@ -13,6 +15,8 @@ import Rule = ge.cim.models.Rule;
 import {of} from "rxjs/observable/of";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
+import Utils = jsutils.Utils;
+import DummyReport = ge.cim.dummydata.DUMMY_REPORT;
 
 @Injectable()
 export class RulesReportService
@@ -43,14 +47,53 @@ export class RulesReportService
             // Then perform request
             setTimeout(()=>{
 
-                oResponse.TotalPages = 10;
-                for (let i = 0; i < aoParams.RowsPerPage; i++)
+                // Generate fake data
+                // splitting them into pages
+                let iPage = 0;
+                let iCounter = 0;
+
+                // let oPages = [];
+                // for (let i = 0; i < 100; i++)
+                // {
+                //     let oRule = null;
+                //     let fRand = Math.random();
+                //     if(fRand < 0.33){ oRule = new TimingRule().fillWithDummyData(); }
+                //     else if(fRand < 0.66){ oRule = new CounterRule().fillWithDummyData(); }
+                //     else{oRule = new EventRule().fillWithDummyData();}
+                //
+                //     if(Utils.isNullOrUndef(oPages[iPage]) == true)
+                //     {
+                //         oPages[iPage] = [];
+                //     }
+                //
+                //     oPages[iPage].push(oRule);
+                //
+                //     // If current page has reached limit, add new page
+                //     if(oPages[iPage].length == aoParams.RowsPerPage)
+                //     {
+                //         iCounter = 0;
+                //         iPage++;
+                //     }
+                //
+                // }
+                // console.debug(JSON.stringify(oPages));
+
+                let oPages = DummyReport;
+
+                oResponse.TotalPages = oPages.length;
+                if( aoParams.CurrentPage < oResponse.TotalPages )
                 {
-                    let fRand = Math.random();
-                    if(fRand < 0.33){ oResponse.RulesList.push(new TimingRule().fillWithDummyData()); }
-                    else if(fRand < 0.66){ oResponse.RulesList.push(new CounterRule().fillWithDummyData()); }
-                    else{oResponse.RulesList.push(new EventRule().fillWithDummyData());}
+                    let oPageInJson : any = oPages[aoParams.CurrentPage];
+
+                    for(let i = 0; i < oPageInJson.length; i++)
+                    {
+                        let oRuleInJson = oPageInJson[i];
+                        if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
+                        if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                        if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                    }
                 }
+
                 // set observer value and set it as 'completed'
                 observer.next(oResponse);
                 observer.complete();

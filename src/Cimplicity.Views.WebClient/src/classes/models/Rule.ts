@@ -1,13 +1,15 @@
+///<reference path="../BaseClass.ts"/>
 
 module ge.cim.models {
 
-    export abstract class Rule
+    export abstract class Rule extends BaseClass
     {
 
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
-        protected static JSON_FIELD_WORK_CELL = "WorkCell";
+        protected static JSON_FIELD_WORK_CELL   = "WorkCell";
+        protected static JSON_FIELD_TYPE        = "Type";
 
 
         //*******************************************************************************
@@ -31,7 +33,7 @@ module ge.cim.models {
 
         public constructor()
         {
-
+            super();
         }
 
 
@@ -121,6 +123,41 @@ module ge.cim.models {
 
         public abstract fillWithDummyData():Rule;
         public abstract getRuleType():string;
+        public abstract isActualEqualsSet():boolean;
+        public abstract isInWarning():boolean;
+        public abstract hasOverflowReachedLimit():boolean;
+
+
+        public fromJSON(oJson:any)
+        {
+            this._WorkCell = oJson.WorkCell;
+            this._WorkUnit = oJson.WorkUnit;
+            this._Actual = oJson.Actual;
+            this._Remaining = oJson.Remaining;
+            this._Set = oJson.Set;
+            this._OverflowRemaining = oJson.OverflowRemaining;
+            this._OverflowSet = oJson.OverflowSet;
+            this._Name = oJson.Name;
+
+            return this;
+        }
+
+        public toJSON()
+        {
+            let oRetval = {
+                WorkCell    : this._WorkCell,
+                WorkUnit    : this._WorkUnit,
+                Actual      : this._Actual,
+                Remaining   : this._Remaining,
+                Set         : this._Set,
+                OverflowRemaining : this._OverflowRemaining,
+                OverflowSet : this._OverflowSet,
+                Name        : this._Name
+            };
+            oRetval[Rule.JSON_FIELD_TYPE] = this.getRuleType();
+
+            return oRetval;
+        }
         ///</editor-fold>
     }
 

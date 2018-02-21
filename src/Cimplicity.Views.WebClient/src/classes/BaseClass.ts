@@ -1,10 +1,6 @@
+module ge.cim {
 
-///<reference path="Rule.ts"/>
-///<reference path="TableColumn.ts"/>
-
-module ge.cim.models {
-
-    export class RulesReportTableColumn extends TableColumn
+    export abstract class BaseClass
     {
 
         //*******************************************************************************
@@ -12,22 +8,21 @@ module ge.cim.models {
         //*******************************************************************************
 
 
+
         //*******************************************************************************
         //* Static methods
         //*******************************************************************************
 
 
+
         //*******************************************************************************
         //* Members
         //*******************************************************************************
-        protected _bAllowFilters : boolean;
-        protected _bAllowSorting : boolean;
 
-        public constructor(sCaption : string = "")
+
+        public constructor()
         {
-            super(sCaption);
-            this._bAllowFilters = false;
-            this._bAllowSorting = false;
+
         }
 
 
@@ -38,32 +33,19 @@ module ge.cim.models {
         ///</editor-fold>
 
         //*******************************************************************************
-        //* Private methods
+        //* Protected methods
         //*******************************************************************************
         ///<editor-fold desc="Protected methods (+)>
-
+        protected getClassName()
+        {
+            return this.constructor.name;
+        }
         ///</editor-fold>
 
         //*******************************************************************************
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
-        public allowFilters(){ this._bAllowFilters = true; return this;}
-        public allowSorting(){ this._bAllowSorting = true; return this;}
-
-        public isSortingAllowed(){ return this._bAllowSorting; }
-
-        public getCssClasses()
-        {
-            let sClasses = this.cssClasses;
-            if(this._bAllowSorting == true)
-            {
-                sClasses += " " + "col-allow-sorting";
-            }
-            return sClasses;
-        }
-        //public abstract setDefault();
-
         ///</editor-fold>
     }
 

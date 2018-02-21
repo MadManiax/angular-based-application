@@ -1,5 +1,6 @@
 ///<reference path="Rule.ts"/>
 ///<reference path="../../../typings/index.d.ts"/>
+///<reference path="../utils/Utils.ts"/>
 
 
 
@@ -8,6 +9,8 @@ module ge.cim.models
     //import * as moment from 'moment/moment';
     //var moment = require('moment');
 
+    import Utils = jsutils.Utils;
+
     export class TimingRule extends Rule
     {
 
@@ -15,12 +18,17 @@ module ge.cim.models
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
+        private static RULE_TYPE = "Timing";
         public static DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
 
         //*******************************************************************************
         //* Static methods
         //*******************************************************************************
-
+        public static isMyJsonInstance(oJson:any)
+        {
+            let sType = Utils.getObjectProperty(oJson, Rule.JSON_FIELD_TYPE, null);
+            return (sType == TimingRule.RULE_TYPE);
+        }
 
         //*******************************************************************************
         //* Members
@@ -63,7 +71,29 @@ module ge.cim.models
         public getActualToString():string { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); }
         public getActualAsDateTime():moment.Moment{ return this._oActualDateTime; }
 
-        getRuleType(): string {return "Timing"; }
+        getRuleType(): string {return TimingRule.RULE_TYPE; }
+
+
+        public isActualEqualsSet():boolean
+        {
+            return (this.Remaining == 0);
+
+        }
+        public isInWarning():boolean
+        {
+            if( this.isActualEqualsSet() == true){ return true}
+            else if( Utils.isNullOrUndef(this.OverflowRemaining) == false && Utils.isNullOrUndef(this.OverflowSet) == false )
+            {
+                return this.OverflowRemaining < this.OverflowSet;
+            }
+        }
+        public hasOverflowReachedLimit():boolean
+        {
+            if( Utils.isNullOrUndef(this.OverflowRemaining) == false ){
+                return this.OverflowRemaining == 0 }
+            return false;
+        }
+
 
         public fillWithDummyData(bUseNullWorkUnit:boolean=false, bUseNoOverflow:boolean=false):TimingRule
         {
@@ -101,6 +131,20 @@ module ge.cim.models
             this.Name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum orci ut neque egestas, id maximus arcu interdum. Duis id suscipit mi, id sollicitudin lacus. Proin vitae iaculis leo-" + Math.round(Math.random() * 9999);
 
             return this;
+        }
+
+        public fromJSON(oJson:any)
+        {
+            super.fromJSON(oJson);
+            this._oActualDateTime = moment.unix(this.Actual);
+            return this;
+        }
+
+        public toJSON()
+        {
+            let oRetval = super.toJSON();
+            oRetval.Actual = this._oActualDateTime.unix();
+            return oRetval;
         }
         ///</editor-fold>
     }
