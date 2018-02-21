@@ -270,9 +270,8 @@ gulp.task("debug:copy-minimal-and-minify", function(){
 gulp.task("release:debug-clean-copy-minify-compile", function(){
     runSequence(
         'clean',
-        'compile:typescript'
-        'debug:copy-minimal-and-minify',
-
+        'compile:typescript',
+        'debug:copy-minimal-and-minify'
     );
 });
 
