@@ -118,7 +118,7 @@ export class StationComponent implements OnInit
     /**
      * Open/Close filters panel
      */
-    public toggleFiltersPanel(){ debugger; this._bIsFiltersPanelVisible = !this._bIsFiltersPanelVisible;}
+    public toggleFiltersPanel(){ this._bIsFiltersPanelVisible = !this._bIsFiltersPanelVisible;}
     /**
      * @returns {boolean} TRUE if the filters panel has been toggle to visible, FALSE otherwise
      */

@@ -1,13 +1,29 @@
 ﻿<div class="station-display-container">
     <div class="filters-panel-wrapper" [ngClass]="{'visible' : isFiltersPanelVisible() == true}">
-
+        <div class="row">
+            <div class="col col-ge-report-filter">
+                <advanced-dropdown caption="Production line"></advanced-dropdown>
+            </div>
+            <div class="col col-ge-report-filter">
+                <advanced-dropdown caption="Work Cells"></advanced-dropdown>
+            </div>
+            <div class="col col-ge-report-filter">
+                <advanced-dropdown caption="Rule Types"></advanced-dropdown>
+            </div>
+            <div class="col col-ge-report-filter">
+                <advanced-dropdown caption="Materials"></advanced-dropdown>
+            </div>
+            <div class="col col-ge-report-filter">
+                <button class="btn btn-ge-default clear-all-filters-btn"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
+            </div>
+        </div>
     </div>
     <div class="filters-container row">
         <div class="col-lg-2">
             <button class="btn btn-ge btn-ge-outline-primary" (click)="toggleFiltersPanel()"><i class="fa fa-filter" aria-hidden="true"></i>Filters</button>
         </div>
         <div class="col-lg-6">
-            <advanced-dropdown></advanced-dropdown>
+            <!-- Empty row -->
         </div>
         <div class="col-lg-4 text-right search-toolbar-wrapper">
             <!--<button class="btn btn-ge-cancel" (click)="doSearch()"><i class="fa fa-trash-o padding-right"></i>Clear filters</button>-->

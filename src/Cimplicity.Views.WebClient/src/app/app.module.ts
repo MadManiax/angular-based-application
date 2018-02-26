@@ -15,6 +15,7 @@ import {RulesReportTableComponent} from "./components/rules_report_table/RulesRe
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
 import {AdvancedDropdownComponent} from "./components/advanced_dropdown/AdvancedDropdownComponent";
+import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 
 
 @NgModule({
@@ -33,7 +34,9 @@ import {AdvancedDropdownComponent} from "./components/advanced_dropdown/Advanced
         LoadingScreenComponent,
         RulesReportTableComponent,
         DatetimePickerComponent,
-        AdvancedDropdownComponent
+        AdvancedDropdownComponent,
+
+        DropdownOptionSearchPipe
     ],
     bootstrap: [
         AppComponent

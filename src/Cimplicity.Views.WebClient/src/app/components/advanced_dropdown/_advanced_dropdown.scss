@@ -1,15 +1,48 @@
 .advanced-dropdown{
 
+	&-caption{
+		&.inline{
+			position: relative;
+			display: inline-block;
+			top: 2px;
+			margin-right: 8px;
+		}
+	}
+
+	.button-group{
+		display: inline-block;
+        min-width: 160px;
+
+        .dropdown-toggle{
+            width: 100%;
+
+            &::after{
+                // the 'down' arrow
+                margin-top: 0.6em;
+                float: right;
+            }
+        }
+	}
+
+    .advanced-dropdown-summary{
+        display: inline-block;
+        width: calc(100% - 36px);
+    }
+
+
 	.dropdown-menu{
 		padding: 0px;
 
 		.dropdown-search-option{
 			padding: 6px 10px;
 			background-color: #eee;
+            height: 46px;
 			input{
 				padding: 2px 6px;
 			}
 		}
+
+
 
 		.dropdown-option-list{
 			max-height: 300px;
@@ -17,6 +50,7 @@
 			margin: 0px;
 			list-style: none;
 			padding: 0px;
+            min-height: 36px;
 
 			.dropdown-option{
 				padding: 6px;
@@ -46,6 +80,19 @@
 				}
 			}
 		}
+
+
+        .dropdown-clear-all-selected-option{
+            height: 46px;
+            text-align: center;
+            padding-top: 10px;
+            background-color: #eee;
+
+            &:hover{
+                background-color: darken(#eee, 10%);
+                cursor: pointer;
+            }
+        }
 
 	}
 }

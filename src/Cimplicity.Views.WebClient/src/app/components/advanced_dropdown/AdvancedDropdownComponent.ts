@@ -23,6 +23,10 @@ import VexUtils = jsutils.VexUtils;
 })
 export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewInit
 {
+    @Input('caption')
+    _sCaption : string;
+    @Input('useInlineCaption')
+    _bUseInlineCaption : boolean;
     @Input('optionCaptionProperty')
     _sOptionCaptionPropertyName : string;
     @Input('optionsList')
@@ -42,6 +46,7 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     {
         console.log('AdvancedDropdownComponent -> constructor');
 
+        this._sSearchValue = "";
     }
 
     ngOnInit()
@@ -62,6 +67,10 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
         }
 
         Utils.setObjectPropertyIfNotSet(this, "_aoSelectedOptionList", []);
+        Utils.setObjectPropertyIfNotSet(this, "_sCaption", "");
+        Utils.setObjectPropertyIfNotSet(this, "_bUseInlineCaption", false);
+
+
     }
 
     ngOnChanges(changes: SimpleChanges): void
@@ -71,11 +80,7 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
 
     ngAfterViewInit()
     {
-        this._oDropDownMenu = $(this._oElem.nativeElement.firstElementChild).children(".dropdown-menu");
-
-        this._oDropDownMenu.find("li").on( 'click', ( event )=>{
-            return false;
-        })
+        this.initDropdownConfig();
     }
 
 
@@ -85,6 +90,16 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     //* Private methods
     //*******************************************************************************
     ///<editor-fold desc="Private methods (+)>
+    private initDropdownConfig()
+    {
+        this._oDropDownMenu = $(this._oElem.nativeElement.firstElementChild).find(".dropdown-menu");
+
+        // Attach a listener to each option item 'click' event then
+        // return 'false' to prevent event propagation
+        this._oDropDownMenu.find(".prevent-close-dropdown").on( 'click', ( event )=>{
+            return false;
+        })
+    }
     ///</editor-fold>
 
     //*******************************************************************************
@@ -98,17 +113,53 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
     public getOptions(){ return this._aoOptionList; }
+    public getOptionCaptionPropertyName(){ return this._sOptionCaptionPropertyName;}
+    public getOptionCaptionValue(oOption:any)
+    {
+        return Utils.getObjectProperty(oOption, this.getOptionCaptionPropertyName(), "-empty caption-");
+    }
+
+    public getCaption()
+    {
+        return this._sCaption;
+    }
+
+    public useInlineCaption(){ return this._bUseInlineCaption;}
+
+    public getSummary()
+    {
+        let iSelectedItemsCount = this._aoSelectedOptionList.length;
+        if(iSelectedItemsCount == 0){ return "-";}
+        else if(iSelectedItemsCount == 1){ return this.getOptionCaptionValue(this._aoSelectedOptionList[0])}
+        else { return this._aoSelectedOptionList.length + " selected"; }
+    }
+
+    public clearAllSelectedOptions()
+    {
+        this._aoSelectedOptionList = [];
+    }
 
     public onOptionClick(oOption)
     {
         let iIndexOf = Utils.arrayIndexOf(this._aoSelectedOptionList, oOption)
+        let bIsSelected = false;
         if(  iIndexOf >= 0)
         {
+            // option was selected --> unselect it
             Utils.removeFromArray(this._aoSelectedOptionList, iIndexOf);
+            bIsSelected = false;
         }
-        else{
+        else
+        {
+            // option was not selecte ---> select it
             this._aoSelectedOptionList.push(oOption);
+            bIsSelected = true;
         }
+
+        this._fnOnOptionClick.emit({
+            option      : oOption,
+            selected    : bIsSelected
+        })
     }
 
     public isOptionSeleced(oOption)

@@ -1,21 +1,26 @@
-<div class="advanced-dropdown button-group">
-    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-filter padding-right" aria-hidden="true"></i>
-        <span class="advanced-dropdown-summary"></span>
-    </button>
-    <div class="dropdown-menu">
-        <div class="dropdown-search-option">
-            <input [ngModel]="_sSearchValue" placeholder="Search...">
+<div class="advanced-dropdown">
+    <div class="advanced-dropdown-caption" [ngClass]="{'inline' : useInlineCaption() == true}">{{getCaption()}}</div>
+    <div class="button-group">
+        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-filter padding-right" aria-hidden="true"></i>
+            <div class="advanced-dropdown-summary">{{getSummary()}}</div>
+        </button>
+        <div class="dropdown-menu">
+            <div class="dropdown-search-option">
+                <input [(ngModel)]="_sSearchValue" placeholder="Search...">
+            </div>
+            <ul class="dropdown-option-list">
+                <li *ngFor="let oOption of getOptions() | dropdownOptionSearch:_sSearchValue:getOptionCaptionPropertyName(); let iIndex = index;"
+                    (click)="onOptionClick(oOption)"
+                    class="dropdown-option prevent-close-dropdown"
+                    [ngClass]="{'selected' : isOptionSeleced(oOption) == true}">
+                    <!--<label for="cbx-{{iIndex}}"><input id="cbx-{{iIndex}}" value="cbx-{{iIndex}}" type="checkbox"/>Option {{iIndex}}</label>-->
+                    <i class="fa fa-check padding-right" aria-hidden="true"></i>{{getOptionCaptionValue(oOption)}}
+                </li>
+            </ul>
+            <div class="dropdown-clear-all-selected-option prevent-close-dropdown" (click)="clearAllSelectedOptions()">
+                <i class="fa fa-trash-o padding-right"></i>Clear all
+            </div>
         </div>
-        <ul class="dropdown-option-list">
-            <li *ngFor="let oOption of getOptions(); let iIndex = index;"
-                (click)="onOptionClick(oOption)"
-                class="dropdown-option"
-                [ngClass]="{'selected' : isOptionSeleced(oOption) == true}">
-                <!--<label for="cbx-{{iIndex}}"><input id="cbx-{{iIndex}}" value="cbx-{{iIndex}}" type="checkbox"/>Option {{iIndex}}</label>-->
-                <i class="fa fa-check padding-right" aria-hidden="true"></i>Option {{iIndex}}
-            </li>
-        </ul>
-
     </div>
 </div>
