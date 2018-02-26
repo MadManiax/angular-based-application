@@ -36,6 +36,7 @@ export class StationComponent implements OnInit
     private _iAutoRefreshIntervalId: number;
     private _oLatestRefresh : moment.Moment;
     private _iAutoRefreshIntervalInSeconds: number;
+    private _bIsFiltersPanelVisible: boolean;
 
 
     /*
@@ -53,6 +54,7 @@ export class StationComponent implements OnInit
         console.log('StationComponent -> constructor');
         this._iAutoRefreshIntervalId = null;
         this._iAutoRefreshIntervalInSeconds = 5;
+        this._bIsFiltersPanelVisible = false;
 
         this.initPagination();
     }
@@ -111,6 +113,16 @@ export class StationComponent implements OnInit
         this.initPagination();
         this.doSearch();
     }
+
+
+    /**
+     * Open/Close filters panel
+     */
+    public toggleFiltersPanel(){ debugger; this._bIsFiltersPanelVisible = !this._bIsFiltersPanelVisible;}
+    /**
+     * @returns {boolean} TRUE if the filters panel has been toggle to visible, FALSE otherwise
+     */
+    public isFiltersPanelVisible(){ return this._bIsFiltersPanelVisible; }
 
 
     public onOpenRuleEditor()

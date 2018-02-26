@@ -24,13 +24,24 @@ $color-cancel-border-hover	: #bd2130 !default;
 
 $color-green-ok-accept-etc-bg	: #28a745 !default;
 
-
+// RULES TABLE
 $color-rules-table-border: 			$color-cimplicity-blue-dark !default;	//#2b2b5e;
 $color-rules-table-header-border: 	#5076b7 !default;						//#2b2b5e;
 $color-rules-table-header-bg: 		$color-cimplicity-blue-dark !default;	//#5076b7;
 $color-rules-table-header-text: 	whitesmoke !default;;
 
+// FILTERS PANEL
+$color-filters-panel-bg		: whitesmoke !default;
+$color-filters-panel-shadow	: $color-cimplicity-blue-dark !default;
 
+// ADVANCED DROPDOWN
+$color-advanced-dropdown-selected-bg : $color-cimplicity-blue-dark !default;
+$color-advanced-dropdown-selected-color : whitesmoke !default;
+$color-advanced-dropdown-option-hover-bg: $color-cimplicity-btn-hover-light !default;
+$color-advanced-dropdown-option-hover-text : #333 !default;
+
+
+// LOADING SCREEN
 // For the loading screen spinning circle use Volvo logo color palette
 $color-loading-screen-spinning-circle-external: #e2e2e2 !default; 	//#3498db;
 $color-loading-screen-spinning-circle-medium: 	#cfcfcf !default;	//#e74c3c;

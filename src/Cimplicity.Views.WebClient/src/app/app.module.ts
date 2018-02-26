@@ -14,6 +14,7 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
+import {AdvancedDropdownComponent} from "./components/advanced_dropdown/AdvancedDropdownComponent";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
         StationComponent,
         LoadingScreenComponent,
         RulesReportTableComponent,
-        DatetimePickerComponent
+        DatetimePickerComponent,
+        AdvancedDropdownComponent
     ],
     bootstrap: [
         AppComponent
