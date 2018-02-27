@@ -1,5 +1,14 @@
 .advanced-dropdown{
 
+	&.disabled{
+		.button-group{
+			opacity: 0.3;
+		}
+		.dropdown-menu{
+			display: none !important;
+		}
+	}
+
 	&-caption{
 		&.inline{
 			position: relative;
@@ -12,6 +21,15 @@
 	.button-group{
 		display: inline-block;
         min-width: 160px;
+
+		button{
+			height: 32px;
+		}
+
+		.fa-filter{
+			float: left;
+			padding-top: 3px;
+		}
 
         .dropdown-toggle{
             width: 100%;
@@ -26,12 +44,16 @@
 
     .advanced-dropdown-summary{
         display: inline-block;
-        width: calc(100% - 36px);
+		width: calc(100% - 40px);
+		margin-right: 4px;
+		overflow: hidden;
     }
 
 
 	.dropdown-menu{
 		padding: 0px;
+		overflow: hidden;
+		border-color: #aaa;
 
 		.dropdown-search-option{
 			padding: 6px 10px;
@@ -39,6 +61,7 @@
             height: 46px;
 			input{
 				padding: 2px 6px;
+				width: 100%;
 			}
 		}
 
@@ -47,6 +70,7 @@
 		.dropdown-option-list{
 			max-height: 300px;
 			overflow-y: auto;
+			overflow-x: hidden;
 			margin: 0px;
 			list-style: none;
 			padding: 0px;
@@ -81,18 +105,37 @@
 			}
 		}
 
+		.dropdown-extra-buttons-container-bottom{
+			height: 46px;
+			background-color: #eee;
 
-        .dropdown-clear-all-selected-option{
-            height: 46px;
-            text-align: center;
-            padding-top: 10px;
-            background-color: #eee;
+			& > div{
+				text-align: center;
+				padding-top: 10px;
+				float: left;
+				height: 100%;
 
-            &:hover{
-                background-color: darken(#eee, 10%);
-                cursor: pointer;
-            }
-        }
+				&.half-width{width: 50%;}
+				&.full-width{width: 100%;}
 
+				&:not(:last-of-type){
+					border-right: 1px solid #aaa;
+				}
+
+				&:hover{
+					background-color: darken(#eee, 10%);
+					cursor: pointer;
+				}
+			}
+
+			.dropdown-clear-all-selected-option{
+				text-align: center;
+				padding-top: 10px;
+				&:hover{
+					background-color: darken(#eee, 10%);
+					cursor: pointer;
+				}
+			}
+		}
 	}
 }

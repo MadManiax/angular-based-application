@@ -29,10 +29,16 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     _bUseInlineCaption : boolean;
     @Input('optionCaptionProperty')
     _sOptionCaptionPropertyName : string;
+    @Input('optionCompareProperty')
+    _sOptionComparePropertyName : string;
     @Input('optionsList')
     _aoOptionList : any[];
     @Input('selectedOptionsList')
-    _aoSelectedOptionList : any[]
+    _aoSelectedOptionList : any[];
+    @Input('isWaiting')
+    _bIsWaiting : boolean;
+    @Input('isDisabled')
+    _bIsDisabled : boolean;
     @Output('onOptionClick')
     _fnOnOptionClick = new EventEmitter<any>();
     @Output('onClose')
@@ -69,10 +75,16 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
         Utils.setObjectPropertyIfNotSet(this, "_aoSelectedOptionList", []);
         Utils.setObjectPropertyIfNotSet(this, "_sCaption", "");
         Utils.setObjectPropertyIfNotSet(this, "_bUseInlineCaption", false);
-
-
+        // If no property set to compare two options, then use their 'caption property' by default
+        Utils.setObjectPropertyIfNotSet(this, "_sOptionComparePropertyName", this._sOptionCaptionPropertyName);
+        Utils.setObjectPropertyIfNotSet(this, "_bIsWaiting", false);
+        Utils.setObjectPropertyIfNotSet(this, "_bIsDisabled", false);
     }
 
+    //*******************************************************************************
+    //* Component lifecycle methods
+    //*******************************************************************************
+    ///<editor-fold desc="Component lifecycle methods (+)>
     ngOnChanges(changes: SimpleChanges): void
     {
         //debugger;
@@ -82,7 +94,7 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     {
         this.initDropdownConfig();
     }
-
+    ///</editor-fold>
 
 
 
@@ -100,6 +112,7 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
             return false;
         })
     }
+
     ///</editor-fold>
 
     //*******************************************************************************
@@ -119,6 +132,9 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
         return Utils.getObjectProperty(oOption, this.getOptionCaptionPropertyName(), "-empty caption-");
     }
 
+    public isWaiting(){ return this._bIsWaiting;}
+    public isDisabled(){ return this._bIsDisabled;}
+
     public getCaption()
     {
         return this._sCaption;
@@ -136,12 +152,22 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
 
     public clearAllSelectedOptions()
     {
-        this._aoSelectedOptionList = [];
+        Utils.clearArray(this._aoSelectedOptionList);
+    }
+
+    public selectAllOptions()
+    {
+        for(let i = 0; i < this._aoOptionList.length; i++)
+        {
+            if(this.isOptionSeleced(this._aoOptionList[i]) == false){
+                this._aoSelectedOptionList.push(this._aoOptionList[i]);
+            }
+        }
     }
 
     public onOptionClick(oOption)
     {
-        let iIndexOf = Utils.arrayIndexOf(this._aoSelectedOptionList, oOption)
+        let iIndexOf = Utils.arrayIndexOf(this._aoSelectedOptionList, oOption, this._sOptionComparePropertyName)
         let bIsSelected = false;
         if(  iIndexOf >= 0)
         {
@@ -164,7 +190,7 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
 
     public isOptionSeleced(oOption)
     {
-        return Utils.arrayContains(this._aoSelectedOptionList, oOption);
+        return Utils.arrayContains(this._aoSelectedOptionList, oOption, this._sOptionComparePropertyName);
     }
 
     ///</editor-fold>

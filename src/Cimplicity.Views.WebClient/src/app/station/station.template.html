@@ -1,22 +1,6 @@
 ﻿<div class="station-display-container">
     <div class="filters-panel-wrapper" [ngClass]="{'visible' : isFiltersPanelVisible() == true}">
-        <div class="row">
-            <div class="col col-ge-report-filter">
-                <advanced-dropdown caption="Production line"></advanced-dropdown>
-            </div>
-            <div class="col col-ge-report-filter">
-                <advanced-dropdown caption="Work Cells"></advanced-dropdown>
-            </div>
-            <div class="col col-ge-report-filter">
-                <advanced-dropdown caption="Rule Types"></advanced-dropdown>
-            </div>
-            <div class="col col-ge-report-filter">
-                <advanced-dropdown caption="Materials"></advanced-dropdown>
-            </div>
-            <div class="col col-ge-report-filter">
-                <button class="btn btn-ge-default clear-all-filters-btn"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
-            </div>
-        </div>
+        <rules-report-filters-panel (onFiltersChanged)="onFiltersChanged($event)"></rules-report-filters-panel>
     </div>
     <div class="filters-container row">
         <div class="col-lg-2">

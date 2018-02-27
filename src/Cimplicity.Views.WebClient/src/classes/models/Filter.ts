@@ -2,6 +2,8 @@
 
 module ge.cim.models {
 
+    import Utils = jsutils.Utils;
+
     export class Filter
     {
 
@@ -20,9 +22,18 @@ module ge.cim.models {
         //* Members
         //*******************************************************************************
 
+        private _sCaption : string;
+        private _oValue : any
 
-        public constructor()
+
+        public constructor(sCaption:string = null, oValue : any = null)
         {
+            this._sCaption = sCaption;
+            this._oValue = oValue;
+            if( Utils.isNullOrUndef(this._oValue) == true && Utils.isNullOrUndef(this._oValue) == false)
+            {
+                this._oValue = this._sCaption;
+            }
         }
 
 
