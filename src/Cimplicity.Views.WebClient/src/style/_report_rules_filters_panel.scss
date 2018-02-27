@@ -1,0 +1,48 @@
+.filters-panel-wrapper{
+    $size-panel-height: 500px;
+    $size-panel-border-radius: 20px;
+    $size-panel-shadow-thickness: 20px;
+    position: absolute;
+    top: -($size-panel-height + $size-panel-shadow-thickness + 2px);
+    left: 10%;
+    right: 10%;
+    height: $size-panel-height;
+    transition: 0.4s all ease-in-out;
+    padding: 10px 30px;
+    padding-top: 30px;
+
+    background: $color-filters-panel-bg;
+    box-shadow: 0px 0px $size-panel-shadow-thickness $color-filters-panel-shadow;
+    z-index: $z-index-rules-report-filters-panel;
+    border-radius: 0px 0px $size-panel-border-radius $size-panel-border-radius;
+
+
+    &.visible{
+        top: 0px;
+
+    }
+
+
+    .col-ge-report-filter{
+        width: 20%;
+    }
+
+
+    .advanced-dropdown {
+        .button-group {
+            width: 100%;
+        }
+
+        .dropdown-menu{
+            width: 88%;
+        }
+    }
+
+
+    .clear-all-filters-btn{
+        position: absolute;
+        bottom: -2px;
+        right: 0px;
+    }
+}
+

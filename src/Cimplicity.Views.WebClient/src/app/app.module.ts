@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿///<reference path="components/filters_panel/FiltersPanelComponent.ts"/>
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BaseRequestOptions, Http, HttpModule} from '@angular/http';
 
@@ -14,6 +15,9 @@ import {AuthService} from "./services/AuthService";
 import {RulesReportTableComponent} from "./components/rules_report_table/RulesReportTableComponent";
 import {FormsModule} from "@angular/forms";
 import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePickerComponent";
+import {AdvancedDropdownComponent} from "./components/advanced_dropdown/AdvancedDropdownComponent";
+import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
+import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
         StationComponent,
         LoadingScreenComponent,
         RulesReportTableComponent,
-        DatetimePickerComponent
+        DatetimePickerComponent,
+        AdvancedDropdownComponent,
+        FiltersPanelComponent,
+
+        DropdownOptionSearchPipe
     ],
     bootstrap: [
         AppComponent

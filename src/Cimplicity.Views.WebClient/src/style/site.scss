@@ -4,6 +4,7 @@
 @import "z_indices";
 
 @import "bootstrap_override";
+@import "bootstrap_legacy";
 @import "vex_extra_styles";
 
 @import "../app/components/loading_screen/loading_screen";
@@ -14,7 +15,9 @@
 @import "buttons";
 @import "app";
 @import "station";
+@import "report_rules_filters_panel";
 @import "../app/components/rules_report_table/rules_report_table";
+@import "../app/components/advanced_dropdown/_advanced_dropdown.scss";
 
 //body {
 //	font-family: "Courier new";

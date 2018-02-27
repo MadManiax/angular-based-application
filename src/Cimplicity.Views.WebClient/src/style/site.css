@@ -223,6 +223,32 @@
       right: 0px;
       top: 4px; }
 
+.filters-panel-wrapper {
+  position: absolute;
+  top: -522px;
+  left: 10%;
+  right: 10%;
+  height: 500px;
+  transition: 0.4s all ease-in-out;
+  padding: 10px 30px;
+  padding-top: 30px;
+  background: whitesmoke;
+  box-shadow: 0px 0px 20px #010086;
+  z-index: 10;
+  border-radius: 0px 0px 20px 20px; }
+  .filters-panel-wrapper.visible {
+    top: 0px; }
+  .filters-panel-wrapper .col-ge-report-filter {
+    width: 20%; }
+  .filters-panel-wrapper .advanced-dropdown .button-group {
+    width: 100%; }
+  .filters-panel-wrapper .advanced-dropdown .dropdown-menu {
+    width: 88%; }
+  .filters-panel-wrapper .clear-all-filters-btn {
+    position: absolute;
+    bottom: -2px;
+    right: 0px; }
+
 .table-container {
   width: 100%;
   height: 100%;
@@ -317,6 +343,92 @@
         width: 100%;
         min-height: 110px;
         max-height: 220px; }
+
+.advanced-dropdown.disabled .button-group {
+  opacity: 0.3; }
+.advanced-dropdown.disabled .dropdown-menu {
+  display: none !important; }
+.advanced-dropdown-caption.inline {
+  position: relative;
+  display: inline-block;
+  top: 2px;
+  margin-right: 8px; }
+.advanced-dropdown .button-group {
+  display: inline-block;
+  min-width: 160px; }
+  .advanced-dropdown .button-group button {
+    height: 32px; }
+  .advanced-dropdown .button-group .fa-filter {
+    float: left;
+    padding-top: 3px; }
+  .advanced-dropdown .button-group .dropdown-toggle {
+    width: 100%; }
+    .advanced-dropdown .button-group .dropdown-toggle::after {
+      margin-top: 0.6em;
+      float: right; }
+.advanced-dropdown .advanced-dropdown-summary {
+  display: inline-block;
+  width: calc(100% - 40px);
+  margin-right: 4px;
+  overflow: hidden; }
+.advanced-dropdown .dropdown-menu {
+  padding: 0px;
+  overflow: hidden;
+  border-color: #aaa; }
+  .advanced-dropdown .dropdown-menu .dropdown-search-option {
+    padding: 6px 10px;
+    background-color: #eee;
+    height: 46px; }
+    .advanced-dropdown .dropdown-menu .dropdown-search-option input {
+      padding: 2px 6px;
+      width: 100%; }
+  .advanced-dropdown .dropdown-menu .dropdown-option-list {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0px;
+    list-style: none;
+    padding: 0px;
+    min-height: 36px; }
+    .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option {
+      padding: 6px;
+      border-bottom: 1px solid #ccc; }
+      .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option:hover {
+        cursor: pointer;
+        background-color: #bcd8f6;
+        color: #333; }
+      .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option:last-of-type {
+        border-bottom: 0px; }
+      .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option .fa {
+        color: transparent; }
+      .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option.selected {
+        background-color: #010086;
+        color: whitesmoke; }
+        .advanced-dropdown .dropdown-menu .dropdown-option-list .dropdown-option.selected .fa {
+          color: whitesmoke; }
+  .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom {
+    height: 46px;
+    background-color: #eee; }
+    .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom > div {
+      text-align: center;
+      padding-top: 10px;
+      float: left;
+      height: 100%; }
+      .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom > div.half-width {
+        width: 50%; }
+      .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom > div.full-width {
+        width: 100%; }
+      .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom > div:not(:last-of-type) {
+        border-right: 1px solid #aaa; }
+      .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom > div:hover {
+        background-color: #d5d5d5;
+        cursor: pointer; }
+    .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom .dropdown-clear-all-selected-option {
+      text-align: center;
+      padding-top: 10px; }
+      .advanced-dropdown .dropdown-menu .dropdown-extra-buttons-container-bottom .dropdown-clear-all-selected-option:hover {
+        background-color: #d5d5d5;
+        cursor: pointer; }
 
 .clickable:hover {
   cursor: pointer; }

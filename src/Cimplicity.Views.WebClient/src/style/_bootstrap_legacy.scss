@@ -1,0 +1,15 @@
+//@import "../lib/bootstrap/scss/variables";
+// See here for 'hidden' and 'show' on different screen size
+// https://stackoverflow.com/questions/35351353/missing-visible-and-hidden-in-bootstrap-v4
+
+//// Use prefix 'd-' to avoid conflict with jQuery .hide() and .show() methods as reported in Bootstrap
+//// explanation why they removed 'hidden' and 'show' classes
+//.d-{
+//	&-hidden{
+//		&-xs{
+//			$i : map-get($grid-breakpoints, "sm");
+//		}
+//		&-xs{}
+//		&-xs{}
+//	}
+//}

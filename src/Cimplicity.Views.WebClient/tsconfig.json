@@ -1,26 +1,30 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "amd",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
-    "rootDir": "src",
-    "outDir": "wwwroot",
-    "lib": [ "dom", "es6", "es5" ]
-  },
-  "compileOnSave": true,
-  "angularCompilerOptions": {
-    "genDir": ".",
-    "debug": true
-  },
-  "exclude": [
-    "node_modules",
-    "wwwroot"
-  ]
-
+	"compilerOptions": {
+		"target": "es5",
+		"module": "amd",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"removeComments": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"allowSyntheticDefaultImports": true,
+		"rootDir": "src",
+		"outDir": "wwwroot",
+		"lib": [
+			"dom",
+			"es6",
+			"es5"
+		]
+	},
+	"compileOnSave": true,
+	"angularCompilerOptions": {
+		"genDir": ".",
+		"debug": true
+	},
+	"exclude": [
+		"node_modules",
+		"wwwroot",
+		"src/lib"
+	]
 }

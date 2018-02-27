@@ -19,6 +19,7 @@ import {AuthService} from "../services/AuthService";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import VexUtils = jsutils.VexUtils;
 import ReportOverviewSetting = ge.cim.models.ReportOverviewSetting;
+import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
 
 @Component({
     selector: 'station',
@@ -36,6 +37,7 @@ export class StationComponent implements OnInit
     private _iAutoRefreshIntervalId: number;
     private _oLatestRefresh : moment.Moment;
     private _iAutoRefreshIntervalInSeconds: number;
+    private _bIsFiltersPanelVisible: boolean;
 
 
     /*
@@ -53,6 +55,7 @@ export class StationComponent implements OnInit
         console.log('StationComponent -> constructor');
         this._iAutoRefreshIntervalId = null;
         this._iAutoRefreshIntervalInSeconds = 5;
+        this._bIsFiltersPanelVisible = false;
 
         this.initPagination();
     }
@@ -73,6 +76,8 @@ export class StationComponent implements OnInit
 
     private doSearch()
     {
+        this.closeFiltersPanel();
+
         this._bIsDataLoading = true;
         LoadingScreen.show();
 
@@ -104,13 +109,29 @@ export class StationComponent implements OnInit
             );
     }
 
-
-
     public reloadData()
     {
         this.initPagination();
         this.doSearch();
     }
+
+
+    public onFiltersChanged(oFilters : RulesReportFiltersContainer)
+    {
+        console.log("Save new filters:", oFilters);
+    }
+
+
+    /**
+     * Open/Close filters panel
+     */
+    public toggleFiltersPanel(){ this._bIsFiltersPanelVisible = !this._bIsFiltersPanelVisible;}
+
+    public closeFiltersPanel(){ this._bIsFiltersPanelVisible = false;}
+    /**
+     * @returns {boolean} TRUE if the filters panel has been toggle to visible, FALSE otherwise
+     */
+    public isFiltersPanelVisible(){ return this._bIsFiltersPanelVisible; }
 
 
     public onOpenRuleEditor()

@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col col-ge-report-filter">
+        <advanced-dropdown caption="Production line"
+                           [optionsList]="this._oAvailableFilters.filtersProductionLines"
+                           [(selectedOptionsList)]="this._oSelectedFilters.filtersProductionLines"
+                           optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
+                           optionCompareProperty="{{getFilterCaptionPropertyName()}}">
+        </advanced-dropdown>
+    </div>
+    <div class="col col-ge-report-filter">
+        <advanced-dropdown caption="Work Cells"
+                           [optionsList]="this._oAvailableFilters.filtersWorkCells"
+                           [(selectedOptionsList)]="this._oSelectedFilters.filtersWorkCells"
+                           optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
+                           optionCompareProperty="{{getFilterCaptionPropertyName()}}"
+                           [isDisabled]="true">
+        </advanced-dropdown>
+    </div>
+    <div class="col col-ge-report-filter">
+        <advanced-dropdown caption="Rule Types"
+                           [optionsList]="this._oAvailableFilters.filtersRuleTypes"
+                           [(selectedOptionsList)]="this._oSelectedFilters.filtersRuleTypes"
+                           optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
+                           optionCompareProperty="{{getFilterCaptionPropertyName()}}"
+                           [isWaiting]="true">
+        </advanced-dropdown>
+    </div>
+    <div class="col col-ge-report-filter">
+        <advanced-dropdown caption="Materials"
+                           [optionsList]="this._oAvailableFilters.filtersMaterialDefinitions"
+                           [(selectedOptionsList)]="this._oSelectedFilters.filtersMaterialDefinitions"
+                           optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
+                           optionCompareProperty="{{getFilterCaptionPropertyName()}}">></advanced-dropdown>
+    </div>
+    <div class="col col-ge-report-filter">
+        <button class="btn btn-ge-default clear-all-filters-btn" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        Selected filters count in each dropdown:<br>
+        {{this._oSelectedFilters.filtersProductionLines.length}}<br>
+        {{this._oSelectedFilters.filtersWorkCells.length}}<br>
+        {{this._oSelectedFilters.filtersRuleTypes.length}}<br>
+        {{this._oSelectedFilters.filtersMaterialDefinitions.length}}<br>
+    </div>
+</div>
