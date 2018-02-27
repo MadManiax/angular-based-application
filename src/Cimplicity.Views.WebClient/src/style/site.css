@@ -430,6 +430,28 @@
         background-color: #d5d5d5;
         cursor: pointer; }
 
+.sorting-panel .sort-condition {
+  height: 48px;
+  position: relative;
+  display: inline-block;
+  min-width: 80px;
+  border: 1px solid #ccc; }
+  .sorting-panel .sort-condition .sort-direction-wrapper {
+    height: 100%;
+    position: relative;
+    width: 24px;
+    margin-left: 2px;
+    margin-right: 4px;
+    background: antiquewhite; }
+    .sorting-panel .sort-condition .sort-direction-wrapper .fa {
+      font-size: 28px;
+      position: absolute;
+      left: 4px; }
+    .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-up {
+      top: -2px; }
+    .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-down {
+      bottom: -2px; }
+
 .clickable:hover {
   cursor: pointer; }
 

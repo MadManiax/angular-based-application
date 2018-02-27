@@ -18,6 +18,7 @@ import {DatetimePickerComponent} from "./components/datetimepicker/DatetimePicke
 import {AdvancedDropdownComponent} from "./components/advanced_dropdown/AdvancedDropdownComponent";
 import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
+import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComponent";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComp
         DatetimePickerComponent,
         AdvancedDropdownComponent,
         FiltersPanelComponent,
+        SortingPanelComponent,
 
         DropdownOptionSearchPipe
     ],

@@ -1,0 +1,11 @@
+<div class="sorting-panel">
+    <label>Order by</label>
+    <div class="sort-condition" *ngFor="let oCondition of getSortConditions()">
+        <div class="sort-direction-wrapper">
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <!-- For dragula create N buckets where sorting conditions will be placed -->
+</div>
