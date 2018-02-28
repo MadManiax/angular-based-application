@@ -215,6 +215,24 @@ gulp.task("copy:moment", function () {
         .pipe(gulp.dest(config.lib + "moment"));
 });
 
+// DRAGULA (lib and directives)
+gulp.task("copy:dragula", function () {
+    return gulp.src(config.dragula,
+        { base: config.node_modules })
+        .pipe(gulp.dest(config.lib));
+});
+gulp.task("copy:ng2_dragula", function () {
+    return gulp.src(config.ng2_dragula,
+        { base: config.node_modules })
+        .pipe(gulp.dest(config.lib));
+});
+
+gulp.task("copy::dragula_all_dependencies", [
+    "copy:dragula",
+    "copy:ng2_dragula"
+]);
+
+
 gulp.task("dependencies", [
     "copy:angular",
     "copy:angularWebApi",
@@ -230,7 +248,8 @@ gulp.task("dependencies", [
     //"copy:index",
     "copy:signalr",
     "copy:plugin_babel",
-    "copy:moment"
+    "copy:moment",
+    "copy::dragula_all_dependencies"
 ]);
 
 

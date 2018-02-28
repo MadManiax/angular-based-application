@@ -4,6 +4,14 @@
 //****************************************************************************************************
 
 
+@mixin clickable()
+{
+	&:hover{
+		cursor: pointer;
+		@content;
+	}
+}
+
 /*
  * Generate the animation CSS to match all browsers selectors
  */

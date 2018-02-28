@@ -1,11 +1,27 @@
 <div class="sorting-panel">
-    <label>Order by</label>
-    <div class="sort-condition" *ngFor="let oCondition of getSortConditions()">
-        <div class="sort-direction-wrapper">
-            <i class="fa fa-caret-up" aria-hidden="true"></i>
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-        </div>
-    </div>
+    <!--<label>Order by</label>-->
+    <!--<div class="sort-condition" *ngFor="let oCondition of getSortConditions()">-->
+        <!--<div class="sort-direction-wrapper" (click)="oCondition.toggleDirection()">-->
+            <!--<i class="fa fa-caret-up" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionAsc() == false}"></i>-->
+            <!--<i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionDesc() == false}"></i>-->
+        <!--</div>-->
+        <!--<div class="sort-condition-caption-wrapper">-->
+            <!--<p>{{oCondition.caption}}</p>-->
+        <!--</div>-->
+        <!--<div class="delete-btn-wrapper" (click)="deleteCondition(oCondition)" *ngIf="oCondition.canBeDeleted() == true">-->
+            <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <!-- For dragula create N buckets where sorting conditions will be placed -->
+    <!--&lt;!&ndash; For dragula create N buckets where sorting conditions will be placed &ndash;&gt;-->
+    <div class='container' [dragula]='"first-bag"'>
+        <div>You can move these elements between these two containers</div>
+        <div>Moving them anywhere else isn't quite possible</div>
+        <div>There's also the possibility of moving elements around in the same container, changing their position</div>
+    </div>
+    <div class='container' [dragula]='"first-bag"'>
+        <div>This is the default use case. You only need to specify the containers you want to use</div>
+        <div>More interactive use cases lie ahead</div>
+        <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
+    </div>
 </div>

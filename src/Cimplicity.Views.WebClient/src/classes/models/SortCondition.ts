@@ -31,8 +31,11 @@ module ge.cim.models {
         public constructor(sFieldName:string = null, sCaption : string = null)
         {
             this._sFieldName = sFieldName;
-            Utils.setObjectPropertyIfNotSet(this, "_sCaption",  this._sFieldName);
+            this._sCaption = sCaption;
             this._oDirection = SortingDirection.ASC;    // see FdS, page 74
+
+            Utils.setObjectPropertyIfNotSet(this, "_sCaption",  this._sFieldName);
+
         }
 
 
@@ -56,16 +59,25 @@ module ge.cim.models {
         get fieldName(){ return this._sFieldName; }
         set fieldName(sValue:string){ this._sFieldName = sValue; }
 
+        get caption(){ return this._sCaption; }
+        set caption(sValue:string){ this._sCaption = sValue; }
+
         public isDirectionAsc(){ return this._oDirection == SortingDirection.ASC; }
         public isDirectionDesc(){ return this._oDirection == SortingDirection.DESC; }
 
         public setDirectionAsc(){ this._oDirection = SortingDirection.ASC; }
         public setDirectionDesc(){ this._oDirection = SortingDirection.DESC; }
 
+        public canBeDeleted(){ return true;}
+
         public toggleDirection()
         {
-            if(this.isDirectionAsc() == true){ this.setDirectionDesc(); }
-            else{ this.isDirectionAsc(); }
+            if(this.isDirectionAsc() == true){
+                this.setDirectionDesc();
+            }
+            else{
+                this.setDirectionAsc();
+            }
         }
         ///</editor-fold>
     }

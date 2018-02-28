@@ -434,23 +434,58 @@
   height: 48px;
   position: relative;
   display: inline-block;
-  min-width: 80px;
   border: 1px solid #ccc; }
+  .sorting-panel .sort-condition div {
+    float: left; }
   .sorting-panel .sort-condition .sort-direction-wrapper {
     height: 100%;
     position: relative;
-    width: 24px;
-    margin-left: 2px;
-    margin-right: 4px;
-    background: antiquewhite; }
+    width: 32px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+    background-color: #eeeeee; }
+    .sorting-panel .sort-condition .sort-direction-wrapper:hover {
+      cursor: pointer; }
+    .sorting-panel .sort-condition .sort-direction-wrapper .invisible {
+      color: transparent; }
     .sorting-panel .sort-condition .sort-direction-wrapper .fa {
       font-size: 28px;
-      position: absolute;
-      left: 4px; }
+      position: relative; }
     .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-up {
       top: -2px; }
     .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-down {
-      bottom: -2px; }
+      bottom: 10px; }
+  .sorting-panel .sort-condition .sort-condition-caption-wrapper {
+    padding: 4px 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    max-width: 164px;
+    height: 100%;
+    min-width: 80px;
+    padding: 4px 0px;
+    margin: 0px 8px;
+    display: table; }
+    .sorting-panel .sort-condition .sort-condition-caption-wrapper p {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 18px; }
+    .sorting-panel .sort-condition .sort-condition-caption-wrapper:hover {
+      cursor: move; }
+  .sorting-panel .sort-condition .delete-btn-wrapper {
+    height: 100%;
+    position: relative;
+    width: 32px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #888;
+    padding-top: 1px; }
+    .sorting-panel .sort-condition .delete-btn-wrapper:hover {
+      cursor: pointer;
+      color: #666; }
 
 .clickable:hover {
   cursor: pointer; }

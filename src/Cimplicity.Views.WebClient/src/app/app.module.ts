@@ -19,6 +19,7 @@ import {AdvancedDropdownComponent} from "./components/advanced_dropdown/Advanced
 import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
 import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComponent";
+import {DragulaModule} from "ng2-dragula";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComp
         //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
+        DragulaModule
     ],
     declarations: [
         AppComponent,

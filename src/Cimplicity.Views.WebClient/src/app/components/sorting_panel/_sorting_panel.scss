@@ -1,30 +1,90 @@
 .sorting-panel{
 	.sort-condition{
+		$size-sort-condition-buttons-padding-right: 4px;
+		$size-sort-condition-buttons-padding-left: 4px;
+
+		$size-sort-direction-wrapper-width: 24px;
+		$size-sort-direction-wrapper-total-width: $size-sort-direction-wrapper-width + $size-sort-condition-buttons-padding-left + $size-sort-condition-buttons-padding-right;
+
+		$size-sort-delete-wrapper-width: 24px;
+		$size-sort-delete-wrapper-total-width: $size-sort-delete-wrapper-width + $size-sort-condition-buttons-padding-left + $size-sort-condition-buttons-padding-right;
+
 		height: 48px;
 		position: relative;
 		display: inline-block;
-		min-width: 80px;
 		border: 1px solid #ccc;
+
+		div{
+			float: left;
+		}
 
 		.sort-direction-wrapper{
 			height: 100%;
 			position: relative;
-			width: 24px;
-			margin-left: 2px;
-			margin-right: 4px;
-			background: antiquewhite; //debug
+			width: $size-sort-direction-wrapper-total-width;
+			padding-left: $size-sort-condition-buttons-padding-left;
+			padding-right: $size-sort-condition-buttons-padding-right;
+			text-align: center;
+			background-color: #eeeeee;
+			@include clickable();
+
+			.invisible{
+				color: transparent;
+			}
 
 			.fa{
 				font-size: 28px;
-				position: absolute;
-				left: 4px;
+				position: relative;
 			}
 			.fa-caret-up{
 				top: -2px;
 			}
 			.fa-caret-down{
-				bottom: -2px;
+				bottom: 10px;
 			}
+		}
+
+		.sort-condition-caption-wrapper{
+			$size-left-right-space: 8px;
+
+			padding: 4px 8px;
+			text-align: center;
+			font-size: 1.2rem;
+			max-width: 180px - $size-left-right-space * 2;
+			height: 100%;
+			min-width: 80px;
+
+			// center vertically allow multiline text (+)
+			padding: 4px 0px;
+			margin: 0px $size-left-right-space;
+			display: table;
+			p {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				line-height: 18px;
+			}
+			// center vertically allow multiline text (+)
+
+			&:hover{
+				cursor: move;
+			}
+		}
+
+		.delete-btn-wrapper{
+			height: 100%;
+			position: relative;
+			width: $size-sort-delete-wrapper-total-width;
+			padding-left: $size-sort-condition-buttons-padding-left;
+			padding-right: $size-sort-condition-buttons-padding-right;
+			text-align: center;
+			font-size: 1.6rem;
+			color: #888;
+			padding-top: 1px;
+			@include clickable(){
+				color: #666;
+			};
+
 		}
 	}
 }

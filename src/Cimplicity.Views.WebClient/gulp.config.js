@@ -44,6 +44,8 @@
         signalr: base.node_modules + "@aspnet/signalr/dist/*/*.*",
         plugin_babel: base.node_modules + "systemjs-plugin-babel/*.js",
         moment: base.node_modules + "moment/min/*.js",
+        dragula: base.node_modules + "dragula/dist/{**, *.*}",
+        ng2_dragula: base.node_modules + "ng2-dragula/{**, *.*}",
 
         index: "index.html",
         indexDest: base.webroot

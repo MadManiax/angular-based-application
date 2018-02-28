@@ -100,6 +100,11 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
     public getSortConditions(){ return this._aoSortConditions; }
+
+    public deleteCondition(oCondition : SortCondition)
+    {
+        Utils.removeItemFromArray(this._aoSortConditions, oCondition);
+    }
     ///</editor-fold>
 
 

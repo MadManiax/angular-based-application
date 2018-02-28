@@ -21,6 +21,9 @@
             'plugin-babel': 'npm:systemjs-plugin-babel/plugin-babel.js',
             'systemjs-babel-build': 'npm:systemjs-plugin-babel/systemjs-babel-browser.js',
             'moment': 'npm:moment',
+
+            'dragula'                   : 'npm:dragula/dist',
+            'ng2-dragula'   : 'npm:ng2-dragula'
         },
         packages: {
             app: {
@@ -38,8 +41,8 @@
             moment: {
                 main: 'moment.js', defaultExtension: 'js'
             },
-
-
+            dragula: {main: 'dragula.min.js', defaultExtension: 'js'},
+            'ng2-dragula': {main: 'ng2-dragula.js', defaultExtension: 'js'},
         }
     });
 })(this);

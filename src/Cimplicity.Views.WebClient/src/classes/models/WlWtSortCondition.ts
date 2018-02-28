@@ -47,6 +47,7 @@ module ge.cim.models {
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        public canBeDeleted(){ return false; }
         ///</editor-fold>
     }
 

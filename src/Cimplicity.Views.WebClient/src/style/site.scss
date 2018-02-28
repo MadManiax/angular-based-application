@@ -1,4 +1,12 @@
-﻿@import "vars";
+﻿//*********************************************************************************************
+//	SOME USEFULL CSS TRICKS
+//
+//	Center vertically (with multiline text too)
+//	https://css-tricks.com/vertically-center-multi-lined-text/
+//
+//*********************************************************************************************
+
+@import "vars";
 @import "mixins";
 @import "theme";
 @import "z_indices";
@@ -19,11 +27,6 @@
 @import "../app/components/rules_report_table/rules_report_table";
 @import "../app/components/advanced_dropdown/advanced_dropdown";
 @import "../app/components/sorting_panel/sorting_panel";
-
-//body {
-//	font-family: "Courier new";
-//	color:#2b2b5e;
-//}
 
 
 .clickable{
