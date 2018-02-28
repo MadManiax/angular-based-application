@@ -1,4 +1,33 @@
 .sorting-panel{
+	$size-sort-condition-height: 48px;
+	$size-sort-condition-min-width: 80px;
+
+	.dragula-bag-wrapper{
+		float: left;
+		height: $size-sort-condition-height;
+		position: relative;
+
+		& > div{
+			float: left;
+		}
+
+		.dragula-bag{
+			//padding: 8px;
+			background-color: #0c5460;
+			height: 100%;
+			min-width: $size-sort-condition-min-width;
+		}
+
+		.static-arrow{
+			height: 100%;
+			background-color: darkgoldenrod;
+			padding: 8px;
+			padding-top: 3px;
+			font-size: 1.6rem;
+		}
+	}
+
+
 	.sort-condition{
 		$size-sort-condition-buttons-padding-right: 4px;
 		$size-sort-condition-buttons-padding-left: 4px;
@@ -9,10 +38,11 @@
 		$size-sort-delete-wrapper-width: 24px;
 		$size-sort-delete-wrapper-total-width: $size-sort-delete-wrapper-width + $size-sort-condition-buttons-padding-left + $size-sort-condition-buttons-padding-right;
 
-		height: 48px;
+		height: $size-sort-condition-height;
 		position: relative;
 		display: inline-block;
 		border: 1px solid #ccc;
+		background-color: white;
 
 		div{
 			float: left;

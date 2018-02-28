@@ -15,6 +15,7 @@ import Filter = ge.cim.models.Filter;
 import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
 import SortCondition = ge.cim.models.SortCondition;
 import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
+import {DragulaService} from "ng2-dragula";
 
 
 @Component({
@@ -30,9 +31,13 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
 
 
     private _aoSortConditions : SortCondition[];
+    private _oTempElem;
+    private _oTempContainer;
 
-    constructor()
+    constructor(private _oDragulaService : DragulaService)
     {
+        this.attachDragulaListeners();
+
         // DEBUG (+)
         this._aoSortConditions = [
             new WlWtSortCondition(),
@@ -86,7 +91,114 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     //* Private methods
     //*******************************************************************************
     ///<editor-fold desc="Private methods (+)>
+    private attachDragulaListeners()
+    {
+        this._oDragulaService.drag.subscribe((value) => {
+            console.log(`drag: ${value[0]}`);
+            this.onDrag(value.slice(1));
+        });
+        this._oDragulaService.drop.subscribe((value) => {
+            console.log(`drop: ${value[0]}`);
+            this.onDrop(value.slice(1));
+        });
+        this._oDragulaService.over.subscribe((value) => {
+            //console.log(`over: ${value[0]}`);
+            this.onOver(value.slice(1));
+        });
+        this._oDragulaService.out.subscribe((value) => {
+            console.log(`out: ${value[0]}`);
+            this.onOut(value.slice(1));
+        });
+    }
 
+
+    private onDrag(args)
+    {
+        // Event description:
+        // "oElem was lifted from oSource"
+        let [oElem, oSource] = args;
+        let oSourceJquery = $(oSource);
+        let iWidth = oSourceJquery.width();
+        oSourceJquery.css({
+            width : iWidth,
+            overflow : "hidden"
+        });
+    }
+
+    private onDrop(args)
+    {
+        // Description of event:
+        // "oElem was dropped into oTarget before a oSibling element, and originally came from oSource"
+        let [oElem, oTarget, oSource, oSibling] = args;
+        // do something
+        // var swappee = $(oTarget).find('.sort-condition').not(oElem);
+        // swappee.appendTo(oSource);
+        this.clearInlineStyle(oTarget);
+        this.clearInlineStyle(oSource);
+        this.clearSwappedItemsReferences();
+    }
+
+
+
+
+    private onOver(args)
+    {
+        // Description of event:
+        // "oElem is over oContainer, and originally came from oSource"
+        let [oElem, oContainer, oSource] = args;
+
+        console.debug("Over: ", oContainer);
+
+        if (oContainer != oSource && oContainer != this._oTempContainer)
+        {
+            // When s 'condition' is dragged over a candidate cointainer
+            // perform a swapping of two conditions
+            // Before swap, perform a restore of previously swapped items (this case
+            // happens when user drag the 'condition' over a container then change idea and
+            // move it to another without dropping the condition)
+            this.restorePreviouslySwappedItems();
+            this.swapDraggedConditionAndConditionInTargetContainerTemp(oContainer, oSource, oElem);
+        }
+    }
+
+    private onOut(args) {
+        let [e, el, container] = args;
+        // do something
+    }
+
+
+    private swapDraggedConditionAndConditionInTargetContainerTemp(oTarget, oSource, oElem)
+    {
+        let oTargetJquery = $(oTarget);
+        let oConditionInTheCanditateContainer = oTargetJquery.find('.sort-condition').not(oElem);
+        oTargetJquery.width( $(oConditionInTheCanditateContainer).width() );
+        oConditionInTheCanditateContainer.appendTo(oSource);
+
+        // save references
+        this._oTempContainer = oTarget;
+        this._oTempElem = oConditionInTheCanditateContainer;
+    }
+
+    private restorePreviouslySwappedItems()
+    {
+        if( Utils.isNullOrUndef(this._oTempContainer) == false && Utils.isNullOrUndef(this._oTempElem) == false)
+        {
+            this._oTempElem.appendTo(this._oTempContainer);
+            this.clearInlineStyle(this._oTempContainer);
+            this.clearSwappedItemsReferences();
+        }
+    }
+
+    private clearSwappedItemsReferences()
+    {
+        this._oTempContainer = null;
+        this._oTempElem = null;
+    }
+
+    private clearInlineStyle(oElem)
+    {
+        $(oElem).attr('style', '');
+    }
     ///</editor-fold>
 
     //*******************************************************************************
@@ -99,7 +211,8 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     //* Public methods
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
-    public getSortConditions(){ return this._aoSortConditions; }
+    get sortConditions(){ return this._aoSortConditions; }
+    set sortConditions(aoValue:SortCondition[]){ this._aoSortConditions = aoValue; }
 
     public deleteCondition(oCondition : SortCondition)
     {

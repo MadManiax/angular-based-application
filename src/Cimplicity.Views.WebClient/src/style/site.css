@@ -430,11 +430,28 @@
         background-color: #d5d5d5;
         cursor: pointer; }
 
+.sorting-panel .dragula-bag-wrapper {
+  float: left;
+  height: 48px;
+  position: relative; }
+  .sorting-panel .dragula-bag-wrapper > div {
+    float: left; }
+  .sorting-panel .dragula-bag-wrapper .dragula-bag {
+    background-color: #0c5460;
+    height: 100%;
+    min-width: 80px; }
+  .sorting-panel .dragula-bag-wrapper .static-arrow {
+    height: 100%;
+    background-color: darkgoldenrod;
+    padding: 8px;
+    padding-top: 3px;
+    font-size: 1.6rem; }
 .sorting-panel .sort-condition {
   height: 48px;
   position: relative;
   display: inline-block;
-  border: 1px solid #ccc; }
+  border: 1px solid #ccc;
+  background-color: white; }
   .sorting-panel .sort-condition div {
     float: left; }
   .sorting-panel .sort-condition .sort-direction-wrapper {
