@@ -24,28 +24,15 @@ import {DragulaService} from "ng2-dragula";
 })
 export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
 {
-    // @Input('rulesList')
-    // private _aoRulesList: Rule[];
-    // @Input('userCanEdit')
-    // private _bIsEditButtonEnabled : boolean;
-
-
+    @Input('sortConditions')
     private _aoSortConditions : SortCondition[];
+
     private _oTempElem;
     private _oTempContainer;
 
     constructor(private _oDragulaService : DragulaService)
     {
         this.attachDragulaListeners();
-
-        // DEBUG (+)
-        this._aoSortConditions = [
-            new WlWtSortCondition(),
-            new SortCondition("Remaining"),
-            new SortCondition("Overflow Remaining"),
-            new SortCondition("Rule Type"),
-        ]
-        // DEBUG (-)
     }
 
     //*******************************************************************************
@@ -56,6 +43,7 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     {
         console.log('SortingPanelComponent -> ngOnInit');
 
+        Utils.setObjectPropertyIfNotSet(this, "_aoSortConditions", [])
     }
 
     ngOnChanges(changes: SimpleChanges): void
@@ -93,22 +81,22 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     ///<editor-fold desc="Private methods (+)>
     private attachDragulaListeners()
     {
-        this._oDragulaService.drag.subscribe((value) => {
-            console.log(`drag: ${value[0]}`);
-            this.onDrag(value.slice(1));
-        });
+        // this._oDragulaService.drag.subscribe((value) => {
+        //     console.log(`drag: ${value[0]}`);
+        //     this.onDrag(value.slice(1));
+        // });
         this._oDragulaService.drop.subscribe((value) => {
             console.log(`drop: ${value[0]}`);
             this.onDrop(value.slice(1));
         });
-        this._oDragulaService.over.subscribe((value) => {
-            //console.log(`over: ${value[0]}`);
-            this.onOver(value.slice(1));
-        });
-        this._oDragulaService.out.subscribe((value) => {
-            console.log(`out: ${value[0]}`);
-            this.onOut(value.slice(1));
-        });
+        // this._oDragulaService.over.subscribe((value) => {
+        //     //console.log(`over: ${value[0]}`);
+        //     this.onOver(value.slice(1));
+        // });
+        // this._oDragulaService.out.subscribe((value) => {
+        //     console.log(`out: ${value[0]}`);
+        //     this.onOut(value.slice(1));
+        // });
     }
 
 
@@ -119,10 +107,10 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
         let [oElem, oSource] = args;
         let oSourceJquery = $(oSource);
         let iWidth = oSourceJquery.width();
-        oSourceJquery.css({
-            width : iWidth,
-            overflow : "hidden"
-        });
+        // oSourceJquery.css({
+        //     width : iWidth,
+        //     overflow : "hidden"
+        // });
     }
 
     private onDrop(args)
@@ -130,12 +118,15 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
         // Description of event:
         // "oElem was dropped into oTarget before a oSibling element, and originally came from oSource"
         let [oElem, oTarget, oSource, oSibling] = args;
-        // do something
+
         // var swappee = $(oTarget).find('.sort-condition').not(oElem);
         // swappee.appendTo(oSource);
-        this.clearInlineStyle(oTarget);
-        this.clearInlineStyle(oSource);
-        this.clearSwappedItemsReferences();
+        // this.clearInlineStyle(oTarget);
+        // this.clearInlineStyle(oSource);
+        // this.clearSwappedItemsReferences();
+
+        console.debug(this._aoSortConditions);
+
     }
 
 
@@ -159,6 +150,9 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
             this.restorePreviouslySwappedItems();
             this.swapDraggedConditionAndConditionInTargetContainerTemp(oContainer, oSource, oElem);
         }
+        else {
+            this.restorePreviouslySwappedItems();
+        }
     }
 
     private onOut(args) {
@@ -171,7 +165,7 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     {
         let oTargetJquery = $(oTarget);
         let oConditionInTheCanditateContainer = oTargetJquery.find('.sort-condition').not(oElem);
-        oTargetJquery.width( $(oConditionInTheCanditateContainer).width() );
+        //oTargetJquery.width( $(oConditionInTheCanditateContainer).width() );
         oConditionInTheCanditateContainer.appendTo(oSource);
 
         // save references
@@ -202,7 +196,7 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     ///</editor-fold>
 
     //*******************************************************************************
-    //* Private methods
+    //* Protected methods
     //*******************************************************************************
     ///<editor-fold desc="Protected methods (+)>
     ///</editor-fold>
@@ -211,8 +205,25 @@ export class SortingPanelComponent implements OnInit, OnChanges, DoCheck
     //* Public methods
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
-    get sortConditions(){ return this._aoSortConditions; }
-    set sortConditions(aoValue:SortCondition[]){ this._aoSortConditions = aoValue; }
+    // get sortConditions(){ return this._aoSortConditions; }
+    // set sortConditions(aoValue:SortCondition[]){ this._aoSortConditions = aoValue; }
+
+    get sortConditionsList(){ return this._aoSortConditions; }
+    set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
+
+    public isLastBag(iIndex:number)
+    {
+        return (iIndex == this._aoSortConditions.length - 1);
+    }
+
+    public getBagClasses(iIndex:number)
+    {
+        let sClasses = "dragula-bag-" + iIndex;
+        if( this.isLastBag(iIndex) == true){
+            sClasses += " " + "dragula-bag-last";
+        }
+        return sClasses;
+    }
 
     public deleteCondition(oCondition : SortCondition)
     {

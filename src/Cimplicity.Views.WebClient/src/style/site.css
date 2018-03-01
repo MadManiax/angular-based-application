@@ -225,29 +225,30 @@
 
 .filters-panel-wrapper {
   position: absolute;
-  top: -522px;
-  left: 10%;
-  right: 10%;
+  left: 0px;
+  right: 0px;
+  bottom: -522px;
   height: 500px;
   transition: 0.4s all ease-in-out;
   padding: 10px 30px;
   padding-top: 30px;
-  background: whitesmoke;
-  box-shadow: 0px 0px 20px #010086;
-  z-index: 10;
-  border-radius: 0px 0px 20px 20px; }
+  background: #6c757d;
+  box-shadow: 0px 0px 20px #495057;
+  z-index: 10; }
   .filters-panel-wrapper.visible {
-    top: 0px; }
-  .filters-panel-wrapper .col-ge-report-filter {
-    width: 20%; }
+    bottom: 0px; }
   .filters-panel-wrapper .advanced-dropdown .button-group {
     width: 100%; }
   .filters-panel-wrapper .advanced-dropdown .dropdown-menu {
     width: 88%; }
+  .filters-panel-wrapper .advanced-dropdown .advanced-dropdown-caption {
+    color: whitesmoke; }
   .filters-panel-wrapper .clear-all-filters-btn {
     position: absolute;
     bottom: -2px;
     right: 0px; }
+  .filters-panel-wrapper .sorting-panel label {
+    color: whitesmoke; }
 
 .table-container {
   width: 100%;
@@ -345,7 +346,7 @@
         max-height: 220px; }
 
 .advanced-dropdown.disabled .button-group {
-  opacity: 0.3; }
+  opacity: 0.2; }
 .advanced-dropdown.disabled .dropdown-menu {
   display: none !important; }
 .advanced-dropdown-caption.inline {
@@ -430,81 +431,135 @@
         background-color: #d5d5d5;
         cursor: pointer; }
 
-.sorting-panel .dragula-bag-wrapper {
-  float: left;
-  height: 48px;
+sorting-panel {
+  width: 100%; }
+
+.sorting-panel {
+  width: 100%;
   position: relative; }
-  .sorting-panel .dragula-bag-wrapper > div {
-    float: left; }
-  .sorting-panel .dragula-bag-wrapper .dragula-bag {
-    background-color: #0c5460;
-    height: 100%;
-    min-width: 80px; }
-  .sorting-panel .dragula-bag-wrapper .static-arrow {
-    height: 100%;
-    background-color: darkgoldenrod;
-    padding: 8px;
-    padding-top: 3px;
-    font-size: 1.6rem; }
-.sorting-panel .sort-condition {
-  height: 48px;
-  position: relative;
-  display: inline-block;
-  border: 1px solid #ccc;
-  background-color: white; }
-  .sorting-panel .sort-condition div {
-    float: left; }
-  .sorting-panel .sort-condition .sort-direction-wrapper {
-    height: 100%;
-    position: relative;
-    width: 32px;
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: center;
-    background-color: #eeeeee; }
-    .sorting-panel .sort-condition .sort-direction-wrapper:hover {
-      cursor: pointer; }
-    .sorting-panel .sort-condition .sort-direction-wrapper .invisible {
-      color: transparent; }
-    .sorting-panel .sort-condition .sort-direction-wrapper .fa {
-      font-size: 28px;
-      position: relative; }
-    .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-up {
-      top: -2px; }
-    .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-down {
-      bottom: 10px; }
-  .sorting-panel .sort-condition .sort-condition-caption-wrapper {
-    padding: 4px 8px;
-    text-align: center;
-    font-size: 1.2rem;
-    max-width: 164px;
-    height: 100%;
-    min-width: 80px;
-    padding: 4px 0px;
-    margin: 0px 8px;
-    display: table; }
-    .sorting-panel .sort-condition .sort-condition-caption-wrapper p {
-      display: table-cell;
-      vertical-align: middle;
+  .sorting-panel .dragula-bag {
+    height: 48px;
+    width: 100%; }
+  .sorting-panel .sort-condition-wrapper {
+    float: left;
+    height: 48px;
+    position: relative; }
+    .sorting-panel .sort-condition-wrapper > div {
+      float: left; }
+    .sorting-panel .sort-condition-wrapper .static-arrow {
+      height: 100%;
+      width: 42px;
       text-align: center;
-      line-height: 18px; }
-    .sorting-panel .sort-condition .sort-condition-caption-wrapper:hover {
-      cursor: move; }
-  .sorting-panel .sort-condition .delete-btn-wrapper {
-    height: 100%;
+      color: #cccccc;
+      padding: 8px;
+      padding-top: 3px;
+      font-size: 1.6rem; }
+    .sorting-panel .sort-condition-wrapper.dragula-bag-wrapper-last .static-arrow {
+      display: none !important; }
+  .sorting-panel .sort-condition {
+    height: 48px;
     position: relative;
-    width: 32px;
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: center;
-    font-size: 1.6rem;
-    color: #888;
-    padding-top: 1px; }
-    .sorting-panel .sort-condition .delete-btn-wrapper:hover {
-      cursor: pointer;
-      color: #666; }
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: whitesmoke;
+    width: 202px;
+    border-radius: 0.2rem; }
+    .sorting-panel .sort-condition div {
+      float: left; }
+    .sorting-panel .sort-condition .sort-direction-wrapper {
+      height: 100%;
+      position: relative;
+      width: 32px;
+      padding-left: 4px;
+      padding-right: 4px;
+      text-align: center;
+      background-color: #eeeeee; }
+      .sorting-panel .sort-condition .sort-direction-wrapper:hover {
+        cursor: pointer; }
+      .sorting-panel .sort-condition .sort-direction-wrapper .invisible {
+        color: transparent; }
+      .sorting-panel .sort-condition .sort-direction-wrapper .fa {
+        font-size: 28px;
+        position: relative; }
+      .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-up {
+        top: -2px; }
+      .sorting-panel .sort-condition .sort-direction-wrapper .fa-caret-down {
+        bottom: 10px; }
+    .sorting-panel .sort-condition .sort-condition-caption-wrapper {
+      text-align: center;
+      font-size: 1.2rem;
+      width: 120px;
+      height: 100%;
+      min-width: 80px;
+      padding: 4px 0px;
+      margin: 0px 8px;
+      display: table; }
+      .sorting-panel .sort-condition .sort-condition-caption-wrapper p {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 18px; }
+      .sorting-panel .sort-condition .sort-condition-caption-wrapper:hover {
+        cursor: move; }
+    .sorting-panel .sort-condition .delete-btn-wrapper {
+      height: 100%;
+      position: relative;
+      width: 32px;
+      padding-left: 4px;
+      padding-right: 4px;
+      text-align: center;
+      font-size: 1.6rem;
+      color: #888;
+      padding-top: 1px; }
+      .sorting-panel .sort-condition .delete-btn-wrapper:not(:hover) .fa-trash {
+        display: none; }
+      .sorting-panel .sort-condition .delete-btn-wrapper:hover {
+        cursor: pointer; }
+        .sorting-panel .sort-condition .delete-btn-wrapper:hover .fa-trash-o {
+          display: none; }
+
+.sort-condition-wrapper.gu-mirror div {
+  float: left; }
+.sort-condition-wrapper.gu-mirror .delete-btn-wrapper {
+  padding-left: 4px;
+  padding-right: 4px; }
+.sort-condition-wrapper.gu-mirror .static-arrow {
+  display: none !important; }
+
+body {
+  overflow: hidden; }
 
 .clickable:hover {
   cursor: pointer; }
+
+.row-ge-has-1-cols .col {
+  width: 100%; }
+
+.row-ge-has-2-cols .col {
+  width: 50%; }
+
+.row-ge-has-3-cols .col {
+  width: 33.33333%; }
+
+.row-ge-has-4-cols .col {
+  width: 25%; }
+
+.row-ge-has-5-cols .col {
+  width: 20%; }
+
+.row-ge-has-6-cols .col {
+  width: 16.66667%; }
+
+.row-ge-has-7-cols .col {
+  width: 14.28571%; }
+
+.row-ge-has-8-cols .col {
+  width: 12.5%; }
+
+.row-ge-has-9-cols .col {
+  width: 11.11111%; }
+
+.row-ge-has-10-cols .col {
+  width: 10%; }
 
 /*# sourceMappingURL=site.css.map */

@@ -5,6 +5,9 @@
 ///<reference path="../../classes/models/ReportOverviewSetting.ts"/>
 ///<reference path="../../classes/utils/Utils.ts"/>
 ///<reference path="../services/AuthService.ts"/>
+///<reference path="../../classes/models/WlWtSortCondition.ts"/>
+///<reference path="../../classes/models/SortCondition.ts"/>
+///<reference path="../../classes/models/RulesReportTableColumn.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -20,6 +23,9 @@ import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import VexUtils = jsutils.VexUtils;
 import ReportOverviewSetting = ge.cim.models.ReportOverviewSetting;
 import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
+import SortCondition = ge.cim.models.SortCondition;
+import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
+import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 
 @Component({
     selector: 'station',
@@ -38,6 +44,7 @@ export class StationComponent implements OnInit
     private _oLatestRefresh : moment.Moment;
     private _iAutoRefreshIntervalInSeconds: number;
     private _bIsFiltersPanelVisible: boolean;
+    private _aoSortConditions : SortCondition[];
 
 
     /*
@@ -57,7 +64,7 @@ export class StationComponent implements OnInit
         this._iAutoRefreshIntervalInSeconds = 5;
         this._bIsFiltersPanelVisible = false;
 
-        this.initPagination();
+        this.fetchConfigurationFromServer();
     }
 
     ngOnInit() {
@@ -67,12 +74,36 @@ export class StationComponent implements OnInit
     }
 
 
+    /**
+     * Fetch the full report overview configuration
+     * from server (filters, sorting, pagination size, etc.)
+     */
+    private fetchConfigurationFromServer()
+    {
+        // TODO: perform a server request to get the full page config (filters, sorting, pagination size, etc.)
+
+        // DEBUG (+)
+        this._aoSortConditions = [
+            new WlWtSortCondition(),
+            // new SortCondition("Remaining"),
+            // new SortCondition("Overflow Remaining"),
+            // new SortCondition("Rule Type"),
+        ]
+
+        this.initPagination();
+        // DEBUG (-)
+    }
+
+
+
     private initPagination()
     {
         this._iCurrentRowsPerPage = 20;
         this._iCurrentPageNumber = 0;
         this._iTotalPagesCount = 0;
     }
+
+
 
     private doSearch()
     {
@@ -109,6 +140,40 @@ export class StationComponent implements OnInit
             );
     }
 
+    private addSortConditionIfNotExist(oCondition:SortCondition)
+    {
+        if( Utils.arrayContains(this._aoSortConditions, oCondition, "_sCaption") == false)
+        {
+            this._aoSortConditions.push(oCondition);
+            this.openFiltersPanel();
+        }
+
+    }
+
+    //*******************************************************************************
+    //* Protected methods
+    //*******************************************************************************
+    ///<editor-fold desc="Protected methods (+)>
+    ///</editor-fold>
+
+    //*******************************************************************************
+    //* Public methods
+    //*******************************************************************************
+    ///<editor-fold desc="Public methods (+)>
+    get sortConditionsList(){ return this._aoSortConditions; }
+    set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
+
+    public onColumnHeaderClick(oColumn : RulesReportTableColumn)
+    {
+        let sCaption = oColumn.caption;
+        if(sCaption == "Work Cell"){
+            sCaption = "WL/WT";
+        }
+        let sFieldName = oColumn.caption;
+
+        this.addSortConditionIfNotExist(new SortCondition(sFieldName, sCaption));
+    }
+
     public reloadData()
     {
         this.initPagination();
@@ -126,8 +191,8 @@ export class StationComponent implements OnInit
      * Open/Close filters panel
      */
     public toggleFiltersPanel(){ this._bIsFiltersPanelVisible = !this._bIsFiltersPanelVisible;}
-
     public closeFiltersPanel(){ this._bIsFiltersPanelVisible = false;}
+    public openFiltersPanel(){ this._bIsFiltersPanelVisible = true;}
     /**
      * @returns {boolean} TRUE if the filters panel has been toggle to visible, FALSE otherwise
      */
@@ -269,4 +334,5 @@ export class StationComponent implements OnInit
                 this._iCurrentRowsPerPage = ReportOverviewSetting.createDefault().rowsPerPage;
             });
     }
+    ///</editor-fold>
 }

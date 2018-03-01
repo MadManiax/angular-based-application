@@ -1,6 +1,7 @@
 ///<reference path="../../../classes/utils/Utils.ts"/>
 ///<reference path="../../../classes/models/RulesReportTableColumn.ts"/>
 ///<reference path="../../../classes/utils/VexUtils.ts"/>
+///<reference path="../../../classes/models/SortCondition.ts"/>
 
 import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Utils = jsutils.Utils;
@@ -13,6 +14,7 @@ import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 import VexUtils = jsutils.VexUtils;
 import Filter = ge.cim.models.Filter;
 import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
+import SortCondition = ge.cim.models.SortCondition;
 
 
 @Component({
@@ -28,6 +30,8 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     // @Input('userCanEdit')
     // private _bIsEditButtonEnabled : boolean;
 
+    @Input('sortConditions')
+    private _aoSortConditions : SortCondition[];
     @Output('onFiltersChanged')
     private _oEventEmitterFiltersChanged= new EventEmitter<RulesReportFiltersContainer>()
     //@Output('onSortChanged')
@@ -125,6 +129,9 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     //* Public methods
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
+    get sortConditionsList(){ return this._aoSortConditions; }
+    set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
+
     public getFilterCaptionPropertyName(){ return "_sCaption"; }
 
     public clearAllFilters()

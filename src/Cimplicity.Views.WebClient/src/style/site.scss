@@ -28,9 +28,23 @@
 @import "../app/components/advanced_dropdown/advanced_dropdown";
 @import "../app/components/sorting_panel/sorting_panel";
 
+body{
+	overflow: hidden;
+}
 
 .clickable{
 	&:hover{
 		cursor: pointer;
+	}
+}
+
+
+// Create some classes to use to specify how many columns
+// a 'bootstrap' row will has
+@for $i from 1 through 10 {
+	.row-ge-has-#{$i}-cols {
+		.col {
+			width: 0% + 100/$i;
+		}
 	}
 }

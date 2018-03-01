@@ -34,7 +34,15 @@ $color-rules-table-header-text: 	whitesmoke !default;;
 $color-filters-panel-bg		: whitesmoke !default;
 $color-filters-panel-shadow	: $color-cimplicity-blue-dark !default;
 
+
+// SORTING PANEL
+$color-sort-panel-label: inherit !default;
+$color-sort-direction-bg: #eeeeee !default;
+$color-sort-condition-border: #ccc !default;
+$color-sort-arrow: #000000 !default;
+
 // ADVANCED DROPDOWN
+$color-advanced-dropdown-caption: inherit !default;
 $color-advanced-dropdown-selected-bg : $color-cimplicity-blue-dark !default;
 $color-advanced-dropdown-selected-color : whitesmoke !default;
 $color-advanced-dropdown-option-hover-bg: $color-cimplicity-btn-hover-light !default;

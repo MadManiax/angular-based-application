@@ -1,41 +1,46 @@
 <div class="sorting-panel">
-    <label>Order by</label>
-    <!--<div class="dragula-bag" [dragula]='"bag-one"'>-->
-            <!--<div class="sort-condition" *ngFor="let oCondition of getSortConditions()">-->
-                <!--<div class="sort-direction-wrapper" (click)="oCondition.toggleDirection()">-->
-                    <!--<i class="fa fa-caret-up" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionAsc() == false}"></i>-->
-                    <!--<i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionDesc() == false}"></i>-->
-                <!--</div>-->
-                <!--<div class="sort-condition-caption-wrapper">-->
-                    <!--<p>{{oCondition.caption}}</p>-->
-                <!--</div>-->
-                <!--<div class="delete-btn-wrapper" (click)="deleteCondition(oCondition)" *ngIf="oCondition.canBeDeleted() == true">-->
-                    <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
+    <label>Order by:</label>
+    <!--<div>-->
+        <!--<div class="dragula-bag-wrapper" *ngFor="let oCondition of sortConditions; let iIndex = index;" [ngClass]="{'dragula-bag-wrapper-last' : isLastBag(iIndex) == true}">-->
+            <!--<div class="d-inline-block dragula-bag" [dragula]='"my-bag"' ngClass="dragula-bag-{{iIndex}}" [dragulaModel]='dragulaBags[iIndex]'>-->
+                <!--<div class="sort-condition">-->
+                    <!--<div class="sort-direction-wrapper" (click)="oCondition.toggleDirection()">-->
+                        <!--<i class="fa fa-caret-up" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionAsc() == false}"></i>-->
+                        <!--<i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionDesc() == false}"></i>-->
+                    <!--</div>-->
+                    <!--<div class="sort-condition-caption-wrapper">-->
+                        <!--<p>{{oCondition.caption}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="delete-btn-wrapper" (click)="deleteCondition(oCondition)" *ngIf="oCondition.canBeDeleted() == true">-->
+                        <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
+                    <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-            <!--<div class="static-arrow">-->
+            <!--<div class="d-inline-block static-arrow">-->
                 <!--<i class="fa fa-long-arrow-right" aria-hidden="true"></i>-->
             <!--</div>-->
+        <!--</div>-->
     <!--</div>-->
-
-    <!-- For dragula create N buckets where sorting conditions will be placed -->
-    <div class="dragula-bag-wrapper" *ngFor="let oCondition of sortConditions; let iIndex = index;">
-        <div class="d-inline-block dragula-bag" [dragula]='"my-bag"' ngClass="dragula-bag-{{iIndex}}">
-            <div class="sort-condition">
-                <div class="sort-direction-wrapper" (click)="oCondition.toggleDirection()">
-                    <i class="fa fa-caret-up" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionAsc() == false}"></i>
-                    <i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionDesc() == false}"></i>
-                </div>
-                <div class="sort-condition-caption-wrapper">
-                    <p>{{oCondition.caption}}</p>
-                </div>
-                <div class="delete-btn-wrapper" (click)="deleteCondition(oCondition)" *ngIf="oCondition.canBeDeleted() == true">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+    <div class="dragula-bag" [dragula]='"my-bag"' [dragulaModel]="sortConditionsList">
+        <div class="sort-condition-wrapper" *ngFor="let oCondition of sortConditionsList; let iIndex = index;" [ngClass]="{'dragula-bag-wrapper-last' : isLastBag(iIndex) == true}">
+            <div class="d-inline-block">
+                <div class="sort-condition">
+                    <div class="sort-direction-wrapper" (click)="oCondition.toggleDirection()">
+                        <i class="fa fa-caret-up" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionAsc() == false}"></i>
+                        <i class="fa fa-caret-down" aria-hidden="true" [ngClass]="{'invisible' : oCondition.isDirectionDesc() == false}"></i>
+                    </div>
+                    <div class="sort-condition-caption-wrapper">
+                        <p>{{oCondition.caption}}</p>
+                    </div>
+                    <div class="delete-btn-wrapper" (click)="deleteCondition(oCondition)" *ngIf="oCondition.canBeDeleted() == true">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="d-inline-block static-arrow">
-            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            <div class="d-inline-block static-arrow">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </div>
         </div>
     </div>
 </div>

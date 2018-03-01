@@ -32,6 +32,8 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     private _oEventEmitterSaveRule= new EventEmitter<Rule>()
     @Output('onTriggerNext')
     private _oEventEmitterTriggerNext= new EventEmitter<Rule>()
+    @Output('onColumnHeaderClick')
+    private _oEventEmitterColHeaderClick = new EventEmitter<RulesReportTableColumn>()
 
 
     private _oRuleToEditOriginal : Rule;
@@ -174,7 +176,8 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         // is a sortable column
         if(oColumn.isSortingAllowed() == true)
         {
-            VexUtils.showGeneralAlert("TODO: column '"+ oColumn.caption +"' will be added to 'sorting panel'");
+            //VexUtils.showGeneralAlert("TODO: column '"+ oColumn.caption +"' will be added to 'sorting panel'");
+            this._oEventEmitterColHeaderClick.emit(oColumn);
         }
     }
 
