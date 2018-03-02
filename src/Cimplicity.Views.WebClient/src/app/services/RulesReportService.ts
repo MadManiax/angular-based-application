@@ -15,6 +15,8 @@ import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
 import Utils = jsutils.Utils;
 import DummyReport = ge.cim.dummydata.DUMMY_REPORT;
+import DUMMY_REPORT_FULL_RESPONSE = ge.cim.dummydata.DUMMY_REPORT_FULL_RESPONSE;
+import IBaseServerResponse = ge.cim.IBaseServerResponse;
 
 @Injectable()
 export class RulesReportService
@@ -76,20 +78,32 @@ export class RulesReportService
                 // }
                 // console.debug(JSON.stringify(oPages));
 
-                let oPages = DummyReport;
+                // OLD DUMMY JSON
+                // let oPages = DummyReport;
+                // oResponse.TotalPages = oPages.length;
+                // if( aoParams.CurrentPage < oResponse.TotalPages )
+                // {
+                //     let oPageInJson : any = oPages[aoParams.CurrentPage];
+                //
+                //     for(let i = 0; i < oPageInJson.length; i++)
+                //     {
+                //         let oRuleInJson = oPageInJson[i];
+                //         if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
+                //         if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                //         if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                //     }
+                // }
 
-                oResponse.TotalPages = oPages.length;
-                if( aoParams.CurrentPage < oResponse.TotalPages )
+
+                // NEW DUMMY JSON (like the real one)
+                let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE
+                let oPageInJson : any = oReportResponse.Result;
+                for(let i = 0; i < oPageInJson.length; i++)
                 {
-                    let oPageInJson : any = oPages[aoParams.CurrentPage];
-
-                    for(let i = 0; i < oPageInJson.length; i++)
-                    {
-                        let oRuleInJson = oPageInJson[i];
-                        if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
-                        if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
-                        if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
-                    }
+                    let oRuleInJson = oPageInJson[i];
+                    if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
+                    if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                    if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
                 }
 
                 // set observer value and set it as 'completed'
