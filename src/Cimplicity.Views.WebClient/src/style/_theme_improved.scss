@@ -1,4 +1,18 @@
+
+$color-rule-cell-green-bg: #559541;
+$color-rule-cell-green-text : whitesmoke;
+$color-rule-cell-yellow-bg: #fff399;
+$color-rule-cell-yellow-text : black;
+$color-rule-cell-red-bg: #d12929;
+$color-rule-cell-red-text : whitesmoke;
+
+
 $color-rules-table-border: 	#b6cdf5;
+
+$color-rules-table-border: 			#ccc;	//#2b2b5e;
+$color-rules-table-header-border: 	#aaa;						//#2b2b5e;
+$color-rules-table-header-bg: 		#e0e0e0;
+$color-rules-table-header-text: 	#555;
 
 
 // SORTING PANEL
@@ -9,5 +23,5 @@ $color-sort-arrow: #cccccc;
 $color-advanced-dropdown-caption: whitesmoke;
 
 // FILTERS PANEL
-$color-filters-panel-bg		: #6c757d;
+$color-filters-panel-bg		: hsla(211, 52%, 52%, 0.95); //#6c757d;
 $color-filters-panel-shadow	: #495057;

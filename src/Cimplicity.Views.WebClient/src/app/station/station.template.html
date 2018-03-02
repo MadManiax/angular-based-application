@@ -6,7 +6,7 @@
     </div>
     <div class="filters-container row">
         <div class="col-lg-2">
-            <button class="btn btn-ge btn-ge-outline-primary" (click)="toggleFiltersPanel()"><i class="fa fa-filter" aria-hidden="true"></i>Filters and sorting</button>
+            <button class="btn btn-ge btn-ge-outline-primary" (click)="toggleFiltersPanel()"><i class="fa fa-filter" aria-hidden="true"></i>Advanced</button>
         </div>
         <div class="col-lg-6">
             <!-- Empty row -->
@@ -23,7 +23,7 @@
                         Auto refresh every {{getAutoRefreshIntervalInSeconds()}} seconds
                         <i class="fa fa-cog padding-left" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i>
                     </div>
-                    <div><span class="padding-right">Last refresh:</span>{{getLatestRefreshDatetimeAsString()}}</div>
+                    <!--<div><span class="padding-right">Last refresh:</span>{{getLatestRefreshDatetimeAsString()}}</div>-->
                 </div>
 
                 <button class="btn btn-ge btn-ge-primary" (click)="reloadData()"><i class="fa fa-search"></i>Search</button>

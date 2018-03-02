@@ -15,14 +15,14 @@
         </thead>
         <tbody>
         <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
-            <td>{{oRule.WorkCell}}</td>
-            <td>{{oRule.WorkUnit}}</td>
-            <td class="col-actual" ngClass="{{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
-            <td>{{oRule.getRemainingToString()}}</td>
-            <td>{{oRule.getSetToString()}}</td>
-            <td class="col-overflow" ngClass="{{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
-            <td class="col-overflow-set">{{oRule.OverflowSet}}</td>
-            <td>{{oRule.getRuleType()}}</td>
+            <td class="">{{oRule.WorkCell}}</td>
+            <td class="">{{oRule.WorkUnit}}</td>
+            <td class="col-actual text-center" ngClass="{{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
+            <td class="col-remaining text-center">{{oRule.getRemainingToString()}}</td>
+            <td class="col-set text-center">{{oRule.getSetToString()}}</td>
+            <td class="col-overflow text-center" ngClass="{{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
+            <td class="col-overflow-set text-center">{{oRule.OverflowSet}}</td>
+            <td class="col-rule-type text-center">{{oRule.getRuleType()}}</td>
             <td class="col-rule-name" ngClass="{{getRuleNameCellCssClass(oRule)}}">
                 <div class="rule-name-wrapper">{{oRule.Name}}</div>
                 <div class="edit-trigger-btns-wrapper">

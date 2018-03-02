@@ -57,15 +57,15 @@ export class RulesReportTableComponent implements OnInit, OnChanges
          * "Remaining" will be sortable only if the rules in the report are either only timing rules or only counter rules.
          */
         this._aoColumns = [
-            new RulesReportTableColumn("Work Cell").allowSorting(),
-            new RulesReportTableColumn("Work Unit"),
+            new RulesReportTableColumn("WL").setCssClasses("col-work-cell").allowSorting(),
+            new RulesReportTableColumn("WT").setCssClasses("col-work-unit"),
             new RulesReportTableColumn("Actual").setCssClasses("col-actual"),
-            new RulesReportTableColumn("Remaining"),
-            new RulesReportTableColumn("Set"),
-            new RulesReportTableColumn("Overflow Remaining").allowSorting().setCssClasses("col-overflow"),
-            new RulesReportTableColumn("Overflow Set").setCssClasses("col-overflow-set"),
-            new RulesReportTableColumn("Rule Type").allowSorting(),
-            new RulesReportTableColumn("Rule Name").allowSorting().setCssClasses("col-rule-name")
+            new RulesReportTableColumn("Remain.").setCssClasses("col-remaining"),
+            new RulesReportTableColumn("Set").setCssClasses("col-set"),
+            new RulesReportTableColumn("Ov. Remain").allowSorting().setCssClasses("col-overflow"),
+            new RulesReportTableColumn("Ov. Set").setCssClasses("col-overflow-set"),
+            new RulesReportTableColumn("Type").allowSorting().setCssClasses("col-rule-type"),
+            new RulesReportTableColumn("Name").allowSorting().setCssClasses("col-rule-name")
         ]
     }
 
