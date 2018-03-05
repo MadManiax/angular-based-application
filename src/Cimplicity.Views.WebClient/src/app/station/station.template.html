@@ -43,16 +43,21 @@
                  (onColumnHeaderClick)="onColumnHeaderClick($event)">
     </rules-table>
     <div class="pagination-container">
-        <div class="pagination-changer">
-            <i class="fa fa-step-backward" (click)="goFirstTablePage()"></i>
-            <i class="fa fa-chevron-left" (click)="goToPreviousTablePage()"></i>
-            <span>{{getCurrentPageNumerViewOnly()}}/{{getTotalPagesCount()}}</span>
-            <i class="fa fa-chevron-right" (click)="goToNextTablePage()"></i>
-            <i class="fa fa-step-forward" (click)="goLastTablePage()"></i>
-        </div>
-        <div class="pagination-summary-configurator">
-            {{getCurrentRowsPerPage()}} results per page<i class="fa fa-cog padding-left clickable" aria-hidden="true" (click)="openPaginationConfigurator()"></i>
-        </div>
+        <mat-paginator [length]="getTotalItemsCount()"
+                       [pageSize]="_iCurrentRowsPerPage"
+                       [pageSizeOptions]="_aiAvailablePageSizes"
+                       (page)="onPageEvent($event)">
+        </mat-paginator>
+        <!--<div class="pagination-changer">-->
+            <!--<i class="fa fa-step-backward" (click)="goFirstTablePage()"></i>-->
+            <!--<i class="fa fa-chevron-left" (click)="goToPreviousTablePage()"></i>-->
+            <!--<span>{{getCurrentPageNumerViewOnly()}}/{{getTotalPagesCount()}}</span>-->
+            <!--<i class="fa fa-chevron-right" (click)="goToNextTablePage()"></i>-->
+            <!--<i class="fa fa-step-forward" (click)="goLastTablePage()"></i>-->
+        <!--</div>-->
+        <!--<div class="pagination-summary-configurator">-->
+            <!--{{getCurrentRowsPerPage()}} results per page<i class="fa fa-cog padding-left clickable" aria-hidden="true" (click)="openPaginationConfigurator()"></i>-->
+        <!--</div>-->
 
     </div>
 

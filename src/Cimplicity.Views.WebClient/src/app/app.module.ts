@@ -2,7 +2,6 @@
 ///<reference path="../../node_modules/@angular/material/button/typings/button-module.d.ts"/>
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BaseRequestOptions, Http, HttpModule} from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +20,7 @@ import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
 import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComponent";
 import {DragulaModule} from "ng2-dragula";
-import {MatButtonModule, MatTableModule} from "@angular/material";
+import {MatButtonModule, MatPaginatorModule, MatTableModule} from "@angular/material";
 
 
 
@@ -34,7 +33,8 @@ import {MatButtonModule, MatTableModule} from "@angular/material";
         FormsModule,         // required to use ngModel on input etc...
         DragulaModule,
         MatTableModule,
-        MatButtonModule
+        MatButtonModule,
+        MatPaginatorModule
     ],
     declarations: [
         AppComponent,

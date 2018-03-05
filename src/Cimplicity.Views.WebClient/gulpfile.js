@@ -249,15 +249,12 @@ gulp.task("dependencies", [
     "copy:systemjs",
     "copy:rxjs",
     "copy:jasmine",
-    //"copy:app",
     "copy:es6-shim",
     "copy:es5-shim",
-    //"copy:index",
     "copy:signalr",
     "copy:plugin_babel",
     "copy:moment",
-    "copy::dragula_all_dependencies"
-    "copy:moment",
+    "copy::dragula_all_dependencies",
     "copy:tslib"
 ]);
 

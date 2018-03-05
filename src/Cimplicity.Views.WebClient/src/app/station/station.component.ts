@@ -26,6 +26,7 @@ import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
 import SortCondition = ge.cim.models.SortCondition;
 import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
 import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
+import {PageEvent} from "@angular/material";
 
 @Component({
     selector: 'station',
@@ -45,6 +46,7 @@ export class StationComponent implements OnInit
     private _iAutoRefreshIntervalInSeconds: number;
     private _bIsFiltersPanelVisible: boolean;
     private _aoSortConditions : SortCondition[];
+    private _aiAvailablePageSizes : number[];
 
 
     /*
@@ -101,6 +103,7 @@ export class StationComponent implements OnInit
         this._iCurrentRowsPerPage = 20;
         this._iCurrentPageNumber = 0;
         this._iTotalPagesCount = 0;
+        this._aiAvailablePageSizes = [10, 25, 50, 100];
     }
 
 
@@ -246,6 +249,7 @@ export class StationComponent implements OnInit
 
     public getCurrentPageNumerViewOnly(){ return this._iCurrentPageNumber + 1; }
     public getTotalPagesCount(){ return this._iTotalPagesCount}
+    public getTotalItemsCount(){ this._iTotalPagesCount + this._iCurrentRowsPerPage; }
 
     public getLatestRefreshDatetimeAsString(){
         if(Utils.isNullOrUndef(this._oLatestRefresh) == false)
@@ -261,6 +265,11 @@ export class StationComponent implements OnInit
     public triggerNext(oRule:Rule)
     {
 
+    }
+
+    public onPageEvent(oEvent:PageEvent)
+    {
+        debugger;
     }
 
     public getRulesList() { return this._aoRulesList; }
