@@ -15,15 +15,15 @@
         </thead>
         <tbody>
         <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
-            <td class="">{{oRule.WorkCell}}</td>
-            <td class="">{{oRule.WorkUnit}}</td>
-            <td class="col-actual text-center" ngClass="{{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
-            <td class="col-remaining text-center">{{oRule.getRemainingToString()}}</td>
-            <td class="col-set text-center">{{oRule.getSetToString()}}</td>
-            <td class="col-overflow text-center" ngClass="{{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
-            <td class="col-overflow-set text-center">{{oRule.OverflowSet}}</td>
-            <td class="col-rule-type text-center">{{oRule.getRuleType()}}</td>
-            <td class="col-rule-name" ngClass="{{getRuleNameCellCssClass(oRule)}}">
+            <td ngClass="{{getColClassesWorkCell()}}">{{oRule.WorkCell}}</td>
+            <td ngClass="{{getColClassesWorkUnit()}}">{{oRule.WorkUnit}}</td>
+            <td ngClass="{{getColClassesActual()}} {{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
+            <td ngClass="{{getColClassesRemaining()}}">{{oRule.getRemainingToString()}}</td>
+            <td ngClass="{{getColClassesSet()}}">{{oRule.getSetToString()}}</td>
+            <td ngClass="{{getColClassesOverflowRemaining()}} {{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
+            <td ngClass="{{getColClassesOverflowSet()}}">{{oRule.OverflowSet}}</td>
+            <td ngClass="{{getColClassesRuleType()}}">{{oRule.getRuleType()}}</td>
+            <td ngClass="{{getColClassesRuleName()}} {{getRuleNameCellCssClass(oRule)}}">
                 <div class="rule-name-wrapper">{{oRule.Name}}</div>
                 <div class="edit-trigger-btns-wrapper">
                     <!--<button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"-->
@@ -84,11 +84,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-ge-cancel" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-ge-success" data-dismiss="modal"
+                    <button type="button" class="btn btn-ge btn-ge-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-ge btn-ge-success" data-dismiss="modal"
                             (click)="onSaveRule()"
                             [hidden]="isDialogModeEditRule() == false">Save changes</button>
-                    <button type="button" class="btn btn-ge-success" data-dismiss="modal"
+                    <button type="button" class="btn btn-ge btn-ge-success" data-dismiss="modal"
                             (click)="onTriggerNext()"
                             [hidden]="isDialogModeTriggerNext() == false">Trigger next</button>
                 </div>

@@ -1,3 +1,5 @@
+
+
 .vex{
 	.vex-dialog-top-bar{
 		border-bottom: 1px solid #ccc;
@@ -26,4 +28,13 @@
 	.vex-custom-content{
 		margin-bottom: 10px;
 	}
+
+
+	// Override default theme
+	&.vex-theme-plain{
+		.vex-content{
+			font-size: 1.0em;
+		}
+	}
 }
+

@@ -18,11 +18,13 @@ module ge.cim.models {
         //*******************************************************************************
         //* Members
         //*******************************************************************************
+        protected _sId : string;
         protected _sCaption : string;
         protected _sCssClasses : string;
 
-        public constructor(sCaption : string = "")
+        public constructor(sId : string, sCaption : string)
         {
+            this._sId = sId;
             this._sCaption = sCaption;
             this._sCssClasses = "";
         }
@@ -45,6 +47,7 @@ module ge.cim.models {
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        get id(){return this._sId;}
         get caption(){return this._sCaption;}
         get cssClasses(){return this._sCssClasses;}
 

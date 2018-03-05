@@ -2,11 +2,16 @@
 .btn-ge{
 	font-size: 0.8rem;
 	font-weight: bold;
-	letter-spacing: 1.0px;
+	//letter-spacing: 1.0px;
 	text-transform: uppercase;
 	border-radius: 0px;
-	//padding-top: 7px;
-	//padding-bottom: 7px;
+
+	border: 0;
+	font-family: inherit;
+	letter-spacing: .1em;
+	//font-size: .8em;
+	line-height: 1em;
+	padding: .75em 2em;
 
 	&:not(.no-icon-padding){
 		.fa{

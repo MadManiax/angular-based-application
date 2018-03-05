@@ -23,9 +23,9 @@ module ge.cim.models {
         protected _bAllowFilters : boolean;
         protected _bAllowSorting : boolean;
 
-        public constructor(sCaption : string = "")
+        public constructor(sId : string, sCaption : string)
         {
-            super(sCaption);
+            super(sId, sCaption);
             this._bAllowFilters = false;
             this._bAllowSorting = false;
         }

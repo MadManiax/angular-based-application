@@ -57,17 +57,19 @@ export class RulesReportTableComponent implements OnInit, OnChanges
          * "Remaining" will be sortable only if the rules in the report are either only timing rules or only counter rules.
          */
         this._aoColumns = [
-            new RulesReportTableColumn("WL").setCssClasses("col-work-cell").allowSorting(),
-            new RulesReportTableColumn("WT").setCssClasses("col-work-unit"),
-            new RulesReportTableColumn("Actual").setCssClasses("col-actual"),
-            new RulesReportTableColumn("Remain.").setCssClasses("col-remaining"),
-            new RulesReportTableColumn("Set").setCssClasses("col-set"),
-            new RulesReportTableColumn("Ov. Remain").allowSorting().setCssClasses("col-overflow"),
-            new RulesReportTableColumn("Ov. Set").setCssClasses("col-overflow-set"),
-            new RulesReportTableColumn("Type").allowSorting().setCssClasses("col-rule-type"),
-            new RulesReportTableColumn("Name").allowSorting().setCssClasses("col-rule-name")
+            new RulesReportTableColumn("wl", "WL").setCssClasses("col-work-cell").allowSorting(),
+            new RulesReportTableColumn("wt", "WT").setCssClasses("col-work-unit"),
+            new RulesReportTableColumn("actual", "Actual").setCssClasses("col-actual"),
+            new RulesReportTableColumn("remaining", "Remain.").setCssClasses("col-remaining"),
+            new RulesReportTableColumn("set", "Set").setCssClasses("col-set"),
+            new RulesReportTableColumn("overflow-remaining", "Ov. Remain").allowSorting().setCssClasses("col-overflow"),
+            new RulesReportTableColumn("overflow-set", "Ov. Set").setCssClasses("col-overflow-set"),
+            new RulesReportTableColumn("type", "Type").allowSorting().setCssClasses("col-rule-type"),
+            new RulesReportTableColumn("name", "Name").allowSorting().setCssClasses("col-rule-name")
         ]
     }
+
+
 
     ngOnInit()
     {
@@ -102,6 +104,37 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         }
         this._oModal.modal('show');
     }
+
+    /**
+     * Get a column object with its properties, on the base of the column ID
+     * @param {string} sColId
+     * @returns {any} The column object with the specified ID or NULL if not found
+     */
+    private getColumn(sColId:string)
+    {
+        for (let i = 0; i < this._aoColumns.length; i++)
+        {
+            if (sColId == this._aoColumns[i].id) {
+                return this._aoColumns[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get the CSS classes for the given column
+     * @param {string} sColId
+     * @returns {any} The CSS classes for the column with the ID specified in the param, or empty string if column not found
+     */
+    private getColumnClasses(sColId:string)
+    {
+        let sColumn = this.getColumn(sColId);
+        if( sColumn != null)
+        {
+            return sColumn.getCssClasses();
+        }
+        return "";
+    }
     ///</editor-fold>
 
     //*******************************************************************************
@@ -120,6 +153,16 @@ export class RulesReportTableComponent implements OnInit, OnChanges
         return (Utils.isNullOrUndef(this._aoRulesList) == true || this._aoRulesList.length == 0)
     } ;
 
+
+    public  getColClassesWorkCell(){ return this.getColumnClasses("wl");}
+    public  getColClassesWorkUnit(){ return this.getColumnClasses("wt");}
+    public  getColClassesActual(){ return this.getColumnClasses("actual");}
+    public  getColClassesRemaining(){ return this.getColumnClasses("remaining");}
+    public  getColClassesSet(){ return this.getColumnClasses("set");}
+    public  getColClassesOverflowRemaining(){ return this.getColumnClasses("overflow-remaining");}
+    public  getColClassesOverflowSet(){ return this.getColumnClasses("overflow-set");}
+    public  getColClassesRuleType(){ return this.getColumnClasses("type");}
+    public  getColClassesRuleName(){ return this.getColumnClasses("name");}
 
     /**
      * Get the CSS class for the 'Actual' acording to FdS:

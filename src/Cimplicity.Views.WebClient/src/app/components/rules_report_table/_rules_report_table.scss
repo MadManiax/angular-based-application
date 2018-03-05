@@ -40,24 +40,32 @@
 				text-transform: uppercase;
 				letter-spacing: 1.408px;
 
-				&.col-work-cell, &.col-work-unit{
-					text-align: left;
-					font-size: 0.7rem;
-				}
-				&.col-actual, &.col-remaining, &.col-set, &.col-overflow, col-overflow-set{
-					background-color: #a9cdf4;
-				}
 
+				&.col{
+					&-work-cell, &-work-unit{
+						text-align: left;
+						font-size: 0.7rem;
+					}
 
-				&.col-rule-type, &.col-rule-name{
-					background-color: darken($color-rules-table-header-bg,5%);
-					font-size: 0.7rem;
-				}
-				&.col-rule-name{
-					text-align: left;
+					&-actual, &-remaining, &-set, &-overflow, &-overflow-set{
+						background-color: $color-rules-table-highlighted-header-blue;
+					}
+
+					&-rule-type, &-rule-name{
+						background-color: darken($color-rules-table-header-bg,5%);
+						font-size: 0.7rem;
+					}
+
+					&-allow-sorting{
+						text-decoration: underline;
+						&:hover{
+							cursor: pointer;
+						}
+					}
 				}
 			}
 		}
+
 
 		tbody {
 			tr {
@@ -68,34 +76,54 @@
 					height: $size-row-total-height;
 					padding: 2px $size-cell-padding-left-right;
 
-					&.col-actual, &.col-remaining, &.col-set, &.col-overflow, col-overflow-set{
-						font-size: 1.1rem;
-						color: #444;
+					&.col {
+						&-actual, &-remaining, &-set, &-overflow, &-overflow-set {
+							font-size: 1.1rem;
+							color: #444;
+						}
+						&-actual {
+							//border-right-color: $color-rules-table-column-separator-blue;
+							border-left: 2px solid $color-rules-table-column-separator-blue;
+						}
+						&-rule-type {
+							//border-right-color: $color-rules-table-column-separator-blue;
+							border-left: 2px solid $color-rules-table-column-separator-blue;
+						}
 					}
 				}
 			}
 		}
 
-		&.col-actual, &.col-remaining, &.col-set, &.col-overflow, col-overflow-set{
-			width: 95px !important;
-		}
+
 
 		.col{
-			&-actual{
-				width: 130px;
+
+			&-actual, &-remaining, &-set, &-overflow, &-overflow-set{
+				width: 106px;
+				text-align: center;
+				padding-left: 2px;
+				padding-right: 2px;
 			}
-			&-overflow{
-				width: 140px;
-				&-set{
-					@extend .col-overflow;
-					padding-left: 18px;
-					padding-right: 18px;
-				}
+
+			&-work-cell, &-work-unit{
+				width: 120px;
+			}
+			&-actual{
+			}
+			&-remaining{
 			}
 			&-set{
-				width: 78px;
+			}
+			&-overflow{
+			}
+			&-overflow-set{
+
+			}
+			&-rule-type{
+				width: 74px;
 			}
 			&-rule-name{
+				text-align: left;
 				padding-top: 0px;
 				padding-bottom: 0px;
 
@@ -110,18 +138,12 @@
 
 				}
 			}
-
-			&-allow-sorting{
-				text-decoration: underline;
-				&:hover{
-					cursor: pointer;
-				}
-			}
 		}
 
 		.cell{
 			&-actual-equals-to-set{
 				background-color: $color-rule-cell-green-bg;
+				border-color: $color-rule-cell-green-bg;
 				color: $color-rule-cell-green-text !important;
 			}
 			&-warning{
@@ -129,6 +151,7 @@
 			}
 			&-no-more-overflow-available{
 				background-color: $color-rule-cell-red-bg;
+				border-color: $color-rule-cell-red-bg;
 				color: $color-rule-cell-red-text !important;
 			}
 		}

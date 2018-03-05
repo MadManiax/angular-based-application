@@ -23,6 +23,8 @@
     top: -2px; }
 .vex .vex-custom-content {
   margin-bottom: 10px; }
+.vex.vex-theme-plain .vex-content {
+  font-size: 1.0em; }
 
 .loading-screen-container {
   position: absolute;
@@ -134,9 +136,13 @@
 .btn-ge {
   font-size: 0.8rem;
   font-weight: bold;
-  letter-spacing: 1.0px;
   text-transform: uppercase;
-  border-radius: 0px; }
+  border-radius: 0px;
+  border: 0;
+  font-family: inherit;
+  letter-spacing: .1em;
+  line-height: 1em;
+  padding: .75em 2em; }
   .btn-ge-default {
     border: 1px solid #aeaeae;
     background-color: #e1e1e1; }
@@ -240,14 +246,7 @@
   background: rgba(69, 130, 196, 0.95);
   box-shadow: 0px 0px 20px #495057;
   z-index: 10;
-  background: #2e2e2e;
-  background: -moz-linear-gradient(-45deg, #2e2e2e 0%, rgba(112, 112, 112, 0.98) 55%, rgba(66, 65, 65, 0.96) 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, #2e2e2e), color-stop(55%, rgba(112, 112, 112, 0.98)), color-stop(100%, rgba(66, 65, 65, 0.96)));
-  background: -webkit-linear-gradient(-45deg, #2e2e2e 0%, rgba(112, 112, 112, 0.98) 55%, rgba(66, 65, 65, 0.96) 100%);
-  background: -o-linear-gradient(-45deg, #2e2e2e 0%, rgba(112, 112, 112, 0.98) 55%, rgba(66, 65, 65, 0.96) 100%);
-  background: -ms-linear-gradient(-45deg, #2e2e2e 0%, rgba(112, 112, 112, 0.98) 55%, rgba(66, 65, 65, 0.96) 100%);
-  background: linear-gradient(135deg, #2e2e2e 0%, rgba(112, 112, 112, 0.98) 55%, rgba(66, 65, 65, 0.96) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e2e2e', endColorstr='#424141', GradientType=1 ); }
+  background: #2e2e2e; }
   .filters-panel-wrapper.visible {
     bottom: 0px; }
   .filters-panel-wrapper .advanced-dropdown .button-group {
@@ -289,33 +288,38 @@
       .table-container table thead th.col-work-cell, .table-container table thead th.col-work-unit {
         text-align: left;
         font-size: 0.7rem; }
-      .table-container table thead th.col-actual, .table-container table thead th.col-remaining, .table-container table thead th.col-set, .table-container table thead th.col-overflow, .table-container table thead th.col-overflow-set, .table-container table thead th col-overflow-set {
+      .table-container table thead th.col-actual, .table-container table thead th.col-remaining, .table-container table thead th.col-set, .table-container table thead th.col-overflow, .table-container table thead th.col-overflow-set {
         background-color: #a9cdf4; }
       .table-container table thead th.col-rule-type, .table-container table thead th.col-rule-name {
         background-color: lightgray;
         font-size: 0.7rem; }
-      .table-container table thead th.col-rule-name {
-        text-align: left; }
+      .table-container table thead th.col-allow-sorting {
+        text-decoration: underline; }
+        .table-container table thead th.col-allow-sorting:hover {
+          cursor: pointer; }
     .table-container table tbody tr td {
       font-size: 0.9rem;
       vertical-align: middle;
       height: 48px;
       padding: 2px 10px; }
-      .table-container table tbody tr td.col-actual, .table-container table tbody tr td.col-remaining, .table-container table tbody tr td.col-set, .table-container table tbody tr td.col-overflow, .table-container table tbody tr td.col-overflow-set, .table-container table tbody tr td col-overflow-set {
+      .table-container table tbody tr td.col-actual, .table-container table tbody tr td.col-remaining, .table-container table tbody tr td.col-set, .table-container table tbody tr td.col-overflow, .table-container table tbody tr td.col-overflow-set {
         font-size: 1.1rem;
         color: #444; }
-    .table-container table.col-actual, .table-container table.col-remaining, .table-container table.col-set, .table-container table.col-overflow, .table-container table table.col-overflow-set, .table-container table col-overflow-set {
-      width: 95px !important; }
-    .table-container table .col-actual {
-      width: 130px; }
-    .table-container table .col-overflow, .table-container table .col-overflow-set {
-      width: 140px; }
-      .table-container table .col-overflow-set {
-        padding-left: 18px;
-        padding-right: 18px; }
-    .table-container table .col-set {
-      width: 78px; }
+      .table-container table tbody tr td.col-actual {
+        border-left: 2px solid #7cb3ee; }
+      .table-container table tbody tr td.col-rule-type {
+        border-left: 2px solid #7cb3ee; }
+    .table-container table .col-actual, .table-container table .col-remaining, .table-container table .col-set, .table-container table .col-overflow, .table-container table .col-overflow-set {
+      width: 106px;
+      text-align: center;
+      padding-left: 2px;
+      padding-right: 2px; }
+    .table-container table .col-work-cell, .table-container table .col-work-unit {
+      width: 120px; }
+    .table-container table .col-rule-type {
+      width: 74px; }
     .table-container table .col-rule-name {
+      text-align: left;
       padding-top: 0px;
       padding-bottom: 0px; }
       .table-container table .col-rule-name .rule-name-wrapper {
@@ -323,17 +327,15 @@
         padding-bottom: 6px;
         height: 48px;
         overflow: hidden; }
-    .table-container table .col-allow-sorting {
-      text-decoration: underline; }
-      .table-container table .col-allow-sorting:hover {
-        cursor: pointer; }
     .table-container table .cell-actual-equals-to-set {
       background-color: #559541;
+      border-color: #559541;
       color: whitesmoke !important; }
     .table-container table .cell-warning {
       background-color: #fff399; }
     .table-container table .cell-no-more-overflow-available {
       background-color: #d12929;
+      border-color: #d12929;
       color: whitesmoke !important; }
     .table-container table .rule-name-wrapper {
       width: calc(100% - 94px);

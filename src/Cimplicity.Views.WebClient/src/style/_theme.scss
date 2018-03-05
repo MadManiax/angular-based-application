@@ -7,12 +7,12 @@ $color-cimplicity-btn-hover-dark: #75b2f1;
 $color-cimplicity-btn-hover-light: #bcd8f6;
 $color-cimplicity-text: whitesmoke;
 
-$color-rule-cell-green-bg: rgb(0,128,64) default;
-$color-rule-cell-green-text : whitesmoke default;
-$color-rule-cell-yellow-bg: #ffea51 default;
-$color-rule-cell-yellow-text : black default;
-$color-rule-cell-red-bg: rgba(194, 0, 0, 0.91) default;
-$color-rule-cell-red-text : whitesmoke default;
+$color-rule-cell-green-bg: #559541 !default;
+$color-rule-cell-green-text : whitesmoke !default;
+$color-rule-cell-yellow-bg: #fff399 !default;
+$color-rule-cell-yellow-text : black !default;
+$color-rule-cell-red-bg: #d12929 !default;
+$color-rule-cell-red-text : whitesmoke !default;
 //**************************************************************
 
 
@@ -24,25 +24,29 @@ $color-cancel-border-hover	: #bd2130 !default;
 
 $color-green-ok-accept-etc-bg	: #28a745 !default;
 
+
 // RULES TABLE
-$color-rules-table-border: 			$color-cimplicity-blue-dark !default;	//#2b2b5e;
-$color-rules-table-header-border: 	#5076b7 !default;						//#2b2b5e;
-$color-rules-table-header-bg: 		$color-cimplicity-blue-dark !default;	//#5076b7;
-$color-rules-table-header-text: 	whitesmoke !default;;
+$color-rules-table-border					: #ccc !default;	//#2b2b5e;
+$color-rules-table-header-border			: #aaa !default;						//#2b2b5e;
+$color-rules-table-header-bg				: #e0e0e0 !default;	//#5076b7;
+$color-rules-table-header-text				: #555 !default;;
+$color-rules-table-highlighted-header-blue	: #a9cdf4;
+$color-rules-table-column-separator-blue	: darken($color-rules-table-highlighted-header-blue, 10%);
+
 
 // FILTERS PANEL
-$color-filters-panel-bg		: whitesmoke !default;
-$color-filters-panel-shadow	: $color-cimplicity-blue-dark !default;
+$color-filters-panel-bg		: hsla(211, 52%, 52%, 0.95) !default;
+$color-filters-panel-shadow	: #495057 !default;
 
 
 // SORTING PANEL
-$color-sort-panel-label: inherit !default;
+$color-sort-panel-label: whitesmoke !default;
 $color-sort-direction-bg: #eeeeee !default;
 $color-sort-condition-border: #ccc !default;
-$color-sort-arrow: #000000 !default;
+$color-sort-arrow: #cccccc !default;
 
 // ADVANCED DROPDOWN
-$color-advanced-dropdown-caption: inherit !default;
+$color-advanced-dropdown-caption: whitesmoke !default;
 $color-advanced-dropdown-selected-bg : $color-cimplicity-blue-dark !default;
 $color-advanced-dropdown-selected-color : whitesmoke !default;
 $color-advanced-dropdown-option-hover-bg: $color-cimplicity-btn-hover-light !default;
