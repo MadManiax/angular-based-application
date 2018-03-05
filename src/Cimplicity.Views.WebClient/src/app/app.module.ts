@@ -1,4 +1,5 @@
-﻿///<reference path="components/filters_panel/FiltersPanelComponent.ts"/>
+///<reference path="components/filters_panel/FiltersPanelComponent.ts"/>
+///<reference path="../../node_modules/@angular/material/button/typings/button-module.d.ts"/>
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BaseRequestOptions, Http, HttpModule} from '@angular/http';
@@ -20,6 +21,8 @@ import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
 import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComponent";
 import {DragulaModule} from "ng2-dragula";
+import {MatButtonModule, MatTableModule} from "@angular/material";
+
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import {DragulaModule} from "ng2-dragula";
         //HttpClientTestingModule,
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
-        DragulaModule
+        DragulaModule,
+        MatTableModule,
+        MatButtonModule
     ],
     declarations: [
         AppComponent,

@@ -46,6 +46,7 @@
         moment: base.node_modules + "moment/min/*.js",
         dragula: base.node_modules + "dragula/dist/{**, *.*}",
         ng2_dragula: base.node_modules + "ng2-dragula/{**, *.*}",
+        tslib: base.node_modules+ "tslib/**/*.js",
 
         index: "index.html",
         indexDest: base.webroot

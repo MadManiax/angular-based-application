@@ -233,6 +233,13 @@ gulp.task("copy::dragula_all_dependencies", [
 ]);
 
 
+gulp.task("copy:tslib", function () {
+
+    return gulp.src(config.tslib,
+        { base: config.node_modules + "tslib/" })
+        .pipe(gulp.dest(config.lib + "tslib/"));
+});
+
 gulp.task("dependencies", [
     "copy:angular",
     "copy:angularWebApi",
@@ -250,6 +257,8 @@ gulp.task("dependencies", [
     "copy:plugin_babel",
     "copy:moment",
     "copy::dragula_all_dependencies"
+    "copy:moment",
+    "copy:tslib"
 ]);
 
 
