@@ -16,6 +16,7 @@ module ge.cim {
     export interface IRestRulesReportResponse
     {
         TotalPages : number;
+        TotalRows : number;
         CurrentPage : number;
         RowsPerPage : number;
         RulesList : ge.cim.models.Rule[]

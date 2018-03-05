@@ -8,6 +8,7 @@
 ///<reference path="../../classes/models/WlWtSortCondition.ts"/>
 ///<reference path="../../classes/models/SortCondition.ts"/>
 ///<reference path="../../classes/models/RulesReportTableColumn.ts"/>
+///<reference path="../../interfaces/IRestRulesReport.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -26,7 +27,8 @@ import RulesReportFiltersContainer = ge.cim.models.RulesReportFiltersContainer;
 import SortCondition = ge.cim.models.SortCondition;
 import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
 import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
-import {PageEvent} from "@angular/material";
+import {PageEvent, MatSlideToggleChange} from "@angular/material";
+import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
 
 @Component({
     selector: 'station',
@@ -41,6 +43,7 @@ export class StationComponent implements OnInit
     private _iCurrentPageNumber: number;
     private _iTotalPagesCount: number;
     private _iCurrentRowsPerPage: number;
+    private _iTotalRowsCount : number;
     private _iAutoRefreshIntervalId: number;
     private _oLatestRefresh : moment.Moment;
     private _iAutoRefreshIntervalInSeconds: number;
@@ -121,7 +124,7 @@ export class StationComponent implements OnInit
             Filters : []
         };
 
-        let oTempResponse = null;
+        let oTempResponse : IRestRulesReportResponse = null;
         this._oRulesReportService.getRules(oParam)
             .subscribe(
                 (oResponse) => {
@@ -131,6 +134,7 @@ export class StationComponent implements OnInit
                 ()=>{},
                 ()=>{
                     this._iTotalPagesCount = oTempResponse.TotalPages;
+                    this._iTotalRowsCount = oTempResponse.TotalRows
                     this._iCurrentPageNumber = oTempResponse.CurrentPage;
                     this._iCurrentRowsPerPage = oTempResponse.RowsPerPage;
 
@@ -165,6 +169,8 @@ export class StationComponent implements OnInit
     ///<editor-fold desc="Public methods (+)>
     get sortConditionsList(){ return this._aoSortConditions; }
     set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
+
+    get autoRefreshEnabled(){ return this.isAutoRefreshEnabled(); }
 
     public onColumnHeaderClick(oColumn : RulesReportTableColumn)
     {
@@ -218,38 +224,41 @@ export class StationComponent implements OnInit
             })
     }
 
-    public goToPreviousTablePage(){
-        if(this._iCurrentPageNumber > 0){
-            this._iCurrentPageNumber--;
-            this.doSearch();
-        }
+    // public goToPreviousTablePage(){
+    //     if(this._iCurrentPageNumber > 0){
+    //         this._iCurrentPageNumber--;
+    //         this.doSearch();
+    //     }
+    //
+    // }
+    // public goToNextTablePage(){
+    //     if(this._iCurrentPageNumber < this.getTotalPagesCount() - 1 ){
+    //         this._iCurrentPageNumber++;
+    //         this.doSearch();
+    //     }
+    // }
 
-    }
-    public goToNextTablePage(){
-        if(this._iCurrentPageNumber < this.getTotalPagesCount() - 1 ){
-            this._iCurrentPageNumber++;
-            this.doSearch();
-        }
-    }
+    // public goFirstTablePage()
+    // {
+    //     if( this.getTotalPagesCount() > 0) {
+    //         this._iCurrentPageNumber = 0;
+    //         this.doSearch();
+    //     }
+    // }
+    // public goLastTablePage()
+    // {
+    //     if( this.getTotalPagesCount() > 0) {
+    //         this._iCurrentPageNumber = this.getTotalPagesCount() - 1;
+    //         this.doSearch();
+    //     }
+    // }
 
-    public goFirstTablePage()
+    // public getCurrentPageNumerViewOnly(){ return this._iCurrentPageNumber + 1; }
+    // public getTotalPagesCount(){ return this._iTotalPagesCount}
+    public getTotalRowsCount()
     {
-        if( this.getTotalPagesCount() > 0) {
-            this._iCurrentPageNumber = 0;
-            this.doSearch();
-        }
+        return this._iTotalRowsCount;
     }
-    public goLastTablePage()
-    {
-        if( this.getTotalPagesCount() > 0) {
-            this._iCurrentPageNumber = this.getTotalPagesCount() - 1;
-            this.doSearch();
-        }
-    }
-
-    public getCurrentPageNumerViewOnly(){ return this._iCurrentPageNumber + 1; }
-    public getTotalPagesCount(){ return this._iTotalPagesCount}
-    public getTotalItemsCount(){ this._iTotalPagesCount + this._iCurrentRowsPerPage; }
 
     public getLatestRefreshDatetimeAsString(){
         if(Utils.isNullOrUndef(this._oLatestRefresh) == false)
@@ -269,7 +278,9 @@ export class StationComponent implements OnInit
 
     public onPageEvent(oEvent:PageEvent)
     {
-        debugger;
+        this._iCurrentRowsPerPage = oEvent.pageSize;
+        this._iCurrentPageNumber = oEvent.pageIndex;
+        this.doSearch();
     }
 
     public getRulesList() { return this._aoRulesList; }
@@ -287,6 +298,24 @@ export class StationComponent implements OnInit
             this.reloadData();
         }, this._iAutoRefreshIntervalInSeconds * 1000);
     }
+
+    public onAutoRefreshToggleChange(oEvent:MatSlideToggleChange)
+    {
+        if( oEvent.checked == true){
+            this.enableAutoRefresh();
+        }else{
+            this.disableAutoRefresh();
+        }
+    }
+
+    // public getAutoRefreshToggleButtonExtraText()
+    // {
+    //     if(this.isAutoRefreshEnabled() == true){
+    //         return " (" + this._iAutoRefreshIntervalInSeconds + "s)"
+    //     }else{
+    //         return "";
+    //     }
+    // }
 
     public disableAutoRefresh()
     {

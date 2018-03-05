@@ -12,8 +12,9 @@ var clean = require('gulp-clean');
 var rename = require('gulp-rename');
 var pump = require('pump');
 var $ = require('gulp-load-plugins')({ lazy: true });
-
 var ts = require('gulp-typescript');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 
@@ -59,6 +60,18 @@ gulp.task('compile:typescript', function() {
     oRetval = tsResult.js.pipe(gulp.dest(config.destBaseDir + '/classes'));
 
     return oRetval;
+});
+
+//***********************************************************************************
+//* Task to compyle style (SCSS, etc.)
+//***********************************************************************************
+// See https://www.npmjs.com/package/gulp-sass
+gulp.task('compile:sass', function () {
+    return gulp.src(config.styleSrc + '/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write(''))
+        .pipe(gulp.dest(config.styleSrc));
 });
 
 
@@ -140,10 +153,9 @@ gulp.task('copy:all_assets', [
 //* Task to copy dependencies (lib, etc.) to dist
 //***********************************************************************************
 gulp.task("copy:angular", function () {
-
     return gulp.src(config.angular,
-        { base: config.node_modules + "@angular/" })
-        .pipe(gulp.dest(config.lib + "@angular/"));
+        { base: config.node_modules })
+        .pipe(gulp.dest(config.lib));
 });
 gulp.task("copy:angularWebApi", function () {
     return gulp.src(config.angularWebApi,
@@ -268,7 +280,7 @@ gulp.task('copy:all-js-dir', function() {
 });
 
 gulp.task("debug:copy-minimal", [
-    "copy:css_to_dist",
+    "debug:compile-and-copy-style",
     "copy:html_to_dist",
     "copy:all-js-dir"
 ]);
@@ -287,6 +299,13 @@ gulp.task("debug:copy-minimal-and-minify", function(){
     );
 });
 
+gulp.task("debug:compile-and-copy-style", function(){
+    runSequence(
+        'clean:css',
+        'compile:sass',
+        'copy:css_to_dist'
+    );
+});
 
 
 //***********************************************************************************

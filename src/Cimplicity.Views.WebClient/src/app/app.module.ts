@@ -20,7 +20,8 @@ import {DropdownOptionSearchPipe} from "./pipes/DropdownOptionSearchPipe";
 import {FiltersPanelComponent} from "./components/filters_panel/FiltersPanelComponent";
 import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComponent";
 import {DragulaModule} from "ng2-dragula";
-import {MatButtonModule, MatPaginatorModule, MatTableModule} from "@angular/material";
+import {MatButtonModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 
@@ -32,9 +33,13 @@ import {MatButtonModule, MatPaginatorModule, MatTableModule} from "@angular/mate
         AppRoutingModule,
         FormsModule,         // required to use ngModel on input etc...
         DragulaModule,
+        // Angular Material (+)
+        BrowserAnimationsModule,
         MatTableModule,
         MatButtonModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSlideToggleModule
+        // Angular Material (-)
     ],
     declarations: [
         AppComponent,

@@ -4,7 +4,7 @@
                                     [(sortConditions)]="sortConditionsList">
         </rules-report-filters-panel>
     </div>
-    <div class="filters-container row">
+    <div class="station-toolbar row">
         <div class="col-lg-2">
             <button class="btn btn-ge btn-ge-outline-primary" (click)="toggleFiltersPanel()"><i class="fa fa-filter" aria-hidden="true"></i>Advanced</button>
         </div>
@@ -14,14 +14,20 @@
         <div class="col-lg-4 row search-toolbar-wrapper">
             <div class="col">
                 <div class="report-autorefresh-configurator-container">
-                    <div [hidden]="isAutoRefreshEnabled() == true">
-                        <i class="fa fa-toggle-off padding-right" aria-hidden="true" (click)="enableAutoRefresh()"></i>Auto refresh is OFF
-                    </div>
-                    <div [hidden]="isAutoRefreshEnabled() == false">
-                        <i class="fa fa-toggle-on padding-right" aria-hidden="true" (click)="disableAutoRefresh()"></i>
-                        Auto refresh every {{getAutoRefreshIntervalInSeconds()}} seconds
-                        <i class="fa fa-cog padding-left" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i>
-                    </div>
+                    <mat-slide-toggle
+                            class="example-margin"
+                            (change)="onAutoRefreshToggleChange($event)">
+                        Auto-refresh
+                    </mat-slide-toggle>
+                    <div [hidden]="isAutoRefreshEnabled() == false">Every {{getAutoRefreshIntervalInSeconds()}}s<i class="fa fa-cog padding-left" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i></div>
+                    <!--<div [hidden]="isAutoRefreshEnabled() == true">-->
+                        <!--<i class="fa fa-toggle-off padding-right" aria-hidden="true" (click)="enableAutoRefresh()"></i>Auto refresh is OFF-->
+                    <!--</div>-->
+                    <!--<div [hidden]="isAutoRefreshEnabled() == false">-->
+                        <!--<i class="fa fa-toggle-on padding-right" aria-hidden="true" (click)="disableAutoRefresh()"></i>-->
+                        <!--Auto refresh every {{getAutoRefreshIntervalInSeconds()}} seconds-->
+                        <!--<i class="fa fa-cog padding-left" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i>-->
+                    <!--</div>-->
                     <!--<div><span class="padding-right">Last refresh:</span>{{getLatestRefreshDatetimeAsString()}}</div>-->
                 </div>
             </div>
@@ -43,7 +49,7 @@
                  (onColumnHeaderClick)="onColumnHeaderClick($event)">
     </rules-table>
     <div class="pagination-container">
-        <mat-paginator [length]="getTotalItemsCount()"
+        <mat-paginator [length]="getTotalRowsCount()"
                        [pageSize]="_iCurrentRowsPerPage"
                        [pageSizeOptions]="_aiAvailablePageSizes"
                        (page)="onPageEvent($event)">

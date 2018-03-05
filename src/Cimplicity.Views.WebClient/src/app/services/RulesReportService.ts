@@ -32,6 +32,7 @@ export class RulesReportService
 
         let oResponse : IRestRulesReportResponse = {
             TotalPages : 0,
+            TotalRows : 0,
             CurrentPage : aoParams.CurrentPage,
             RowsPerPage : aoParams.RowsPerPage,
             RulesList : []
@@ -78,6 +79,15 @@ export class RulesReportService
 
                 let oPages = DummyReport;
 
+                // Calculate the total number of rows
+                let iTotalRows = 0;
+                for(let i = 0; i < oPages.length; i++)
+                {
+                    iTotalRows += oPages[i].length;
+                }
+                oResponse.TotalRows = iTotalRows;
+
+                // Now get the right page data
                 oResponse.TotalPages = oPages.length;
                 if( aoParams.CurrentPage < oResponse.TotalPages )
                 {

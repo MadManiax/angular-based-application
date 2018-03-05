@@ -26,7 +26,11 @@
             </div>
             <div class="dropdown-extra-buttons-container-bottom">
                 <div class="prevent-close-dropdown half-width" (click)="selectAllOptions()">
-                    <i class="fa fa-check-square-o padding-right" aria-hidden="true"></i><span class="d-none d-xl-inline">Select</span><span>All</span>
+                    <i class="fa fa-check-square-o padding-right" aria-hidden="true"></i>
+                    <!-- Show for 'large and up' -->
+                    <span class="d-none d-xl-inline">Select all</span>
+                    <!-- Show for 'medium and down only' -->
+                    <span class="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none">All</span>
                 </div>
                 <div class="prevent-close-dropdown half-width" (click)="clearAllSelectedOptions()">
                     <i class="fa fa-trash-o padding-right"></i><span class="d-none d-xl-inline">Clear</span><span>All</span>

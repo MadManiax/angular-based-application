@@ -39,6 +39,8 @@
         "@angular/cdk/layout"       : oConfig.paths.npm + "/@angular/cdk/bundles/cdk-layout.umd.js",
         "@angular/cdk/stepper"      : oConfig.paths.npm + "/@angular/cdk/bundles/cdk-stepper.umd.js",
         '@angular/animations'       : oConfig.paths.npm + '/@angular/animations/bundles/animations.umd.js',
+        '@angular/animations/browser'           : oConfig.paths.npm + '/@angular/animations/bundles/animations-browser.umd.js',
+        '@angular/platform-browser/animations'  : oConfig.paths.npm + '/@angular/platform-browser/bundles/platform-browser-animations.umd.js',
         // Angular material required modules (-)
         'rxjs'                  : oConfig.paths.npm + '/rxjs',
         'angular-in-memory-web-api' : oConfig.paths.npm + '/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
