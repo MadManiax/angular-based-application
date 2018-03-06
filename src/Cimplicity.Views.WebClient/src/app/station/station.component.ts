@@ -66,7 +66,7 @@ export class StationComponent implements OnInit
     {
         console.log('StationComponent -> constructor');
         this._iAutoRefreshIntervalId = null;
-        this._iAutoRefreshIntervalInSeconds = 5;
+        this._iAutoRefreshIntervalInSeconds = 20;
         this._bIsFiltersPanelVisible = false;
 
         this.fetchConfigurationFromServer();

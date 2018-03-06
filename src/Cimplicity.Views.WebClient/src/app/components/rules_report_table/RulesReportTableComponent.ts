@@ -2,7 +2,10 @@
 ///<reference path="../../../classes/models/RulesReportTableColumn.ts"/>
 ///<reference path="../../../classes/utils/VexUtils.ts"/>
 
-import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+    AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output,
+    SimpleChanges
+} from '@angular/core';
 import Utils = jsutils.Utils;
 import Rule = ge.cim.models.Rule;
 import EventRule = ge.cim.models.EventRule;
@@ -19,7 +22,7 @@ enum DialogMode {EDIT_RULE, TRIGER_NEXT};
     selector: 'rules-table',
     templateUrl: 'app/components/rules_report_table/RulesReportTableTemplate.html'
 })
-export class RulesReportTableComponent implements OnInit, OnChanges
+export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewInit
 {
 
     @Input('rulesList')
@@ -75,6 +78,15 @@ export class RulesReportTableComponent implements OnInit, OnChanges
     {
         console.log('RulesReportTableComponent -> ngOnInit');
         this._oRuleToEdit = null;
+    }
+
+    ngAfterViewInit()
+    {
+        // $('#rules-report-table').fixedHeaderTable({
+        //     footer: false,
+        //     cloneHeadToFoot: false,
+        //     fixedColumn: false
+        // });
     }
 
     ngOnChanges(changes: SimpleChanges): void

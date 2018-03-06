@@ -22,33 +22,54 @@
     }
 
     .search-toolbar-wrapper{
-        & > div{
-            .report-autorefresh-configurator-container{
-                //width: 260px;
-                text-align: left;
-                //float: left;
-                position: relative;
-                top: -4px;
-                display: inline-block;
+        padding-right: 0px;
+        & > .col{
+            padding: 0px;
+        }
 
-                &:not(.fa){
-                    font-size: 0.9rem;
-                }
+        .report-autorefresh-configurator-container{
+            max-width: 246px;
+            text-align: left;
+            //float: left;
+            position: relative;
+            //top: -4px;
+            //display: inline-block;
+            padding-top: 4px;
 
-                .fa-toggle{
-                    &-off{color: #ccc;}
-                    &-on{color: $color-green-ok-accept-etc-bg;}
-                    &-on, &-off{
-                        font-size: 1.1rem;
-                        position: relative;
-                        top: 1px;
-                        &:hover{
-                            cursor: pointer;
-                        }
+            .report-autorefresh-summary{
+                float: right;
+                width: 60px;
+                height: 100%;
+            }
+
+            .search-btn-wrapper{
+                padding-right: 0px;
+                max-width: 160px;
+            }
+
+            mat-slide-toggle{
+                margin-right: 10px;
+            }
+
+            &:not(.fa){
+                font-size: 0.9rem;
+            }
+
+            .fa-toggle{
+                &-off{color: #ccc;}
+                &-on{color: $color-green-ok-accept-etc-bg;}
+                &-on, &-off{
+                    font-size: 1.1rem;
+                    position: relative;
+                    top: 1px;
+                    &:hover{
+                        cursor: pointer;
                     }
                 }
             }
+        }
 
+        & > div{
             button{
                 float: right;
             }

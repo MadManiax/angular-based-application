@@ -21,10 +21,8 @@
     font-size: 1.4rem;
     position: relative;
     top: -2px; }
-
 .vex .vex-custom-content {
   margin-bottom: 10px; }
-
 .vex.vex-theme-plain .vex-content {
   font-size: 1.0em; }
 
@@ -111,7 +109,6 @@
       -ms-animation: spin 2s linear infinite;
       -o-animation: spin 2s linear infinite;
       animation: spin 2s linear infinite; }
-
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -121,7 +118,6 @@
     -webkit-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
     transform: rotate(360deg); } }
-
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -131,7 +127,6 @@
     -webkit-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
     transform: rotate(360deg); } }
-
 .padding-right, .btn-ge:not(.no-icon-padding) .fa {
   padding-right: 8px; }
 
@@ -201,25 +196,38 @@
     margin-bottom: 0px; }
   .station-display-container .table-container {
     height: calc(100% - 92px); }
-  .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container {
-    text-align: left;
-    position: relative;
-    top: -4px;
-    display: inline-block; }
-    .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container:not(.fa) {
-      font-size: 0.9rem; }
-    .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-off {
-      color: #ccc; }
-    .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-on {
-      color: #28a745; }
-    .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-on, .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-off {
-      font-size: 1.1rem;
+  .station-display-container .search-toolbar-wrapper {
+    padding-right: 0px; }
+    .station-display-container .search-toolbar-wrapper > .col {
+      padding: 0px; }
+    .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container {
+      max-width: 246px;
+      text-align: left;
       position: relative;
-      top: 1px; }
-      .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-on:hover, .station-display-container .search-toolbar-wrapper > div .report-autorefresh-configurator-container .fa-toggle-off:hover {
-        cursor: pointer; }
-  .station-display-container .search-toolbar-wrapper > div button {
-    float: right; }
+      padding-top: 4px; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .report-autorefresh-summary {
+        float: right;
+        width: 60px;
+        height: 100%; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .search-btn-wrapper {
+        padding-right: 0px;
+        max-width: 160px; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container mat-slide-toggle {
+        margin-right: 10px; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container:not(.fa) {
+        font-size: 0.9rem; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-off {
+        color: #ccc; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-on {
+        color: #28a745; }
+      .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-on, .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-off {
+        font-size: 1.1rem;
+        position: relative;
+        top: 1px; }
+        .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-on:hover, .station-display-container .search-toolbar-wrapper .report-autorefresh-configurator-container .fa-toggle-off:hover {
+          cursor: pointer; }
+    .station-display-container .search-toolbar-wrapper > div button {
+      float: right; }
   .station-display-container .pagination-container {
     margin: 10px 0px;
     text-align: center;
@@ -388,16 +396,13 @@
 
 .advanced-dropdown.disabled .button-group {
   opacity: 0.2; }
-
 .advanced-dropdown.disabled .dropdown-menu {
   display: none !important; }
-
 .advanced-dropdown-caption.inline {
   position: relative;
   display: inline-block;
   top: 2px;
   margin-right: 8px; }
-
 .advanced-dropdown .button-group {
   display: inline-block;
   min-width: 160px; }
@@ -411,13 +416,11 @@
     .advanced-dropdown .button-group .dropdown-toggle::after {
       margin-top: 0.6em;
       float: right; }
-
 .advanced-dropdown .advanced-dropdown-summary {
   display: inline-block;
   width: calc(100% - 40px);
   margin-right: 4px;
   overflow: hidden; }
-
 .advanced-dropdown .dropdown-menu {
   padding: 0px;
   overflow: hidden;
@@ -569,11 +572,9 @@ sorting-panel {
 
 .sort-condition-wrapper.gu-mirror div {
   float: left; }
-
 .sort-condition-wrapper.gu-mirror .delete-btn-wrapper {
   padding-left: 4px;
   padding-right: 4px; }
-
 .sort-condition-wrapper.gu-mirror .static-arrow {
   display: none !important; }
 
@@ -591,7 +592,7 @@ body {
   width: 50%; }
 
 .row-ge-has-3-cols .col {
-  width: 33.33333%; }
+  width: 33.3333333333%; }
 
 .row-ge-has-4-cols .col {
   width: 25%; }
@@ -600,16 +601,16 @@ body {
   width: 20%; }
 
 .row-ge-has-6-cols .col {
-  width: 16.66667%; }
+  width: 16.6666666667%; }
 
 .row-ge-has-7-cols .col {
-  width: 14.28571%; }
+  width: 14.2857142857%; }
 
 .row-ge-has-8-cols .col {
   width: 12.5%; }
 
 .row-ge-has-9-cols .col {
-  width: 11.11111%; }
+  width: 11.1111111111%; }
 
 .row-ge-has-10-cols .col {
   width: 10%; }
