@@ -29,24 +29,24 @@
 	}
 
 	&-primary{
-		border: 1px solid #3288e6;
-		background-color: #3288e6;
+		border: 1px solid $color-primary;
+		background-color: $color-primary;
 		color: whitesmoke;
 		letter-spacing: 1.408px;
 
 		&:hover{
-			$color-hover: darken(#3288e6, 10%);
+			$color-hover: darken($color-primary, 10%);
 			background-color: $color-hover;
 			border-color: $color-hover;
 		}
 	}
 
 	&-outline-primary{
-		border: 1px solid #3288e6;
+		border: 1px solid $color-primary;
 		background-color: transparent;
-		color: #3288e6;
+		color: $color-primary;
 		&:hover{
-			$color-hover: darken(#3288e6, 10%);
+			$color-hover: darken($color-primary, 10%);
 			background-color: $color-hover;
 			border-color: $color-hover;
 			color: whitesmoke;
@@ -54,31 +54,33 @@
 	}
 
 	&-secondary{
+		color: #555;
 		border: 1px solid darken($color-cimplicity-gray-light, 20%);
-		background-color: #ebebeb !important;
+		background-color: $color-cimplicity-gray-light;
 		&:hover{
-			background-color: darken($color-cimplicity-gray-light, 10%) !important;
+			background-color: darken($color-cimplicity-gray-light, 10%);
 		}
+	}
 
-		&-outline{
+	&-secondary-outline{
 
-		}
 	}
 
 
 	&-success{
-		border: 1px solid $color-cimplicity-blue-dark;
-		background-color: #3f3fa0; //lighten($color-cimplicity-blue-dark, 10%);
-		color: white;
-
-		&:hover{
-			//background-color: lighten($color-cimplicity-gray-light, 4%);
-			background-color: $color-cimplicity-blue-dark;
-		}
+		@extend .btn-ge-primary;
+		//border: 1px solid $color-cimplicity-blue-dark;
+		//background-color: #3f3fa0; //lighten($color-cimplicity-blue-dark, 10%);
+		//color: white;
+		//
+		//&:hover{
+		//	//background-color: lighten($color-cimplicity-gray-light, 4%);
+		//	background-color: $color-cimplicity-blue-dark;
+		//}
 	}
 
 	&-cancel{
-		color: #333;
+		color: #555;
 		border: 1px solid darken($color-cimplicity-gray-light, 20%);
 		background-color: lighten($color-cimplicity-gray-light, 10%);
 		&:hover{

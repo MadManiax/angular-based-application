@@ -16,7 +16,7 @@ module ge.cim.dummydata
                 "RuleName": "NU20180227172236980",
                 "RuleType": "Event",
                 "WorkArea": "IM900001",
-                "ProductionLine": "WR900001"
+                "ProductionLine": "WR900001",
             }, {
                 "WorkCell": "WL900001",
                 "WorkUnit": "WT900001",
@@ -24,13 +24,14 @@ module ge.cim.dummydata
                 "ActualDate": null,
                 "RemainingNumber": 0,
                 "RemainingDate": null,
-                "Set": 5,
+                "Set": 25,
                 "OverflowRemaining": null,
                 "OverflowSet": 3,
                 "RuleName": "NU20180227172236927",
                 "RuleType": "Counter",
                 "WorkArea": "IM900001",
-                "ProductionLine": "WR900001"
+                "ProductionLine": "WR900001",
+                "RuleComment" : "Lorem ipsum dolor sit amet"
             }, {
                 "WorkCell": "WL900001",
                 "WorkUnit": "WT900001",

@@ -203,7 +203,7 @@
 
 
 	.rule-editor-container{
-		max-width: 600px;
+		max-width: 500px;
 
 		.modal-body{
 
@@ -211,7 +211,7 @@
 
 		.rule-to-edit-summary{
 			text-align: center;
-			font-size: 1.3rem;
+			font-size: 1.1rem;
 			margin-bottom: 36px;
 
 			label{
@@ -227,11 +227,16 @@
 			margin-top: 14px;
 
 			&.actual-value{
-				input{
-					width: 100%;
-					padding: $size-input-fields-padding;
-				}
 
+			}
+
+			input{
+				width: 100%;
+				padding: $size-input-fields-padding;
+			}
+
+			.field-labels, .read-only-values{
+				padding-top: 4px;
 			}
 
 			&.comment{
@@ -242,6 +247,14 @@
 					max-height: 220px;
 				}
 			}
+		}
+
+		.dialog-error-message{
+			width: 100%;
+			position: relative;
+			bottom: -6px;
+			color: $color-red-error-text;
+			min-height: 24px;
 		}
 	}
 }

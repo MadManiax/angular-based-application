@@ -9,6 +9,8 @@
 		}
 	}
 
+
+
 	&-caption{
 		&.inline{
 			position: relative;
@@ -49,6 +51,10 @@
 		overflow: hidden;
     }
 
+
+	.dropdown-toggle, .dropdown-menu{
+		border-radius: 0px;
+	}
 
 	.dropdown-menu{
 		padding: 0px;

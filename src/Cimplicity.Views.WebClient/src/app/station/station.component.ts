@@ -131,7 +131,9 @@ export class StationComponent implements OnInit
                     oTempResponse = oResponse;
                     this._aoRulesList = oResponse.RulesList;
                 },
-                ()=>{},
+                (oVal)=>{
+                    //alert(oVal);
+                },
                 ()=>{
                     this._iTotalPagesCount = oTempResponse.TotalPages;
                     this._iTotalRowsCount = oTempResponse.TotalRows
@@ -271,10 +273,6 @@ export class StationComponent implements OnInit
 
     public getCurrentRowsPerPage(){ return this._iCurrentRowsPerPage; }
 
-    public triggerNext(oRule:Rule)
-    {
-
-    }
 
     public onPageEvent(oEvent:PageEvent)
     {

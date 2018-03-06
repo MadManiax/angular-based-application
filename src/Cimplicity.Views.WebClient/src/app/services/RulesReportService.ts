@@ -124,11 +124,22 @@ export class RulesReportService
     {
         let oPromise = new Promise<boolean>((resolve, reject)=>{
             setTimeout(()=>{
+                let oReponse : IBaseServerResponse;
+                //if(oReponse.)
                 resolve(true);
             }, 1000);
         });
 
         return oPromise;
+    }
+
+    public triggerNext(oRule:Rule)
+    {
+        let oPromise = new Promise<boolean>((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve(true);
+            }, 1000);
+        });
     }
 
     // public getRules(aoFilters : Filter[])

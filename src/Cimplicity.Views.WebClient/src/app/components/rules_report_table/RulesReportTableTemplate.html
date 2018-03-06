@@ -47,8 +47,14 @@
 
 
     <!-- Modal to edit rules -->
-    <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="EditRuleModal"
-         aria-hidden="true">
+    <div class="modal fade"
+         id="editRuleModal"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="EditRuleModal"
+         aria-hidden="true"
+         data-backdrop="static"
+         data-keyboard="false">
         <div class="modal-dialog rule-editor-container" role="document">
             <div class="modal-content">
                 <!--<div class="modal-header">-->
@@ -59,33 +65,36 @@
                 <!--</div>-->
                 <div class="modal-body" *ngIf="getRuleToEdit() != null">
                     <div class="row rule-to-edit-summary">
-                        <div class="col-8 text-left">
-                            <label class="">Rule Name</label>
+                        <div class="col-12 text-left">
+                            <label class="">Name</label>
                             <div>{{getRuleToEdit().Name}}</div>
                         </div>
-                        <div class="col-4 text-right">
-                            <label>Set Value</label>
-                            {{getRuleToEdit().getSetToString()}}
-                        </div>
                     </div>
-                    <div class="row rule-to-edit-editable-value actual-value" [hidden]="isDialogModeEditRule() == false">
-                        <div class="col-3 text-left">Actual Value</div>
-                        <div class="col text-left">
+                    <div class="row justify-content-between rule-to-edit-editable-value" [hidden]="isDialogModeEditRule() == false">
+                        <div class="col-2 text-left field-labels">Actual:</div>
+                        <div class="col-6 text-left">
                             <!-- On the base of rule type the value editor is different -->
-                            <input type="number" *ngIf="isCounterRule() == true" [(ngModel)]="_oRuleToEdit.Actual">
-                            <input type="text" *ngIf="isTimingRule() == true" ([ngModel])="_sActualAsStringForTimingRule">
+                            <input type="number" *ngIf="isCounterRule() == true" [(ngModel)]="ruleToEdit.Actual">
+                            <input type="text" *ngIf="isTimingRule() == true" [(ngModel)]="actualDateAsString" placeholder="YYYY-MM-DD hh:mm:ss">
                         </div>
+                        <div class="col-2 text-right field-labels">Set:</div>
+                        <div class="col-2 text-right read-only-values">{{getRuleToEdit().getSetToString()}}</div>
+                    </div>
+                    <div class="row" [hidden]="isDialogModeEditRule() == true">
+                        <div class="col-2">Set:</div>
+                        <div class="col-2">{{getRuleToEdit().getSetToString()}}</div>
                     </div>
                     <div class="row rule-to-edit-editable-value comment">
-                        <div class="col-3 text-left">Comment</div>
-                        <div class="col text-left">
-                            <textarea></textarea>
+                        <!--<div class="col-3 text-left">Comment</div>-->
+                        <div class="col-12 text-left">
+                            <textarea placeholder="Comment..." [(ngModel)]="ruleToEdit.Comment"></textarea>
                         </div>
                     </div>
+                    <div class="dialog-error-message">{{getEditRuleDialogErrorMessage()}}</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-ge btn-ge-cancel" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-ge btn-ge-success" data-dismiss="modal"
+                    <button type="button" class="btn btn-ge btn-ge-success"
                             (click)="onSaveRule()"
                             [hidden]="isDialogModeEditRule() == false">Save changes</button>
                     <button type="button" class="btn btn-ge btn-ge-success" data-dismiss="modal"

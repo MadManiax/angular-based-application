@@ -79,6 +79,17 @@ module ge.cim.models
 
         getRuleType(): string {return TimingRule.RULE_TYPE; }
 
+        // public updateActualDateTimeByDateString(sDate:string)
+        // {
+        //     let oDateTime = moment(sDate, TimingRule.DATETIME_FORMAT)
+        //     if( oDateTime.isValid() == true){
+        //         this._oActualDateTime = oDateTime;
+        //         return true;
+        //     }
+        //     else {
+        //         return false;
+        //     }
+        // }
 
         public isActualEqualsSet():boolean
         {
@@ -160,6 +171,7 @@ module ge.cim.models
             super.fromJSON(oJson);
             //this._oActualDateTime = moment.unix(this.Actual);
             this._oActualDateTime = moment(oJson.ActualDate, "YYYY-MM-DDTHH:mm:ss:SSS");
+            this._oActualDateTime.millisecond(0);
 
             return this;
         }

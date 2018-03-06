@@ -46,6 +46,8 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
     private _oModal : JQuery;
     private _oDialogMode: DialogMode;
     private _aoColumns : RulesReportTableColumn[];
+    private _sErrorMessage: string;
+    private _bIsEditedDataValid: boolean;
 
 
     constructor()
@@ -86,6 +88,17 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         //     footer: false,
         //     cloneHeadToFoot: false,
         //     fixedColumn: false
+        // });
+
+        // Prevent 'edit rule' dialog from closing if something goes wrong
+        // $('#editRuleModal').on('hide.bs.modal', function(e){
+        //     debugger;
+        //     if( this._bIsEditedDataValid == false )
+        //     {
+        //         e.preventDefault();
+        //         e.stopImmediatePropagation();
+        //         return false;
+        //     }
         // });
     }
 
@@ -147,6 +160,14 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         }
         return "";
     }
+
+    private setDialogErrorMessage(sMessage, iDurationMs:number = 2000)
+    {
+        this._sErrorMessage = sMessage;
+        setTimeout(()=>{
+            this._sErrorMessage = null;
+        }, iDurationMs);
+    }
     ///</editor-fold>
 
     //*******************************************************************************
@@ -159,6 +180,15 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
     //* Public methods
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
+    get actualDateAsString(){ return this._sActualAsStringForTimingRule; }
+    set actualDateAsString(sValue:string)
+    {
+        this._sActualAsStringForTimingRule = sValue;
+    }
+
+    get ruleToEdit(){ return this._oRuleToEdit;}
+    set ruleToEdit(oValue:Rule){ this._oRuleToEdit = oValue;}
+
     public getColumnsList(){ return this._aoColumns;}
     public getRulesList() { return this._aoRulesList; }
     public showEmptyDataBox(): boolean{
@@ -241,15 +271,40 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
      */
     public isActualValueValid()
     {
+        let bIsValid = true;
         if(this.isCounterRule() == true)
         {
-            return (this._oRuleToEdit.Actual > this._oRuleToEditOriginal.Actual && this._oRuleToEdit.Actual < this._oRuleToEditOriginal.Set)
+            if(this._oRuleToEdit.Actual <= this._oRuleToEditOriginal.Actual){
+                bIsValid = false;
+                this.setDialogErrorMessage("New actual must be greater than current one (" + this._oRuleToEditOriginal.Actual + ").", 2800);
+            }
+            else if(this._oRuleToEdit.Actual >= this._oRuleToEditOriginal.Set){
+                bIsValid = false;
+                this.setDialogErrorMessage("New actual must be smaller than Set.", 2800);
+            }
         }
-        if(this.isTimingRule() == true)
+        else if(this.isTimingRule() == true)
         {
+            let oNow = moment();
+
             let oDateTime = moment(this._sActualAsStringForTimingRule, TimingRule.DATETIME_FORMAT);
-            return oDateTime.isBefore( (<TimingRule>this._oRuleToEditOriginal).getActualAsDateTime());
+            if(oDateTime.isValid() == false)
+            {
+                bIsValid = false;
+                this.setDialogErrorMessage("Date/time is invalid. Please check value.", 2800);
+            }
+            else if( oDateTime.isBefore(oNow) == false)
+            {
+                bIsValid = false;
+                this.setDialogErrorMessage("Date/time must be strictly before now.", 2800);
+            }
+
+            if(bIsValid == true){
+                (<TimingRule>this._oRuleToEdit).ActualDateTime = oDateTime;
+            }
         }
+
+        return bIsValid;
     }
 
     public isCounterRule(){ return (this._oRuleToEdit instanceof CounterRule); }
@@ -283,7 +338,17 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
     public isDialogModeTriggerNext(){ return this._oDialogMode == DialogMode.TRIGER_NEXT; }
 
 
-    public onSaveRule() { this._oEventEmitterSaveRule.emit(this._oRuleToEdit); }
+    public onSaveRule()
+    {
+        this._bIsEditedDataValid = this.isActualValueValid();
+        if( this._bIsEditedDataValid == true)
+        {
+            this._oModal.modal('hide');
+            this._oEventEmitterSaveRule.emit(this._oRuleToEdit);
+        }
+    }
+
+    public getEditRuleDialogErrorMessage(){ return (Utils.isStrNullOrEmpty(this._sErrorMessage) == false) ? this._sErrorMessage : ""; }
     public onTriggerNext(){ this._oEventEmitterTriggerNext.emit(this._oRuleToEdit);}
     //public abstract setDefault();
 

@@ -56,7 +56,7 @@ sorting-panel{
 			width: 42px;
 			text-align: center;
 			//background-color: darkgoldenrod;
-			color: $color-sort-arrow;
+			color: $color-sort-order-arrow;
 			padding: 8px;
 			padding-top: 3px;
 			font-size: 1.6rem;
@@ -78,7 +78,8 @@ sorting-panel{
 		border: $size-sort-condition-border-thickness solid $color-sort-condition-border;
 		background-color: whitesmoke;
 		width: $size-sort-condition-total-width;
-		border-radius: 0.2rem;
+		//border-radius: 0.2rem;
+		border-radius: 0px;
 
 		div{
 			float: left;
@@ -92,6 +93,7 @@ sorting-panel{
 			padding-right: $size-sort-condition-buttons-padding-right;
 			text-align: center;
 			background-color: $color-sort-direction-bg;
+			color: $color-sort-direction-arrow;
 			@include clickable();
 
 			.invisible{

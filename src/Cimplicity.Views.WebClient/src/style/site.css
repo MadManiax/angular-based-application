@@ -153,12 +153,12 @@
     background-color: #e1e1e1; }
     .btn-ge-default:hover {
       background-color: #ebebeb; }
-  .btn-ge-primary {
+  .btn-ge-primary, .btn-ge-success {
     border: 1px solid #3288e6;
     background-color: #3288e6;
     color: whitesmoke;
     letter-spacing: 1.408px; }
-    .btn-ge-primary:hover {
+    .btn-ge-primary:hover, .btn-ge-success:hover {
       background-color: #196fcc;
       border-color: #196fcc; }
   .btn-ge-outline-primary {
@@ -170,18 +170,13 @@
       border-color: #196fcc;
       color: whitesmoke; }
   .btn-ge-secondary {
+    color: #555;
     border: 1px solid #aeaeae;
-    background-color: #ebebeb !important; }
+    background-color: #e1e1e1; }
     .btn-ge-secondary:hover {
-      background-color: #c8c8c8 !important; }
-  .btn-ge-success {
-    border: 1px solid #010086;
-    background-color: #3f3fa0;
-    color: white; }
-    .btn-ge-success:hover {
-      background-color: #010086; }
+      background-color: #c8c8c8; }
   .btn-ge-cancel {
-    color: #333;
+    color: #555;
     border: 1px solid #aeaeae;
     background-color: #fbfbfb; }
     .btn-ge-cancel:hover {
@@ -257,16 +252,29 @@
   position: absolute;
   left: 0px;
   right: 0px;
-  bottom: -522px;
-  height: 500px;
+  bottom: -554px;
+  height: 532px;
   transition: 0.4s all ease-in-out;
   padding: 10px 30px;
-  padding-top: 30px;
+  padding-top: 62px;
   background: rgba(34, 70, 109, 0.95);
   box-shadow: 0px 0px 20px #495057;
   z-index: 10; }
   .filters-panel-wrapper.visible {
     bottom: 0px; }
+  .filters-panel-wrapper .close-filters-panel-btn-wrapper {
+    height: 32px;
+    text-transform: uppercase;
+    color: #aaaaaa;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    border-bottom: 1px solid #888;
+    text-align: center;
+    padding: 6px; }
+    .filters-panel-wrapper .close-filters-panel-btn-wrapper:hover {
+      background-color: rgba(250, 250, 250, 0.2); }
   .filters-panel-wrapper .advanced-dropdown .button-group {
     width: 100%; }
   .filters-panel-wrapper .advanced-dropdown .dropdown-menu {
@@ -275,7 +283,7 @@
     color: whitesmoke; }
   .filters-panel-wrapper .clear-all-filters-btn {
     position: absolute;
-    bottom: -2px;
+    bottom: 0px;
     right: 0px; }
   .filters-panel-wrapper .sorting-panel label {
     color: whitesmoke; }
@@ -383,10 +391,10 @@
       font-size: 3rem;
       color: #ccc; }
   .table-container .rule-editor-container {
-    max-width: 600px; }
+    max-width: 500px; }
     .table-container .rule-editor-container .rule-to-edit-summary {
       text-align: center;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       margin-bottom: 36px; }
       .table-container .rule-editor-container .rule-to-edit-summary label {
         font-weight: bold;
@@ -394,14 +402,22 @@
         display: block; }
     .table-container .rule-editor-container .rule-to-edit-editable-value {
       margin-top: 14px; }
-      .table-container .rule-editor-container .rule-to-edit-editable-value.actual-value input {
+      .table-container .rule-editor-container .rule-to-edit-editable-value input {
         width: 100%;
         padding: 2px 6px; }
+      .table-container .rule-editor-container .rule-to-edit-editable-value .field-labels, .table-container .rule-editor-container .rule-to-edit-editable-value .read-only-values {
+        padding-top: 4px; }
       .table-container .rule-editor-container .rule-to-edit-editable-value.comment textarea {
         padding: 2px 6px;
         width: 100%;
         min-height: 110px;
         max-height: 220px; }
+    .table-container .rule-editor-container .dialog-error-message {
+      width: 100%;
+      position: relative;
+      bottom: -6px;
+      color: #da4949;
+      min-height: 24px; }
 
 .advanced-dropdown.disabled .button-group {
   opacity: 0.2; }
@@ -434,6 +450,9 @@
   width: calc(100% - 40px);
   margin-right: 4px;
   overflow: hidden; }
+
+.advanced-dropdown .dropdown-toggle, .advanced-dropdown .dropdown-menu {
+  border-radius: 0px; }
 
 .advanced-dropdown .dropdown-menu {
   padding: 0px;
@@ -526,7 +545,7 @@ sorting-panel {
     border: 1px solid #ccc;
     background-color: whitesmoke;
     width: 202px;
-    border-radius: 0.2rem; }
+    border-radius: 0px; }
     .sorting-panel .sort-condition div {
       float: left; }
     .sorting-panel .sort-condition .sort-direction-wrapper {
@@ -536,7 +555,8 @@ sorting-panel {
       padding-left: 4px;
       padding-right: 4px;
       text-align: center;
-      background-color: #eeeeee; }
+      background-color: #eeeeee;
+      color: #444; }
       .sorting-panel .sort-condition .sort-direction-wrapper:hover {
         cursor: pointer; }
       .sorting-panel .sort-condition .sort-direction-wrapper .invisible {
@@ -598,7 +618,7 @@ body {
   overflow: hidden;
   font-family: 'Roboto', sans-serif !important; }
 
-.clickable:hover {
+.clickable:hover, .filters-panel-wrapper .close-filters-panel-btn-wrapper:hover {
   cursor: pointer; }
 
 .row-ge-has-1-cols .col {

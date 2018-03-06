@@ -1,6 +1,9 @@
 ///<reference path="../BaseClass.ts"/>
+///<reference path="../utils/Utils.ts"/>
 
 module ge.cim.models {
+
+    import Utils = jsutils.Utils;
 
     export abstract class Rule extends BaseClass
     {
@@ -8,8 +11,8 @@ module ge.cim.models {
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
-        protected static JSON_FIELD_WORK_CELL   = "WorkCell";
         protected static JSON_FIELD_TYPE        = "RuleType";
+        protected static JSON_FIELD_NAME        = "RuleName";
 
 
         //*******************************************************************************
@@ -31,6 +34,7 @@ module ge.cim.models {
         private _Name: string;
         private _WorkArea: string;
         private _ProductionLine: string;
+        private _Comment : string;
 
 
         public constructor()
@@ -118,6 +122,8 @@ module ge.cim.models {
         set WorkArea(value: string) { this._WorkArea = value; }
         get ProductionLine(): string { return this._ProductionLine; }
         set ProductionLine(value: string) { this._ProductionLine = value; }
+        get Comment(): string { return this._Comment; }
+        set Comment(value: string) { this._Comment = value; }
 
         public abstract getRemainingToString():string;
         public abstract getSetToString():string;
@@ -148,16 +154,17 @@ module ge.cim.models {
             "ProductionLine": "WR900001"
             */
 
-            this._WorkCell = oJson.WorkCell;
-            this._WorkUnit = oJson.WorkUnit;
-            this._ActualNumber = oJson.ActualNumber;
-            this._RemainingNumber = oJson.RemainingNumber;
-            this._Set = oJson.Set;
+            this._WorkCell          = oJson.WorkCell;
+            this._WorkUnit          = oJson.WorkUnit;
+            this._ActualNumber      = oJson.ActualNumber;
+            this._RemainingNumber   = oJson.RemainingNumber;
+            this._Set               = oJson.Set;
             this._OverflowRemaining = oJson.OverflowRemaining;
-            this._OverflowSet = oJson.OverflowSet;
-            this._Name = oJson.RuleName;
-            this._WorkArea = oJson.WorkArea;
-            this._ProductionLine = oJson.ProductionLine;
+            this._OverflowSet       = oJson.OverflowSet;
+            this._Name              = oJson[Rule.JSON_FIELD_NAME];
+            this._WorkArea          = oJson.WorkArea;
+            this._ProductionLine    = oJson.ProductionLine;
+            this._Comment           = Utils.getObjectProperty(oJson, "RuleComment", "");
 
             return this;
         }
@@ -165,17 +172,19 @@ module ge.cim.models {
         public toJSON()
         {
             let oRetval = {
-                WorkCell    : this._WorkCell,
-                WorkUnit    : this._WorkUnit,
-                Actual      : this._ActualNumber,
-                Remaining   : this._RemainingNumber,
-                Set         : this._Set,
-                OverflowRemaining : this._OverflowRemaining,
-                OverflowSet : this._OverflowSet,
-                Name        : this._Name,
-                WorkArea    : this._WorkArea,
-                ProductionLine  : this._ProductionLine
+                WorkCell            : this._WorkCell,
+                WorkUnit            : this._WorkUnit,
+                Actual              : this._ActualNumber,
+                Remaining           : this._RemainingNumber,
+                Set                 : this._Set,
+                OverflowRemaining   : this._OverflowRemaining,
+                OverflowSet         : this._OverflowSet,
+                // RuleName            : this._Name,
+                WorkArea            : this._WorkArea,
+                ProductionLine      : this._ProductionLine,
+                RuleComment         : this._Comment
             };
+            oRetval[Rule.JSON_FIELD_NAME] = this._Name;
             oRetval[Rule.JSON_FIELD_TYPE] = this.getRuleType();
 
             return oRetval;
