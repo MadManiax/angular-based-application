@@ -97,15 +97,11 @@ export class RulesReportService
 
 
                 // NEW DUMMY JSON (like the real one)
-                // Calculate the total number of rows
-                let iTotalRows = 0;
-                for(let i = 0; i < oPages.length; i++)
-                {
-                    iTotalRows += oPages[i].length;
-                }
-                oResponse.TotalRows = iTotalRows;
+                let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE;
 
-                let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE
+                // Calculate the total number of rows (in some way)
+                oResponse.TotalRows = 0;
+
                 let oPageInJson : any = oReportResponse.Result;
                 for(let i = 0; i < oPageInJson.length; i++)
                 {
