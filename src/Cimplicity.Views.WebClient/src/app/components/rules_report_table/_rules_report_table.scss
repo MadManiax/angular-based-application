@@ -50,6 +50,12 @@
 					&-actual, &-remaining, &-set, &-overflow, &-overflow-set{
 						background-color: $color-rules-table-highlighted-header-blue;
 					}
+					&-actual{
+						border-left: 2px solid $color-rules-table-column-separator-blue;
+					}
+					&-rule-type {
+						border-left: 2px solid $color-rules-table-column-separator-blue;
+					}
 
 					&-rule-type, &-rule-name{
 						background-color: darken($color-rules-table-header-bg,5%);
@@ -143,7 +149,7 @@
 		.cell{
 			&-actual-equals-to-set{
 				background-color: $color-rule-cell-green-bg;
-				border-color: $color-rule-cell-green-bg;
+				border-color: darken($color-rule-cell-green-bg, 6%);
 				color: $color-rule-cell-green-text !important;
 			}
 			&-warning{
@@ -151,7 +157,7 @@
 			}
 			&-no-more-overflow-available{
 				background-color: $color-rule-cell-red-bg;
-				border-color: $color-rule-cell-red-bg;
+				border-color: darken($color-rule-cell-red-bg, 6%);
 				color: $color-rule-cell-red-text !important;
 			}
 		}
