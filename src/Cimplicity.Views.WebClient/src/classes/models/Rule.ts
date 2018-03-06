@@ -9,7 +9,7 @@ module ge.cim.models {
         //* Static variables
         //*******************************************************************************
         protected static JSON_FIELD_WORK_CELL   = "WorkCell";
-        protected static JSON_FIELD_TYPE        = "Type";
+        protected static JSON_FIELD_TYPE        = "RuleType";
 
 
         //*******************************************************************************
@@ -23,12 +23,14 @@ module ge.cim.models {
         //*******************************************************************************
         private _WorkCell: string;
         private _WorkUnit: string;
-        private _Actual: number;
-        private _Remaining: number;
+        private _ActualNumber: number;
+        private _RemainingNumber: number;
         private _Set: number;
         private _OverflowRemaining: number;
         private _OverflowSet: number;
         private _Name: string;
+        private _WorkArea: string;
+        private _ProductionLine: string;
 
 
         public constructor()
@@ -69,20 +71,15 @@ module ge.cim.models {
             this._WorkUnit = value;
         }
 
-        get Actual(): number {
-            return this._Actual;
-        }
-
-        set Actual(value: number) {
-            this._Actual = value;
-        }
+        get Actual(): number { return this._ActualNumber; }
+        set Actual(value: number) { this._ActualNumber = value; }
 
         get Remaining(): number {
-            return this._Remaining;
+            return this._RemainingNumber;
         }
 
         set Remaining(value: number) {
-            this._Remaining = value;
+            this._RemainingNumber = value;
         }
 
         get Set(): number {
@@ -117,6 +114,11 @@ module ge.cim.models {
             this._Name = value;
         }
 
+        get WorkArea(): string { return this._WorkArea; }
+        set WorkArea(value: string) { this._WorkArea = value; }
+        get ProductionLine(): string { return this._ProductionLine; }
+        set ProductionLine(value: string) { this._ProductionLine = value; }
+
         public abstract getRemainingToString():string;
         public abstract getSetToString():string;
         public abstract getActualToString():string;
@@ -130,14 +132,32 @@ module ge.cim.models {
 
         public fromJSON(oJson:any)
         {
+            /*
+            "WorkCell": "WL900002",
+            "WorkUnit": "WT900002",
+            "ActualNumber": null,
+            "ActualDate": "2018-02-27T17:22:36.98",
+            "RemainingNumber": 0,
+            "RemainingDate": null,
+            "Set": 30,
+            "OverflowRemaining": null,
+            "OverflowSet": 3,
+            "RuleName": "NU20180227172236970",
+            "RuleType": "Timing",
+            "WorkArea": "IM900001",
+            "ProductionLine": "WR900001"
+            */
+
             this._WorkCell = oJson.WorkCell;
             this._WorkUnit = oJson.WorkUnit;
-            this._Actual = oJson.Actual;
-            this._Remaining = oJson.Remaining;
+            this._ActualNumber = oJson.ActualNumber;
+            this._RemainingNumber = oJson.RemainingNumber;
             this._Set = oJson.Set;
             this._OverflowRemaining = oJson.OverflowRemaining;
             this._OverflowSet = oJson.OverflowSet;
-            this._Name = oJson.Name;
+            this._Name = oJson.RuleName;
+            this._WorkArea = oJson.WorkArea;
+            this._ProductionLine = oJson.ProductionLine;
 
             return this;
         }
@@ -147,12 +167,14 @@ module ge.cim.models {
             let oRetval = {
                 WorkCell    : this._WorkCell,
                 WorkUnit    : this._WorkUnit,
-                Actual      : this._Actual,
-                Remaining   : this._Remaining,
+                Actual      : this._ActualNumber,
+                Remaining   : this._RemainingNumber,
                 Set         : this._Set,
                 OverflowRemaining : this._OverflowRemaining,
                 OverflowSet : this._OverflowSet,
-                Name        : this._Name
+                Name        : this._Name,
+                WorkArea    : this._WorkArea,
+                ProductionLine  : this._ProductionLine
             };
             oRetval[Rule.JSON_FIELD_TYPE] = this.getRuleType();
 

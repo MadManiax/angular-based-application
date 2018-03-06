@@ -36,6 +36,7 @@ module ge.cim.models
 
         private _oActualDateTime : moment.Moment;
 
+
         public constructor()
         {
             super();
@@ -66,6 +67,11 @@ module ge.cim.models
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        get Actual(): number { throw "Cannot get a numeric 'actual' for Timing rule. Use 'ActualDateTime' property."; }
+        set Actual(value: number) { throw "Cannot set a numeric 'actual' for Timing rule. Use 'ActualDateTime' property."; }
+        get ActualDateTime(): moment.Moment { return this._oActualDateTime; }
+        set ActualDateTime(value: moment.Moment) { this._oActualDateTime = value; }
+
         public getRemainingToString():string { return this.Remaining + " sec"; }
         public getSetToString():string { return this.Set + " sec"; }
         public getActualToString():string { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); }
@@ -115,8 +121,8 @@ module ge.cim.models
             let oFakeActualDate = moment(oNow).add(-1*iDiffInSeconds, 'seconds');
 
             // Actual is Unix timestamp
-            this.Actual = oFakeActualDate.unix();
-            this._oActualDateTime = moment.unix(this.Actual);
+            //this.Actual = oFakeActualDate.unix();
+            this.ActualDateTime = oFakeActualDate;
 
             // then, the remaining value is difference
             this.Remaining = this.calculateRemaining();
@@ -135,8 +141,26 @@ module ge.cim.models
 
         public fromJSON(oJson:any)
         {
+            /*
+
+            "WorkCell": "WL900002",
+            "WorkUnit": "WT900002",
+            "ActualNumber": null,
+            "ActualDate": "2018-02-27T17:22:36.98",
+            "RemainingNumber": 0,
+            "RemainingDate": null,
+            "Set": 30,
+            "OverflowRemaining": null,
+            "OverflowSet": 3,
+            "RuleName": "NU20180227172236970",
+            "RuleType": "Timing",
+            "WorkArea": "IM900001",
+            "ProductionLine": "WR900001"
+            */
             super.fromJSON(oJson);
-            this._oActualDateTime = moment.unix(this.Actual);
+            //this._oActualDateTime = moment.unix(this.Actual);
+            this._oActualDateTime = moment(oJson.ActualDate, "YYYY-MM-DDTHH:mm:ss:SSS");
+
             return this;
         }
 
