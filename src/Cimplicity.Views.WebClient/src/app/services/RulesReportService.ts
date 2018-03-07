@@ -126,7 +126,7 @@ export class RulesReportService
             setTimeout(()=>{
                 let oReponse : IBaseServerResponse;
                 //if(oReponse.)
-                resolve(true);
+                resolve(false);
             }, 1000);
         });
 

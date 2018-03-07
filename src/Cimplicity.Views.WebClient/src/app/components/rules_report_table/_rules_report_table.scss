@@ -249,12 +249,14 @@
 			}
 		}
 
-		.dialog-error-message{
+		.dialog-extra-message{
 			width: 100%;
 			position: relative;
 			bottom: -6px;
-			color: $color-red-error-text;
 			min-height: 24px;
+
+			.error{ color: $color-red-error-text; }
+			.generic{ color: inherit; }
 		}
 	}
 }

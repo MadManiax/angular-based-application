@@ -90,7 +90,10 @@
                             <textarea placeholder="Comment..." [(ngModel)]="ruleToEdit.Comment"></textarea>
                         </div>
                     </div>
-                    <div class="dialog-error-message">{{getEditRuleDialogErrorMessage()}}</div>
+                    <div class="dialog-extra-message">
+                        <div class="error">{{getEditRuleDialogErrorMessage()}}</div>
+                        <div class="generic">{{getEditRuleDialogMessage()}}</div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-ge btn-ge-cancel" data-dismiss="modal">Cancel</button>

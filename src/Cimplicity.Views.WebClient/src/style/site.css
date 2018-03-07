@@ -412,12 +412,15 @@
         width: 100%;
         min-height: 110px;
         max-height: 220px; }
-    .table-container .rule-editor-container .dialog-error-message {
+    .table-container .rule-editor-container .dialog-extra-message {
       width: 100%;
       position: relative;
       bottom: -6px;
-      color: #da4949;
       min-height: 24px; }
+      .table-container .rule-editor-container .dialog-extra-message .error {
+        color: #da4949; }
+      .table-container .rule-editor-container .dialog-extra-message .generic {
+        color: inherit; }
 
 .advanced-dropdown.disabled .button-group {
   opacity: 0.2; }

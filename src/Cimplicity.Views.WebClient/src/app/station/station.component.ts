@@ -9,6 +9,7 @@
 ///<reference path="../../classes/models/SortCondition.ts"/>
 ///<reference path="../../classes/models/RulesReportTableColumn.ts"/>
 ///<reference path="../../interfaces/IRestRulesReport.ts"/>
+///<reference path="../../interfaces/IEventEmitterDataWithCallbacks.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -29,6 +30,7 @@ import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
 import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 import {PageEvent, MatSlideToggleChange} from "@angular/material";
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
+import IEventEmitterDataWithCallbacks = ge.cim.IEventEmitterDataWithCallbacks;
 
 @Component({
     selector: 'station',
@@ -215,15 +217,44 @@ export class StationComponent implements OnInit
         this.disableAutoRefresh();
     }
 
-    public saveEditedRule(oRule : Rule)
+    // public saveEditedRule(oRule : Rule)
+    // {
+    //     LoadingScreen.updateMessage("Saving changes...");
+    //     LoadingScreen.show();
+    //     this._oRulesReportService.saveRule(oRule)
+    //         .then(()=>{
+    //             LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+    //             this.doSearch();
+    //         })
+    // }
+
+    public saveEditedRule(oObject : IEventEmitterDataWithCallbacks<Rule>)
     {
-        LoadingScreen.updateMessage("Saving changes...");
-        LoadingScreen.show();
+        let oRule = oObject.data;
+        let fnOnSuccess = oObject.onSuccess;
+        let fnOnError = oObject.onError;
+
+        // LoadingScreen.updateMessage("Saving changes...");
+        //LoadingScreen.show();
         this._oRulesReportService.saveRule(oRule)
-            .then(()=>{
-                LoadingScreen.updateMessage("Saved succesfully, reaload data...");
-                this.doSearch();
+            .then((bHasBeenSaved:boolean)=>{
+                if(bHasBeenSaved == true)
+                {
+                    // LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+                    fnOnSuccess();
+                    this.doSearch();
+                }
+                else
+                {
+                    fnOnError(null);
+                }
+
             })
+            .catch((oReason)=>{
+                fnOnError(null);
+            });
+
+
     }
 
     // public goToPreviousTablePage(){
