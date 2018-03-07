@@ -370,11 +370,14 @@ __pycache__/
 ##########################################################################################
 # Custom
 ##########################################################################################
-# Exclude, from source dir, all JS, CSS, libraries, etc
+# Exclude, from source dir, all JS, CSS, .map, libraries, etc
 src/**/*.js
 src/**/*.min.js
 src/**/*.js
 src/**/*.min.js
+src/**/*.css
+src/**/*.min.css
+src/**/*.map
 src/lib
 # with exception of these file (which are required)
 !src/js/systemjs.config.js
