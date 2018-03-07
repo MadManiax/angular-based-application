@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cimplicity.Views.Application.Errors;
+using Cimplicity.UI.Application.Errors;
 
-namespace Cimplicity.Views.Application.Responses {
-    public class ServiceResult {
+namespace Cimplicity.UI.Application.Responses {
+    public class ServiceResult : IServiceResult
+    {
         private readonly List<IServiceError> _errors;
         public ResultStatus Status { get; private set; }
 

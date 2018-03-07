@@ -1,4 +1,4 @@
-namespace Cimplicity.Views.Application.Responses
+namespace Cimplicity.UI.Application.Responses
 {
     public class TypedServiceResult<TType> : ServiceResult
     {

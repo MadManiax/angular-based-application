@@ -1,4 +1,4 @@
-namespace Cimplicity.Views.Application.Abstractions
+namespace Cimplicity.UI.Application.Abstractions
 {
     public interface IApplicationService
     {
