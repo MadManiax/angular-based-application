@@ -2,7 +2,7 @@
 ///<reference path="../../node_modules/@angular/material/button/typings/button-module.d.ts"/>
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { XHRBackend, RequestOptions, HttpModule } from "@angular/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -22,7 +22,8 @@ import {SortingPanelComponent} from "./components/sorting_panel/SortingPanelComp
 import {DragulaModule} from "ng2-dragula";
 import {MatButtonModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import { LookupService } from "./services/LookupService";
+import { HttpBaseService } from "./services/base/HttpBaseService";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         //HttpClientModule,   // include HttpClientModule after BrowserModule
         //HttpClientTestingModule,
         AppRoutingModule,
+        HttpModule,
         FormsModule,         // required to use ngModel on input etc...
         DragulaModule,
         // Angular Material (+)
@@ -62,6 +64,14 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         RulesReportRouteGuard,
         AuthService,
         RulesReportService,
+        LookupService,
+        {
+            provide: HttpBaseService,
+            deps: [XHRBackend, RequestOptions],
+            useFactory: (backend: XHRBackend, options: RequestOptions) => {
+                return new HttpBaseService(backend, options);
+            }
+        },
         // {
         //     provide: HTTP_INTERCEPTORS,
         //     useClass: MockHttpInterceptor,

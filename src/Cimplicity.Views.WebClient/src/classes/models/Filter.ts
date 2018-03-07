@@ -22,8 +22,8 @@ module ge.cim.models {
         //* Members
         //*******************************************************************************
 
-        private _sCaption : string;
-        private _oValue : any
+        _sCaption : string;
+        _oValue : any
 
 
         public constructor(sCaption:string = null, oValue : any = null)

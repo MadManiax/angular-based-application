@@ -1,15 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cimplicity.Views.Application.Responses;
-using Cimplicity.Views.Application.ViewModel;
-using Cimplicity.Views.Data.Repository;
+﻿using System.Collections.Generic;
+using Cimplicity.UI.Application.Responses;
+using Cimplicity.UI.Application.ViewModel;
+using Cimplicity.UI.Data.Repository;
+using Cimplicity.UI.Domain.Filters;
 
-namespace Cimplicity.Views.Application.Abstractions
+namespace Cimplicity.UI.Application.Abstractions
 {
     public interface IReportOverviewService
     {
         IReportOverviewRepository Repository { get; set; }
         
-        TypedServiceResult<IEnumerable<ReportOverviewViewModel>> Get(string area, string workCellFilter= null, string ruleTypeFilter=null, int pageNumber = 1, int pageSize = 20);
+        
+
+        TypedServiceResult<IEnumerable<ReportOverviewViewModel>> Get(ReportOverviewQuery model);
     }
 }

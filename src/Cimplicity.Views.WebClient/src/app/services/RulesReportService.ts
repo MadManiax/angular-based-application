@@ -102,7 +102,7 @@ export class RulesReportService
                 // Calculate the total number of rows (in some way)
                 oResponse.TotalRows = 0;
 
-                let oPageInJson : any = oReportResponse.Result;
+                let oPageInJson : any = oReportResponse.result;
                 for(let i = 0; i < oPageInJson.length; i++)
                 {
                     let oRuleInJson = oPageInJson[i];

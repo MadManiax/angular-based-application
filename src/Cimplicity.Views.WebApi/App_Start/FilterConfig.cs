@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace Cimplicity.Views.WebApi
+namespace Cimplicity.UI.WebApi
 {
     public class FilterConfig
     {
