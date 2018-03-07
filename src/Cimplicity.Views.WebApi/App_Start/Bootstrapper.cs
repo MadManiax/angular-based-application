@@ -2,13 +2,13 @@
 using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
-using Cimplicity.Views.Application;
-using Cimplicity.Views.Application.Mappings;
-using Cimplicity.Views.Data.Sql;
-using Cimplicity.Views.Data.Sql.Mappings;
-using Cimplicity.Views.Infrastructure;
+using Cimplicity.UI.Application;
+using Cimplicity.UI.Application.Mappings;
+using Cimplicity.UI.Data.Sql;
+using Cimplicity.UI.Data.Sql.Mappings;
+using Cimplicity.UI.Infrastructure;
 
-namespace Cimplicity.Views.WebApi
+namespace Cimplicity.UI.WebApi
 {
     public static class Bootstrapper
     {
@@ -22,6 +22,7 @@ namespace Cimplicity.Views.WebApi
             {
                 cfg.AddProfile<ReportOverviewServiceMapProfile>();
                 cfg.AddProfile<ReportOverviewMapProfile>();
+                cfg.AddProfile<LookupMapProfile>();
 
             });
 

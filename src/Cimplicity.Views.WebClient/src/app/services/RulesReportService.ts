@@ -102,7 +102,7 @@ export class RulesReportService
                 // Calculate the total number of rows (in some way)
                 oResponse.TotalRows = 0;
 
-                let oPageInJson : any = oReportResponse.Result;
+                let oPageInJson : any = oReportResponse.result;
                 for(let i = 0; i < oPageInJson.length; i++)
                 {
                     let oRuleInJson = oPageInJson[i];
@@ -124,22 +124,11 @@ export class RulesReportService
     {
         let oPromise = new Promise<boolean>((resolve, reject)=>{
             setTimeout(()=>{
-                let oReponse : IBaseServerResponse;
-                //if(oReponse.)
                 resolve(true);
             }, 1000);
         });
 
         return oPromise;
-    }
-
-    public triggerNext(oRule:Rule)
-    {
-        let oPromise = new Promise<boolean>((resolve, reject)=>{
-            setTimeout(()=>{
-                resolve(true);
-            }, 1000);
-        });
     }
 
     // public getRules(aoFilters : Filter[])

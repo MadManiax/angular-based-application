@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace Cimplicity.Views.WebApi
+namespace Cimplicity.UI.WebApi
 {
     public class BundleConfig
     {

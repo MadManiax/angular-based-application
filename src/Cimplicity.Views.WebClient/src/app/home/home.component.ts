@@ -1,6 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 //import { HubConnection } from "@aspnet/signalr-client";
-
+import { LookupService } from "../services/LookupService";
+import { Observable } from "rxjs/Rx";
+import IProductionLine = ge.cim.IProductionLine;
+import Filter = ge.cim.models.Filter;
 @Component({
     selector: 'home',
     template: `
@@ -9,7 +12,7 @@
         <ul>
         <li *ngFor="let m of messages">m</li>
         </ul>
-        <button (click)="sendMessage">Send!</button>
+        <button (click)="tryService()">Send!!!</button>
     `
 })
 export class HomeComponent implements OnInit {
@@ -18,12 +21,18 @@ export class HomeComponent implements OnInit {
     //message = '';
     //messages: string[] = [];
 
-    constructor() {
+    constructor(private service:LookupService) {
         console.log('HomeComponent -> constructor');
 
     }
 
-
+    tryService() {
+        this.service.getProductionLines("getproductionlinesfortest")
+            .subscribe((rsp: IProductionLine[]) => { console.log("THIS IS THE RESPONSE =>", rsp); }, (error) => {
+                console.info("ERROR => ", error);
+            })
+        let filters: Filter[] = [new Filter("Test filter caption 1", "Test filter value 1"), new Filter("Test filter caption 2", "Test filter value 2")];
+    }
 
     ngOnInit() {
         console.log('HomeComponent -> ngOnInit');
