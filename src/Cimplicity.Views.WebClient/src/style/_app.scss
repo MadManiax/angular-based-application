@@ -1,6 +1,10 @@
 .app-container{
+	$size-padding: 20px;
+	$size-min-page-width: 1024px - ($size-padding * 2);
+
 	width: 100vw;
+	min-width: $size-min-page-width;
 	height: 100vh;
 	overflow: hidden;
-	padding: 20px;
+	padding: $size-padding;
 }

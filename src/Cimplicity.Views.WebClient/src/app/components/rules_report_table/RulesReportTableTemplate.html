@@ -1,47 +1,70 @@
 <div class="table-container">
-    <table id="rules-report-table">
-        <thead>
-        <tr>
-            <th *ngFor="let oColumn of getColumnsList(); trackBy: index;"
-                ngClass="{{oColumn.getCssClasses()}}"
-                (click)="onColumnHeaderClick(oColumn)"
-            >{{oColumn.caption}}</th>
+    <div class="fake-table-header">
+        <!--<div *ngFor="let oColumn of getColumnsList(); trackBy: index;"-->
+            <!--ngClass="{{oColumn.getCssClasses()}}"-->
+            <!--(click)="onColumnHeaderClick(oColumn)"-->
+        <!--&gt;{{oColumn.caption}}</div>-->
+        <table>
+            <thead>
+            <tr>
+                <th *ngFor="let oColumn of getColumnsList(); trackBy: index;"
+                    ngClass="{{oColumn.getCssClasses()}}"
+                    (click)="onColumnHeaderClick(oColumn)"
+                >{{oColumn.caption}}</th>
 
-        </tr>
-        <!--<tr>-->
+            </tr>
+            <!--<tr>-->
             <!--<th>Remaining</th>-->
             <!--<th>Set</th>-->
-        <!--</tr>-->
-        </thead>
-        <tbody>
-        <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
-            <td ngClass="{{getColClassesWorkCell()}}">{{oRule.WorkCell}}</td>
-            <td ngClass="{{getColClassesWorkUnit()}}">{{oRule.WorkUnit}}</td>
-            <td ngClass="{{getColClassesActual()}} {{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
-            <td ngClass="{{getColClassesRemaining()}}">{{oRule.getRemainingToString()}}</td>
-            <td ngClass="{{getColClassesSet()}}">{{oRule.getSetToString()}}</td>
-            <td ngClass="{{getColClassesOverflowRemaining()}} {{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
-            <td ngClass="{{getColClassesOverflowSet()}}">{{oRule.OverflowSet}}</td>
-            <td ngClass="{{getColClassesRuleType()}}">{{oRule.getRuleType()}}</td>
-            <td ngClass="{{getColClassesRuleName()}} {{getRuleNameCellCssClass(oRule)}}">
-                <div class="rule-name-wrapper">{{oRule.Name}}</div>
-                <div class="edit-trigger-btns-wrapper">
-                    <!--<button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"-->
-                            <!--*ngIf="isEditButtonEnabled(oRule) == true">Edit-->
-                    <!--</button>-->
-                    <div class="btn-group" role="group" *ngIf="isEditButtonEnabled(oRule) == true">
-                        <button type="button" class="btn btn-ge-secondary" (click)="openEditRuleModal(oRule)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-ge-secondary" (click)="openTriggerNextModal(oRule)"><i class="fa fa-play" aria-hidden="true"></i></button>
-                    </div>
-                </div>
+            <!--</tr>-->
+            </thead>
+        </table>
+    </div>
+    <div class="real-table-wrapper">
+        <table id="rulesReportTable">
+            <thead>
+            <tr>
+                <th *ngFor="let oColumn of getColumnsList(); trackBy: index;"
+                    ngClass="{{oColumn.getCssClasses()}}"
+                    (click)="onColumnHeaderClick(oColumn)"
+                >{{oColumn.caption}}</th>
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
-        <div class="no-data-notice">
-            No data to display
+            </tr>
+            <!--<tr>-->
+                <!--<th>Remaining</th>-->
+                <!--<th>Set</th>-->
+            <!--</tr>-->
+            </thead>
+            <tbody>
+            <tr *ngFor="let oRule of getRulesList(); trackBy: index;">
+                <td ngClass="{{getColClassesWorkCell()}}">{{oRule.WorkCell}}</td>
+                <td ngClass="{{getColClassesWorkUnit()}}">{{oRule.WorkUnit}}</td>
+                <td ngClass="{{getColClassesActual()}} {{getActualCellCssClass(oRule)}}">{{oRule.getActualToString()}}</td>
+                <td ngClass="{{getColClassesRemaining()}}">{{oRule.getRemainingToString()}}</td>
+                <td ngClass="{{getColClassesSet()}}">{{oRule.getSetToString()}}</td>
+                <td ngClass="{{getColClassesOverflowRemaining()}} {{getOverflowRemainingCellCssClass(oRule)}}">{{oRule.OverflowRemaining}}</td>
+                <td ngClass="{{getColClassesOverflowSet()}}">{{oRule.OverflowSet}}</td>
+                <td ngClass="{{getColClassesRuleType()}}">{{oRule.getRuleType()}}</td>
+                <td ngClass="{{getColClassesRuleName()}} {{getRuleNameCellCssClass(oRule)}}">
+                    <div class="rule-name-wrapper">{{oRule.Name}}</div>
+                    <div class="edit-trigger-btns-wrapper">
+                        <!--<button class="float-right btn btn-ge-default" (click)="openEditRuleModal(oRule)"-->
+                                <!--*ngIf="isEditButtonEnabled(oRule) == true">Edit-->
+                        <!--</button>-->
+                        <div class="btn-group" role="group" *ngIf="isEditButtonEnabled(oRule) == true">
+                            <button type="button" class="btn btn-ge-secondary" (click)="openEditRuleModal(oRule)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-ge-secondary" (click)="openTriggerNextModal(oRule)"><i class="fa fa-play" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="fake-empty-table" *ngIf="showEmptyDataBox() == true">
+            <div class="no-data-notice">
+                No data to display
+            </div>
         </div>
     </div>
 
@@ -70,15 +93,21 @@
                             <div>{{getRuleToEdit().Name}}</div>
                         </div>
                     </div>
-                    <div class="row justify-content-between rule-to-edit-editable-value" [hidden]="isDialogModeEditRule() == false">
-                        <div class="col-2 text-left field-labels">Actual:</div>
-                        <div class="col-6 text-left">
-                            <!-- On the base of rule type the value editor is different -->
-                            <input type="number" *ngIf="isCounterRule() == true" [(ngModel)]="ruleToEdit.Actual">
-                            <input type="text" *ngIf="isTimingRule() == true" [(ngModel)]="actualDateAsString" placeholder="YYYY-MM-DD hh:mm:ss">
+                    <div class="rule-to-edit-editable-value" [hidden]="isDialogModeEditRule() == false">
+                        <div class="row">
+                            <div class="col-3">Actual:</div><div class="col-9">{{getOriginalActual()}}</div>
                         </div>
-                        <div class="col-2 text-right field-labels">Set:</div>
-                        <div class="col-2 text-right read-only-values">{{getRuleToEdit().getSetToString()}}</div>
+                        <div class="row">
+                            <div class="col-3">Set:</div><div class="col-9">{{getRuleToEdit().getSetToString()}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 text-left field-labels">New Actual:</div>
+                            <div class="col-6 text-left">
+                                <!-- On the base of rule type the value editor is different -->
+                                <input type="number" *ngIf="isCounterRule() == true" [(ngModel)]="ruleToEdit.Actual">
+                                <input type="text" *ngIf="isTimingRule() == true" [(ngModel)]="actualDateAsString" placeholder="YYYY-MM-DD hh:mm:ss">
+                            </div>
+                        </div>
                     </div>
                     <div class="row" [hidden]="isDialogModeEditRule() == true">
                         <div class="col-2">Set:</div>
@@ -90,7 +119,10 @@
                             <textarea placeholder="Comment..." [(ngModel)]="ruleToEdit.Comment"></textarea>
                         </div>
                     </div>
-                    <div class="dialog-error-message">{{getEditRuleDialogErrorMessage()}}</div>
+                    <div class="dialog-extra-message">
+                        <div class="error">{{getEditRuleDialogErrorMessage()}}</div>
+                        <div class="generic">{{getEditRuleDialogMessage()}}</div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-ge btn-ge-cancel" data-dismiss="modal">Cancel</button>

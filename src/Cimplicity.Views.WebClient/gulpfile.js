@@ -244,6 +244,11 @@ gulp.task("copy::dragula_all_dependencies", [
     "copy:ng2_dragula"
 ]);
 
+gulp.task("copy:extra-lib", function () {
+    return gulp.src(config.libExtraSrcDir + "/{**, *.*}")
+        .pipe(gulp.dest(config.libExtraDextDir));
+});
+
 
 gulp.task("copy:tslib", function () {
 
@@ -267,7 +272,8 @@ gulp.task("dependencies", [
     "copy:plugin_babel",
     "copy:moment",
     "copy::dragula_all_dependencies",
-    "copy:tslib"
+    "copy:tslib",
+    "copy:extra-lib"
 ]);
 
 

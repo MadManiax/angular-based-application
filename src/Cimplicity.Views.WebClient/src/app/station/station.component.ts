@@ -9,6 +9,7 @@
 ///<reference path="../../classes/models/SortCondition.ts"/>
 ///<reference path="../../classes/models/RulesReportTableColumn.ts"/>
 ///<reference path="../../interfaces/IRestRulesReport.ts"/>
+///<reference path="../../interfaces/IEventEmitterDataWithCallbacks.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -29,6 +30,7 @@ import WlWtSortCondition = ge.cim.models.WlWtSortCondition;
 import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 import {PageEvent, MatSlideToggleChange} from "@angular/material";
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
+import IEventEmitterDataWithCallbacks = ge.cim.IEventEmitterDataWithCallbacks;
 
 @Component({
     selector: 'station',
@@ -110,7 +112,10 @@ export class StationComponent implements OnInit
     }
 
 
-
+    /**
+     * Execute a call to the data service to retrieve data from
+     * server and handle the response
+     */
     private doSearch()
     {
         this.closeFiltersPanel();
@@ -131,8 +136,10 @@ export class StationComponent implements OnInit
                     oTempResponse = oResponse;
                     this._aoRulesList = oResponse.RulesList;
                 },
-                (oVal)=>{
-                    //alert(oVal);
+                (sMessage:string)=>{
+                    this._bIsDataLoading = false;
+                    LoadingScreen.hide();
+                    VexUtils.showErrorAlert(sMessage);
                 },
                 ()=>{
                     this._iTotalPagesCount = oTempResponse.TotalPages;
@@ -215,30 +222,72 @@ export class StationComponent implements OnInit
         this.disableAutoRefresh();
     }
 
-    public saveEditedRule(oRule : Rule)
+
+    /**
+     * Callback executed when user click on 'Save' in the 'edit rule' dialog
+     * @param {ge.cim.IEventEmitterDataWithCallbacks<ge.cim.models.Rule>} oObject
+     */
+    public saveEditedRule(oObject : IEventEmitterDataWithCallbacks<Rule>)
     {
-        LoadingScreen.updateMessage("Saving changes...");
-        LoadingScreen.show();
+        let oRule = oObject.data;
+        let fnOnSuccess = oObject.onSuccess;
+        let fnOnError = oObject.onError;
+
+        // LoadingScreen.updateMessage("Saving changes...");
+        //LoadingScreen.show();
         this._oRulesReportService.saveRule(oRule)
-            .then(()=>{
-                LoadingScreen.updateMessage("Saved succesfully, reaload data...");
-                this.doSearch();
+            .then((bHasBeenSaved:boolean)=>{
+                if(bHasBeenSaved == true)
+                {
+                    // LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+                    fnOnSuccess();
+                    this.doSearch();
+                }
+                else
+                {
+                    fnOnError(null);
+                }
+
             })
+            .catch((oReason)=>{
+                fnOnError(null);
+            });
+
+
     }
 
-    // public goToPreviousTablePage(){
-    //     if(this._iCurrentPageNumber > 0){
-    //         this._iCurrentPageNumber--;
-    //         this.doSearch();
-    //     }
-    //
-    // }
-    // public goToNextTablePage(){
-    //     if(this._iCurrentPageNumber < this.getTotalPagesCount() - 1 ){
-    //         this._iCurrentPageNumber++;
-    //         this.doSearch();
-    //     }
-    // }
+    /**
+     * Callback executed when user click on 'Trigger Next' option for a rule
+     * @param {ge.cim.models.Rule} oRule
+     */
+    public triggerNext(oObject : IEventEmitterDataWithCallbacks<Rule>)
+    {
+        let oRule = oObject.data;
+        let fnOnSuccess = oObject.onSuccess;
+        let fnOnError = oObject.onError;
+
+        // LoadingScreen.updateMessage("Saving changes...");
+        //LoadingScreen.show();
+        this._oRulesReportService.triggerNext(oRule)
+            .then((bHasTriggerBeenExecuted:boolean)=>{
+                if(bHasTriggerBeenExecuted == true)
+                {
+                    // LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+                    fnOnSuccess();
+                    this.doSearch();
+                }
+                else
+                {
+                    fnOnError(null);
+                }
+
+            })
+            .catch((oReason)=>{
+                fnOnError(null);
+            });
+    }
+
+
 
     // public goFirstTablePage()
     // {
@@ -350,25 +399,25 @@ export class StationComponent implements OnInit
             });
     }
 
-    /**
-     * Open dialog to configure pagination (rows per page, etc)
-     */
-    public openPaginationConfigurator()
-    {
-        VexUtils.showPrompt("Enter the amount of rows to display in each page:", "", "Rows per page")
-            .then((oValue)=>{
-                if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 0)
-                {
-                    this._iCurrentRowsPerPage = parseInt(oValue);
-                    this.doSearch();
-                }
-                else{
-                    VexUtils.showErrorAlert("Error while updating the amount of rows to display in each page. Please enter a number greater or equals thant 0.")
-                }
-            })
-            .catch(()=>{
-                this._iCurrentRowsPerPage = ReportOverviewSetting.createDefault().rowsPerPage;
-            });
-    }
+    // /**
+    //  * Open dialog to configure pagination (rows per page, etc)
+    //  */
+    // public openPaginationConfigurator()
+    // {
+    //     VexUtils.showPrompt("Enter the amount of rows to display in each page:", "", "Rows per page")
+    //         .then((oValue)=>{
+    //             if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 0)
+    //             {
+    //                 this._iCurrentRowsPerPage = parseInt(oValue);
+    //                 this.doSearch();
+    //             }
+    //             else{
+    //                 VexUtils.showErrorAlert("Error while updating the amount of rows to display in each page. Please enter a number greater or equals thant 0.")
+    //             }
+    //         })
+    //         .catch(()=>{
+    //             this._iCurrentRowsPerPage = ReportOverviewSetting.createDefault().rowsPerPage;
+    //         });
+    // }
     ///</editor-fold>
 }

@@ -12,8 +12,29 @@
 
 	width: 100%;
 	height: 100%;
-	overflow-y: scroll;
 	border-bottom: 1px solid #ccc;
+	position: relative;
+
+
+	.fake-table-header{
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		left: 0px;
+		z-index: $z-index-rules-report-table-fake-header;
+
+		table{
+			// Leave scroll bar visible
+			width: calc(100% - 17px);
+		}
+	}
+
+	.real-table-wrapper{
+		width: 100%;
+		height: 100%;
+		overflow-y: scroll;
+	}
+
 
 	table {
 		width: 100%;
@@ -72,7 +93,6 @@
 			}
 		}
 
-
 		tbody {
 			tr {
 				td {
@@ -83,6 +103,11 @@
 					padding: 2px $size-cell-padding-left-right;
 
 					&.col {
+						&-actual{
+							&.small-date{
+								font-size: 0.95rem;
+							}
+						}
 						&-actual, &-remaining, &-set, &-overflow, &-overflow-set {
 							font-size: 1.1rem;
 							color: #444;
@@ -102,49 +127,7 @@
 
 
 
-		.col{
 
-			&-actual, &-remaining, &-set, &-overflow, &-overflow-set{
-				width: 106px;
-				text-align: center;
-				padding-left: 2px;
-				padding-right: 2px;
-			}
-
-			&-work-cell, &-work-unit{
-				width: 120px;
-			}
-			&-actual{
-			}
-			&-remaining{
-			}
-			&-set{
-			}
-			&-overflow{
-			}
-			&-overflow-set{
-
-			}
-			&-rule-type{
-				width: 74px;
-			}
-			&-rule-name{
-				text-align: left;
-				padding-top: 0px;
-				padding-bottom: 0px;
-
-				.rule-name-wrapper{
-					padding-top: $size-cell-padding-top-bottom + 2px;
-					padding-bottom: $size-cell-padding-top-bottom;
-					height: $size-rule-name-wrapper-height;
-					overflow: hidden;
-				}
-
-				.edit-trigger-btns-wrapper{
-
-				}
-			}
-		}
 
 		.cell{
 			&-actual-equals-to-set{
@@ -181,13 +164,58 @@
 				//min-width: 80px;
 			}
 		}
-	}
 
+		.col{
+
+			&-actual, &-remaining, &-set, &-overflow, &-overflow-set{
+				//width: 106px;
+				@include setWidthBaseAndMinAndMax(106px);
+				text-align: center;
+				padding-left: 2px;
+				padding-right: 2px;
+			}
+
+			&-work-cell, &-work-unit{
+				@include setWidthBaseAndMinAndMax(120px);
+			}
+			&-actual{
+			}
+			&-remaining{
+			}
+			&-set{
+			}
+			&-overflow{
+			}
+			&-overflow-set{
+
+			}
+			&-rule-type{
+				//width: 74px;
+				@include setWidthBaseAndMinAndMax(74px);
+			}
+			&-rule-name{
+				text-align: left;
+				padding-top: 0px;
+				padding-bottom: 0px;
+
+				.rule-name-wrapper{
+					padding-top: $size-cell-padding-top-bottom + 2px;
+					padding-bottom: $size-cell-padding-top-bottom;
+					height: $size-rule-name-wrapper-height;
+					overflow: hidden;
+				}
+
+				.edit-trigger-btns-wrapper{
+
+				}
+			}
+		}
+	}
 
 	.fake-empty-table{
 		width: 100%;
-		height: calc(100% - 77px);
-		border: 2px solid $color-rules-table-border;
+		height: calc(100% - 37px);
+		border: 1px solid $color-rules-table-border;
 		border-top: 0px;
 		border-bottom: 0px;
 
@@ -212,7 +240,7 @@
 		.rule-to-edit-summary{
 			text-align: center;
 			font-size: 1.1rem;
-			margin-bottom: 36px;
+			//margin-bottom: 36px;
 
 			label{
 				font-weight: bold;
@@ -249,12 +277,14 @@
 			}
 		}
 
-		.dialog-error-message{
+		.dialog-extra-message{
 			width: 100%;
 			position: relative;
 			bottom: -6px;
-			color: $color-red-error-text;
 			min-height: 24px;
+
+			.error{ color: $color-red-error-text; }
+			.generic{ color: inherit; }
 		}
 	}
 }

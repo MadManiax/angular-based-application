@@ -22,6 +22,7 @@
         jsFilesSrc              : base.source + "js/*.js",
         assetsDirSrc            : base.source + "assets",
         imagesDirSrc            : base.source + "assets/images",
+        libExtraSrcDir          : base.source + "lib-extra",
 
         destBaseDir             : base.webroot,
         destApp                 : base.webroot + "app",
@@ -32,6 +33,7 @@
         imagesDirDest           : base.webroot + "assets/images",
 
         lib             : base.webroot + "lib/",
+        libExtraDextDir : base.webroot + "lib-extra/",
         node_modules    : base.node_modules,
         angular         : base.node_modules + "@angular/{**, *.*}",
         angularWebApi: base.node_modules + "angular2-in-memory-web-api/*.js",
