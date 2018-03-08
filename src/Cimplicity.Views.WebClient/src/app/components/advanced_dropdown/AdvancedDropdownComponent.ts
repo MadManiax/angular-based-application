@@ -87,7 +87,10 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     ///<editor-fold desc="Component lifecycle methods (+)>
     ngOnChanges(changes: SimpleChanges): void
     {
-        //debugger;
+        if( Utils.getObjectProperty(changes, "_aoOptionList", null) != null)
+        {
+            this.validateSelectionsAccordingWithAvailableFilters();
+        }
     }
 
     ngAfterViewInit()
@@ -111,8 +114,27 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
         this._oDropDownMenu.find(".prevent-close-dropdown").on( 'click', ( event )=>{
             return false;
         })
+
+
     }
 
+    private validateSelectionsAccordingWithAvailableFilters()
+    {
+        // For each selected option, check if it exist also in the
+        // list of 'available option'. Otherwise it will be deleted from selected options
+        for(let i = (this._aoSelectedOptionList.length - 1); i >= 0; i--)
+        {
+            if( this.doesSelectedOptionExistIntoAvailableFilters(this._aoSelectedOptionList[i]) == false)
+            {
+                Utils.deleteElementFromArray(this._aoSelectedOptionList, i);
+            }
+        }
+    }
+
+    private doesSelectedOptionExistIntoAvailableFilters(oSelectedOption:any)
+    {
+        return Utils.arrayContains(this._aoOptionList, oSelectedOption, this._sOptionComparePropertyName);
+    }
     ///</editor-fold>
 
     //*******************************************************************************

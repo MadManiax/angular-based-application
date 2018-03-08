@@ -85,6 +85,7 @@
 			.dropdown-option{
 				padding: 6px;
 				border-bottom: 1px solid #ccc;
+				font-weight: $font-weight-roboto-light;
 
 				&:hover{
 					cursor: pointer;
@@ -114,6 +115,10 @@
 		.dropdown-extra-buttons-container-bottom{
 			height: 46px;
 			background-color: #eee;
+
+			span{
+				font-weight: $font-weight-roboto-light;
+			}
 
 			& > div{
 				text-align: center;

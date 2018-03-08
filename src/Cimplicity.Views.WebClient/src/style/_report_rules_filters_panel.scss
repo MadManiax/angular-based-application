@@ -55,7 +55,8 @@
         }
     }
 
-
+    // Customize some 'advanced dropdown' parts to better
+    // match the UI of the filters panel
     .advanced-dropdown {
         .button-group {
             width: 100%;
@@ -72,6 +73,11 @@
         .fa{
             color: #444;
         }
+
+        .dropdown-extra-buttons-container-bottom{
+            color: #444;
+        }
+
     }
 
 

@@ -24,6 +24,7 @@ import {MatButtonModule, MatPaginatorModule, MatSlideToggleModule, MatTableModul
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LookupService } from "./services/LookupService";
 import { HttpBaseService } from "./services/base/HttpBaseService";
+import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { HttpBaseService } from "./services/base/HttpBaseService";
         AuthService,
         RulesReportService,
         LookupService,
+        LookupServiceMock,
         {
             provide: HttpBaseService,
             deps: [XHRBackend, RequestOptions],

@@ -18,7 +18,7 @@ import Filter = ge.cim.models.Filter;
 export class HomeComponent implements OnInit {
 
     //private _hubConnection: HubConnection;
-    //message = '';
+    //Message = '';
     //messages: string[] = [];
 
     constructor(private service:LookupService) {
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     //        });
    }
     //public sendMessage(): void {
-    //    const data = `Sent: ${this.message}`;
+    //    const data = `Sent: ${this.Message}`;
 
     //    this._hubConnection.invoke('Send', data);
     //    this.messages.push(data);

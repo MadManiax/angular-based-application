@@ -2,7 +2,7 @@ module ge.cim.dummydata
 {
 
     export const DUMMY_REPORT_FULL_RESPONSE = {
-        "result": [
+        "Result": [
             {
                 "WorkCell": "WL900001",
                 "WorkUnit": "WT900001",
@@ -260,8 +260,8 @@ module ge.cim.dummydata
                 "ProductionLine": "WR900001"
             }
         ],
-        "status": 0,
-        "errors": [],
-        "message": null
+        "Status": 0,
+        "Errors": [],
+        "Message": null
     };
 }

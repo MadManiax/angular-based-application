@@ -1,7 +1,8 @@
 ﻿module ge.cim {
-    export interface IMaterial {
-        materialDefinitionId: string;
-        s95Id: string;
+    export interface IMaterial
+    {
+        MaterialDefinitionId: string;
+        S95Id: string;
     }
 }
 

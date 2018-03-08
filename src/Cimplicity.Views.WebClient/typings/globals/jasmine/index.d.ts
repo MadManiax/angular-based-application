@@ -26,7 +26,7 @@ declare function fail(e?: any): void;
 interface DoneFn extends Function {
     (): void;
 
-    /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
+    /** fails the spec and indicates that it has completed. If the Message is an Error, Error.Message is used */
     fail: (message?: Error|string) => void;
 }
 

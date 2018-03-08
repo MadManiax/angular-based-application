@@ -22,7 +22,7 @@ import IMaterial = ge.cim.IMaterial;
  */
 @Injectable()
 export class LookupService {
-    constructor(private http: HttpBaseService) {
+    constructor(protected http: HttpBaseService) {
 
     }
     /**
@@ -39,7 +39,7 @@ export class LookupService {
                     return Observable.of(false);
                 })
                 .subscribe((rsp: IBaseServerResponse) => {
-                    observer.next(rsp.result as IProductionLine[]);
+                    observer.next(rsp.Result as IProductionLine[]);
                     observer.complete();
                 });
         });
@@ -54,7 +54,7 @@ export class LookupService {
 
             //Map filters to object claimed by the service
             let productionLines = this.mapFiltersTo<IProductionLine>(productionLinesFilter,
-                (f: Filter) => { return { displayName: f._sCaption, s95Id: f._oValue } as IProductionLine })
+                (f: Filter) => { return { DisplayName: f._sCaption, S95Id: f._oValue } as IProductionLine })
 
             this.http.postJson("lookup/getworkcells", productionLines)
                 .map((rsp: Response) => rsp.json() as IBaseServerResponse)
@@ -63,7 +63,7 @@ export class LookupService {
                     return Observable.of(false);
                 })
                 .subscribe((rsp: IBaseServerResponse) => {
-                    observer.next(rsp.result as IWorkCell[]);
+                    observer.next(rsp.Result as IWorkCell[]);
                     observer.complete();
                 });
 
@@ -79,7 +79,7 @@ export class LookupService {
 
             //Map filters to object claimed by the service
             let workCells = this.mapFiltersTo<IWorkCell>(workCellsFilter,
-                (f: Filter) => { return { displayName: f._sCaption, s95Id: f._oValue } as IWorkCell });
+                (f: Filter) => { return { DisplayName: f._sCaption, S95Id: f._oValue } as IWorkCell });
 
 
             this.http.postJson("lookup/getworkunits", workCells)
@@ -89,7 +89,7 @@ export class LookupService {
                     return Observable.of(false);
                 })
                 .subscribe((rsp: IBaseServerResponse) => {
-                    observer.next(rsp.result as IWorkUnit[]);
+                    observer.next(rsp.Result as IWorkUnit[]);
                     observer.complete();
                 });
 
@@ -106,11 +106,11 @@ export class LookupService {
 
             //Map filters to object claimed by the service
             let workCells = this.mapFiltersTo<IWorkCell>(workCellsFilter,
-                (f: Filter) => { return { displayName: f._sCaption, s95Id: f._oValue } as IWorkCell })
+                (f: Filter) => { return { DisplayName: f._sCaption, S95Id: f._oValue } as IWorkCell })
 
             //Map filters to object claimed by the service
             let workUnits = this.mapFiltersTo<IWorkUnit>(workUnitsFilter,
-                (f: Filter) => { return { displayName: f._sCaption, s95Id: f._oValue } as IWorkUnit })
+                (f: Filter) => { return { DisplayName: f._sCaption, S95Id: f._oValue } as IWorkUnit })
 
             //Wrapping objects in one to pass them to the service
             this.http.postJson("lookup/getmaterialdefinitions", { workCells: workCells, workUnits: workUnits })
@@ -120,7 +120,7 @@ export class LookupService {
                     return Observable.of(false);
                 })
                 .subscribe((rsp: IBaseServerResponse) => {
-                    observer.next(rsp.result as IMaterial[]);
+                    observer.next(rsp.Result as IMaterial[]);
                     observer.complete();
                 });
 

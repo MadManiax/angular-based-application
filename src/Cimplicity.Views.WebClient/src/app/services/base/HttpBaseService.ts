@@ -95,7 +95,7 @@ export class HttpBaseService extends Http{
     }
 
     /**
-     * Generic method to catch errors
+     * Generic method to catch Errors
      * @param self
      */
     private catchAuthError(self: HttpBaseService) {

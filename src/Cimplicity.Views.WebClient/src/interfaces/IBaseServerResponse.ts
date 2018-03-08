@@ -2,10 +2,10 @@ module ge.cim {
 
     export interface IBaseServerResponse
     {
-        result?     : any;
-        status      : number;
-        errors      : any;
-        message     : string;
+        Result?     : any;
+        Status      : number;
+        Errors      : any;
+        Message     : string;
     }
 
 }

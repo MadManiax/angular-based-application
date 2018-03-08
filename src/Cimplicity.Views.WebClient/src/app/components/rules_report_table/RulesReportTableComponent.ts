@@ -160,9 +160,9 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
 
     private setDialogErrorMessage(sMessage, iDurationMs:number = 2000)
     {
-        // Set new message for the 'error message' field
+        // Set new Message for the 'error Message' field
         this._sDialogExtraMessageError = sMessage;
-        // and clear any message in the 'generic message' field
+        // and clear any Message in the 'generic Message' field
         this._sDialogExtraMessage = null;
         if( iDurationMs > 0) {
             setTimeout(() => {
@@ -172,9 +172,9 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
     }
     private setDialogGenericMessage(sMessage, iDurationMs:number = 2000)
     {
-        // Set new message for the 'generic message' field
+        // Set new Message for the 'generic Message' field
         this._sDialogExtraMessage = sMessage;
-        // and clear any message in the 'error message' field
+        // and clear any Message in the 'error Message' field
         this._sDialogExtraMessageError = null;
         if( iDurationMs > 0) {
             setTimeout(() => {
@@ -243,9 +243,9 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
 
     /**
      * Get the CSS class for the 'Overflow Remaining' acording to FdS:
-     *      Remaining Overflow cell is RED when the Remaining overflow is 0 and it remains red until the sampling result is received.
+     *      Remaining Overflow cell is RED when the Remaining overflow is 0 and it remains red until the sampling Result is received.
      *	    The machine is blocked if the overflow is 0 and the cell is RED.
-     *	    As soon as the sampling result is received, the previous background color will be restored and the Remaining overflow cell will be cleaned
+     *	    As soon as the sampling Result is received, the previous background color will be restored and the Remaining overflow cell will be cleaned
      * @param {ge.cim.models.Rule} oRule
      */
     public getOverflowRemainingCellCssClass(oRule : Rule)
@@ -259,7 +259,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
     /**
      * Get the CSS class for the 'Rule Name' acording to FdS:
      *      Rule Name cell will be YELLOW when the target value for that rule is reached and it will remain yellow
-     *		until the sampling result is received and the overflow is reset again to the configured value
+     *		until the sampling Result is received and the overflow is reset again to the configured value
      * @param {ge.cim.models.Rule} oRule
      */
     public getRuleNameCellCssClass(oRule : Rule)
@@ -377,7 +377,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
             this._oEventEmitterSaveRule.emit({
                 onSuccess   : ()=>{ oThis.dismissDialog(); },
                 onError     : (sMessage)=>{
-                    // Overwrite the message with a default one
+                    // Overwrite the Message with a default one
                     sMessage = "An error occurred. Any change has been discarded.";
                     oThis.setDialogErrorMessage(sMessage, 3400);
                     // Restore old data
@@ -399,7 +399,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         this._oEventEmitterSaveRule.emit({
             onSuccess   : ()=>{ oThis.dismissDialog(); },
             onError     : (sMessage)=>{
-                // Overwrite the message with a default one
+                // Overwrite the Message with a default one
                 sMessage = "An error occurred, operation cannot be completed";
                 oThis.setDialogErrorMessage(sMessage, 3000);
             },
