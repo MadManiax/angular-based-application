@@ -1,12 +1,11 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, XHRBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from "@angular/http";
 
-import { Configurations } from "../../config/AppConfigurations";
-
 import { Observable } from "rxjs/Observable";
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/finally";
+import {Configurations} from "../../config/AppConfigurations";
 
 /**
  * Base Class to manage Http request in Cimplicity Web Client Project

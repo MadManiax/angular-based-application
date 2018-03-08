@@ -3,6 +3,12 @@
 //* - http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/
 //****************************************************************************************************
 
+@mixin setWidthBaseAndMinAndMax($iValue)
+{
+	width: $iValue;
+	min-width: $iValue;
+	max-width: $iValue;
+}
 
 @mixin clickable()
 {

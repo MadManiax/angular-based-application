@@ -13,26 +13,17 @@
             <!-- Empty row -->
         </div>
         <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-xs-6 row justify-content-end search-toolbar-wrapper">
-                <div class="col-xl-auto text-right report-autorefresh-configurator-container">
-                    <mat-slide-toggle
-                            class="example-margin"
-                            (change)="onAutoRefreshToggleChange($event)">
-                        Auto-refresh
-                    </mat-slide-toggle>
-                    <div class="report-autorefresh-summary">
-                        <span [hidden]="isAutoRefreshEnabled() == false">({{getAutoRefreshIntervalInSeconds()}}s<i class="fa fa-cog padding-left clickable" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i> )</span>
-                    </div>
-                    <!--<div [hidden]="isAutoRefreshEnabled() == true">-->
-                        <!--<i class="fa fa-toggle-off padding-right" aria-hidden="true" (click)="enableAutoRefresh()"></i>Auto refresh is OFF-->
-                    <!--</div>-->
-                    <!--<div [hidden]="isAutoRefreshEnabled() == false">-->
-                        <!--<i class="fa fa-toggle-on padding-right" aria-hidden="true" (click)="disableAutoRefresh()"></i>-->
-                        <!--Auto refresh every {{getAutoRefreshIntervalInSeconds()}} seconds-->
-                        <!--<i class="fa fa-cog padding-left" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i>-->
-                    <!--</div>-->
-                    <!--<div><span class="padding-right">Last refresh:</span>{{getLatestRefreshDatetimeAsString()}}</div>-->
+            <div class="col-auto text-right report-autorefresh-configurator-container">
+                <mat-slide-toggle
+                        class="example-margin"
+                        (change)="onAutoRefreshToggleChange($event)">
+                    Auto-refresh
+                </mat-slide-toggle>
+                <div class="report-autorefresh-summary">
+                    <span [hidden]="isAutoRefreshEnabled() == false">({{getAutoRefreshIntervalInSeconds()}}s<i class="fa fa-cog padding-left clickable" aria-hidden="true" (click)="openAutoRefreshTimeConfigurator()"></i> )</span>
                 </div>
-            <div class="col-xl-auto search-btn-wrapper text-right" style="padding-right: 0px;">
+            </div>
+            <div class="col-auto search-btn-wrapper text-right" style="padding-right: 0px;">
                 <button class="btn btn-ge btn-ge-primary" (click)="reloadData()"><i class="fa fa-search"></i>Search</button>
             </div>
         </div>

@@ -50,8 +50,7 @@
         text-align: center;
         padding: 6px;
 
-        &:hover{
-            @extend .clickable;
+        @include clickable(){
             background-color: rgba(250,250,250, 0.2);
         }
     }
@@ -68,6 +67,10 @@
 
         .advanced-dropdown-caption{
             color: $color-advanced-dropdown-caption;
+        }
+
+        .fa{
+            color: #444;
         }
     }
 

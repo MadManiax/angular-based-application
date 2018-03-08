@@ -87,12 +87,6 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
 
     ngAfterViewInit()
     {
-        // $('#rules-report-table').fixedHeaderTable({
-        //     footer: false,
-        //     cloneHeadToFoot: false,
-        //     fixedColumn: false
-        // });
-
         // Prevent 'edit rule' dialog from closing if something goes wrong
         // $('#editRuleModal').on('hide.bs.modal', function(e){
         //     debugger;
@@ -235,11 +229,16 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
      */
     public getActualCellCssClass(oRule : Rule)
     {
+        let sCssClasses = "";
+        if( oRule instanceof TimingRule)
+        {
+            sCssClasses += "small-date" + " ";
+        }
         if(oRule.isActualEqualsSet() == true)
         {
-            return "cell-actual-equals-to-set";
+            sCssClasses +="cell-actual-equals-to-set";
         }
-        return "";
+        return sCssClasses;
     }
 
     /**
@@ -338,10 +337,8 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         }
         return this._bIsEditButtonEnabled;
     }
-    // public onEditBtnClick(oRule:Rule)
-    // {
-    //     this._oEventEmitterEditClick.emit(oRule);
-    // }
+
+
 
     public getRuleToEdit(){ return this._oRuleToEdit; }
     public openEditRuleModal(oRule : Rule)
@@ -362,6 +359,14 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         this._oModal.modal('hide');
     }
 
+    public getOriginalActual()
+    {
+        return this._oRuleToEditOriginal.getActualToString();
+    }
+
+    /**
+     * Callcback executed on 'Save' click in the dialog
+     */
     public onSaveRule()
     {
         this._bIsEditedDataValid = this.isActualValueValid();
@@ -373,7 +378,7 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
                 onSuccess   : ()=>{ oThis.dismissDialog(); },
                 onError     : (sMessage)=>{
                     // Overwrite the message with a default one
-                    sMessage = "An error occurred saving the rule. Any change has been discarded.";
+                    sMessage = "An error occurred. Any change has been discarded.";
                     oThis.setDialogErrorMessage(sMessage, 3400);
                     // Restore old data
                     this._oRuleToEdit = Object.assign<Rule, Rule>(Object.create(this._oRuleToEditOriginal), this._oRuleToEditOriginal);
@@ -383,13 +388,29 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         }
     }
 
+    /**
+     * Callback executed when 'Trigger Next' is clicked in the dialog
+     */
+    public onTriggerNext()
+    {
+        //this._oEventEmitterTriggerNext.emit(this._oRuleToEdit);
+        this.setDialogGenericMessage("Please wait...", -1);
+        let oThis = this;
+        this._oEventEmitterSaveRule.emit({
+            onSuccess   : ()=>{ oThis.dismissDialog(); },
+            onError     : (sMessage)=>{
+                // Overwrite the message with a default one
+                sMessage = "An error occurred, operation cannot be completed";
+                oThis.setDialogErrorMessage(sMessage, 3000);
+            },
+            data        : this._oRuleToEdit
+        });
+    }
+
     public getEditRuleDialogErrorMessage(){ return (Utils.isStrNullOrEmpty(this._sDialogExtraMessageError) == false) ? this._sDialogExtraMessageError : ""; }
     public getEditRuleDialogMessage(){ return (Utils.isStrNullOrEmpty(this._sDialogExtraMessage) == false) ? this._sDialogExtraMessage : ""; }
 
-    public onTriggerNext()
-    {
-        this._oEventEmitterTriggerNext.emit(this._oRuleToEdit);
-    }
+
     //public abstract setDefault();
 
 

@@ -18,8 +18,9 @@ module ge.cim.models
         //*******************************************************************************
         //* Static variables
         //*******************************************************************************
-        private static RULE_TYPE = "Timing";
-        public static DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+        private static RULE_TYPE            = "Timing";
+        public static DATETIME_FORMAT       = "YYYY-MM-DD HH:mm:ss";
+        public static TIME_SUFFIX_SECONDS   = "s";
 
         //*******************************************************************************
         //* Static methods
@@ -72,8 +73,8 @@ module ge.cim.models
         get ActualDateTime(): moment.Moment { return this._oActualDateTime; }
         set ActualDateTime(value: moment.Moment) { this._oActualDateTime = value; }
 
-        public getRemainingToString():string { return this.Remaining + " sec"; }
-        public getSetToString():string { return this.Set + " sec"; }
+        public getRemainingToString():string { return this.Remaining + " " + TimingRule.TIME_SUFFIX_SECONDS; }
+        public getSetToString():string { return this.Set + " " + TimingRule.TIME_SUFFIX_SECONDS; }
         public getActualToString():string { return this._oActualDateTime.format(TimingRule.DATETIME_FORMAT); }
         public getActualAsDateTime():moment.Moment{ return this._oActualDateTime; }
 

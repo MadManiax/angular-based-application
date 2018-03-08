@@ -52,7 +52,7 @@
     };
     oConfig.packages = {
         app: {
-            main: './main.min.js',
+            main: './main.js',
             //defaultExtension: 'min.js'
             defaultExtension: 'js'
         },

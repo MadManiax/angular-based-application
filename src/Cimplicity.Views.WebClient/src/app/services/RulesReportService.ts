@@ -48,72 +48,79 @@ export class RulesReportService
             // Then perform request
             setTimeout(()=>{
 
-                // Generate fake data
-                // splitting them into pages
-                let iPage = 0;
-                let iCounter = 0;
-
-                // let oPages = [];
-                // for (let i = 0; i < 100; i++)
-                // {
-                //     let oRule = null;
-                //     let fRand = Math.random();
-                //     if(fRand < 0.33){ oRule = new TimingRule().fillWithDummyData(); }
-                //     else if(fRand < 0.66){ oRule = new CounterRule().fillWithDummyData(); }
-                //     else{oRule = new EventRule().fillWithDummyData();}
-                //
-                //     if(Utils.isNullOrUndef(oPages[iPage]) == true)
-                //     {
-                //         oPages[iPage] = [];
-                //     }
-                //
-                //     oPages[iPage].push(oRule);
-                //
-                //     // If current page has reached limit, add new page
-                //     if(oPages[iPage].length == aoParams.RowsPerPage)
-                //     {
-                //         iCounter = 0;
-                //         iPage++;
-                //     }
-                //
-                // }
-                // console.debug(JSON.stringify(oPages));
-
-                // OLD DUMMY JSON
-                // let oPages = DummyReport;
-                // oResponse.TotalPages = oPages.length;
-                // if( aoParams.CurrentPage < oResponse.TotalPages )
-                // {
-                //     let oPageInJson : any = oPages[aoParams.CurrentPage];
-                //
-                //     for(let i = 0; i < oPageInJson.length; i++)
-                //     {
-                //         let oRuleInJson = oPageInJson[i];
-                //         if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
-                //         if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
-                //         if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
-                //     }
-                // }
-
-
-                // NEW DUMMY JSON (like the real one)
-                let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE;
-
-                // Calculate the total number of rows (in some way)
-                oResponse.TotalRows = 0;
-
-                let oPageInJson : any = oReportResponse.result;
-                for(let i = 0; i < oPageInJson.length; i++)
-                {
-                    let oRuleInJson = oPageInJson[i];
-                    if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
-                    if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
-                    if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                let bGenerateError = false;
+                if( bGenerateError ){
+                    observer.error("Internal error occured");
                 }
+                else
+                {
+                    // Generate fake data
+                    // splitting them into pages
+                    let iPage = 0;
+                    let iCounter = 0;
 
-                // set observer value and set it as 'completed'
-                observer.next(oResponse);
-                observer.complete();
+                    // let oPages = [];
+                    // for (let i = 0; i < 100; i++)
+                    // {
+                    //     let oRule = null;
+                    //     let fRand = Math.random();
+                    //     if(fRand < 0.33){ oRule = new TimingRule().fillWithDummyData(); }
+                    //     else if(fRand < 0.66){ oRule = new CounterRule().fillWithDummyData(); }
+                    //     else{oRule = new EventRule().fillWithDummyData();}
+                    //
+                    //     if(Utils.isNullOrUndef(oPages[iPage]) == true)
+                    //     {
+                    //         oPages[iPage] = [];
+                    //     }
+                    //
+                    //     oPages[iPage].push(oRule);
+                    //
+                    //     // If current page has reached limit, add new page
+                    //     if(oPages[iPage].length == aoParams.RowsPerPage)
+                    //     {
+                    //         iCounter = 0;
+                    //         iPage++;
+                    //     }
+                    //
+                    // }
+                    // console.debug(JSON.stringify(oPages));
+
+                    // OLD DUMMY JSON
+                    // let oPages = DummyReport;
+                    // oResponse.TotalPages = oPages.length;
+                    // if( aoParams.CurrentPage < oResponse.TotalPages )
+                    // {
+                    //     let oPageInJson : any = oPages[aoParams.CurrentPage];
+                    //
+                    //     for(let i = 0; i < oPageInJson.length; i++)
+                    //     {
+                    //         let oRuleInJson = oPageInJson[i];
+                    //         if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
+                    //         if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                    //         if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                    //     }
+                    // }
+
+
+                    // NEW DUMMY JSON (like the real one)
+                    let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE;
+
+                    // Calculate the total number of rows (in some way)
+                    oResponse.TotalRows = 0;
+
+                    let oPageInJson : any = oReportResponse.result;
+                    for(let i = 0; i < oPageInJson.length; i++)
+                    {
+                        let oRuleInJson = oPageInJson[i];
+                        if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
+                        if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                        if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                    }
+
+                    // set observer value and set it as 'completed'
+                    observer.next(oResponse);
+                    observer.complete();
+                }
             }, 1000);
         })
         return oObserver;
@@ -140,6 +147,7 @@ export class RulesReportService
                 resolve(true);
             }, 1000);
         });
+        return oPromise;
     }
 
     // public getRules(aoFilters : Filter[])
