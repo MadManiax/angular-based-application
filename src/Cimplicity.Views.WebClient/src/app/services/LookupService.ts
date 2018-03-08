@@ -32,7 +32,7 @@ export class LookupService {
     getProductionLines(workArea: string): Observable<IProductionLine[]> {
         let observer = new Observable<IProductionLine[]>(observer => {
 
-            this.http.get(`lookup/getproductionlinesfortest?workArea=${workArea}`)
+            this.http.get(`lookup/getproductionlines/${workArea}`)
                 .map((rsp: Response) => rsp.json() as IBaseServerResponse)
                 .catch(err => {
                     observer.error(err.json() || err);
@@ -127,7 +127,27 @@ export class LookupService {
         });
         return observer;
     }
+    /**
+     * Retrieve all rule types
+    */
+    getRuleTypes(): Observable<string[]> {
+        let observer = new Observable<string[]>(observer => {
 
+            //Wrapping objects in one to pass them to the service
+            this.http.get("lookup/getruletypes")
+                .map((rsp: Response) => rsp.json() as IBaseServerResponse)
+                .catch(err => {
+                    observer.error(err.json() || err);
+                    return Observable.of(false);
+                })
+                .subscribe((rsp: IBaseServerResponse) => {
+                    observer.next(rsp.Result as string[]);
+                    observer.complete();
+                });
+
+        });
+        return observer;
+    }
 
     private mapFiltersTo<TType>(filter: Filter[], mapFunc: Function): TType[] {
         let toReturn: TType[] = filter.map(f => { return mapFunc(f); });
