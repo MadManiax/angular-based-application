@@ -37,7 +37,7 @@ export class RulesReportService
             TotalRows : 0,
             CurrentPage : aoParams.CurrentPage,
             RowsPerPage : aoParams.RowsPerPage,
-            RulesList : []
+            Rules : []
         }
 
         let oObserver = new Observable<IRestRulesReportResponse>(observer => {
@@ -106,9 +106,9 @@ export class RulesReportService
                 for(let i = 0; i < oPageInJson.length; i++)
                 {
                     let oRuleInJson = oPageInJson[i];
-                    if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
-                    if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
-                    if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
+                    if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.Rules.push( new EventRule().fromJSON(oRuleInJson) ); }
+                    if (TimingRule.isMyJsonInstance(oRuleInJson) == true) { oResponse.Rules.push( new TimingRule().fromJSON(oRuleInJson) ); }
+                    if (CounterRule.isMyJsonInstance(oRuleInJson) == true) { oResponse.Rules.push( new CounterRule().fromJSON(oRuleInJson) ); }
                 }
 
                 // set observer value and set it as 'completed'
