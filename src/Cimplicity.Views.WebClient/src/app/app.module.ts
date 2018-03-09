@@ -23,8 +23,9 @@ import {DragulaModule} from "ng2-dragula";
 import {MatButtonModule, MatPaginatorModule, MatSlideToggleModule, MatTableModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LookupService } from "./services/LookupService";
+import { SamplingRuleExectionService } from "./services/SamplingRuleExecutionService";
+import { ReportOverviewService } from "./services/ReportOverviewService";
 import { HttpBaseService } from "./services/base/HttpBaseService";
-import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
 
 
 @NgModule({
@@ -65,15 +66,16 @@ import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
         RulesReportRouteGuard,
         AuthService,
         RulesReportService,
+        ReportOverviewService,
+        SamplingRuleExectionService,
         LookupService,
-        LookupServiceMock,
         {
             provide: HttpBaseService,
             deps: [XHRBackend, RequestOptions],
             useFactory: (backend: XHRBackend, options: RequestOptions) => {
                 return new HttpBaseService(backend, options);
             }
-        },
+        }
         // {
         //     provide: HTTP_INTERCEPTORS,
         //     useClass: MockHttpInterceptor,

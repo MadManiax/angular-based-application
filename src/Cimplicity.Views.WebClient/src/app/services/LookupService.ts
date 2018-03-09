@@ -22,7 +22,7 @@ import IMaterial = ge.cim.IMaterial;
  */
 @Injectable()
 export class LookupService {
-    constructor(protected http: HttpBaseService) {
+    constructor(private http: HttpBaseService) {
 
     }
     /**
