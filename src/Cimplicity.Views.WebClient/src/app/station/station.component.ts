@@ -184,7 +184,7 @@ export class StationComponent implements OnInit
     public onColumnHeaderClick(oColumn : RulesReportTableColumn)
     {
         let sCaption = oColumn.caption;
-        if(sCaption == "Work Cell"){
+        if(sCaption == "WL"){
             sCaption = "WL/WT";
         }
         let sFieldName = oColumn.caption;

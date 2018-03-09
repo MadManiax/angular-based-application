@@ -3,8 +3,9 @@ $font-size-global : 1rem;
 // For custom font see:
 // https://fonts.google.com/?query=robot&selection.family=Roboto:300,400
 //$font-weight-roboto-thin: 100;
-$font-weight-roboto-light: 300;
-$font-weight-roboto-regular: 400;
+$font-weight-roboto-light	: 300;
+$font-weight-roboto-regular	: 400;
+$font-weight-roboto-medium	: 500;
 
 $var-path-to-assets: "../assets";
 $var-path-to-images: $var-path-to-assets + "/images"

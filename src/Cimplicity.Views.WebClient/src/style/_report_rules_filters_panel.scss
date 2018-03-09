@@ -55,6 +55,17 @@
         }
     }
 
+    .toolbar-bottom{
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 40px;
+
+        .btn-ge{
+            margin: 0px 18px;
+        }
+    }
+
     // Customize some 'advanced dropdown' parts to better
     // match the UI of the filters panel
     .advanced-dropdown {

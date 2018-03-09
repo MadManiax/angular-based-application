@@ -1,15 +1,15 @@
 
 .btn-ge{
-	font-size: 0.8rem;
-	font-weight: bold;
+	//font-size: 0.8rem;
+	//font-weight: bold;
+	font-size: 0.85rem;
+	font-weight: $font-weight-roboto-medium;
 	//letter-spacing: 1.0px;
 	text-transform: uppercase;
 	border-radius: 0px;
-
 	border: 0;
 	font-family: inherit;
 	letter-spacing: .1em;
-	//font-size: .8em;
 	line-height: 1em;
 	padding: .75em 2em;
 
@@ -58,7 +58,7 @@
 		border: 1px solid darken($color-cimplicity-gray-light, 20%);
 		background-color: $color-cimplicity-gray-light;
 		&:hover{
-			background-color: darken($color-cimplicity-gray-light, 10%);
+			background-color: darken($color-cimplicity-gray-light, 6%);
 		}
 	}
 

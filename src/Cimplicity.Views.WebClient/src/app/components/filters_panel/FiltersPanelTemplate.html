@@ -1,4 +1,4 @@
-<div class="row row-ge-has-5-cols">
+<div class="row row-ge-has-4-cols">
     <div class="col">
         <advanced-dropdown caption="Production line"
                            [optionsList]="this._oAvailableFilters.filtersProductionLines"
@@ -39,9 +39,9 @@
                            [isWaiting]="isMaterialsFilterInWaiting()">
         </advanced-dropdown>
     </div>
-    <div class="col">
-        <button class="btn btn-ge btn-ge-secondary clear-all-filters-btn" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
-    </div>
+    <!--<div class="col">-->
+        <!--<button class="btn btn-ge btn-ge-secondary clear-all-filters-btn" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>-->
+    <!--</div>-->
 </div>
 <!--<div class="row">-->
     <!--<div class="col">-->
@@ -55,5 +55,12 @@
 <div class="row" style="margin-top: 40px;">
     <div class="col-lg-12">
         <sorting-panel [(sortConditions)]="sortConditionsList"></sorting-panel>
+    </div>
+</div>
+
+<div class="row toolbar-bottom">
+    <div class="col-12 text-center">
+        <button class="btn btn-ge btn-ge-secondary" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
+        <button class="btn btn-ge btn-ge-secondary" (click)="clearAllOrderBy()"><i class="fa fa-trash-o padding-right"></i>Clear all order-by</button>
     </div>
 </div>

@@ -24,7 +24,16 @@ import WorkCellFilter = ge.cim.models.WorkCellFilter;
 import RuleTypeFilter = ge.cim.models.RuleTypeFilter;
 import IMaterial = ge.cim.IMaterial;
 import MaterialDefinitionFilter = ge.cim.models.MaterialDefinitionFilter;
+import VexUtils = jsutils.VexUtils;
 
+
+enum FilterType{
+    ProductionLine  = 0,
+    WorkCell        = 1,
+    WorkUnit        = 2,
+    RuleType        = 3,
+    Materials       = 4
+}
 
 @Component({
     selector: 'rules-report-filters-panel',
@@ -32,11 +41,11 @@ import MaterialDefinitionFilter = ge.cim.models.MaterialDefinitionFilter;
 })
 export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
 {
-    private static ARR_INDEX_PROD_LINE  = 0;
-    private static ARR_INDEX_WORK_CELL  = 1;
-    private static ARR_INDEX_WORK_UNIT  = 2;
-    private static ARR_INDEX_RULE_TYPE  = 3;
-    private static ARR_INDEX_MATERIALS  = 4;
+    private static ARR_INDEX_PROD_LINE  = FilterType.ProductionLine;
+    private static ARR_INDEX_WORK_CELL  = FilterType.WorkCell;
+    private static ARR_INDEX_WORK_UNIT  = FilterType.WorkUnit;
+    private static ARR_INDEX_RULE_TYPE  = FilterType.RuleType;
+    private static ARR_INDEX_MATERIALS  = FilterType.Materials;
 
 
     // @Input('rulesList')
@@ -195,7 +204,7 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
                 this._oAvailableFilters.filtersProductionLines = ProductionLineFilter.createFiltersListFromObjectList(oData, ProductionLineFilter);
             },
             (oReason:any)=>{
-
+                this.handleErrorOnDataFetchForFilter(FilterType.ProductionLine);
             },
             ()=>{
                 this.setProductionLineFilterInWaiting(false);
@@ -212,7 +221,7 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
                 this._oAvailableFilters.filtersWorkCells = WorkCellFilter.createFiltersListFromObjectList(oData, WorkCellFilter);
             },
             (oReason:any)=>{
-
+                this.handleErrorOnDataFetchForFilter(FilterType.WorkCell);
             },
             ()=>{
                 this.setWorkCellFilterInWaiting(false);
@@ -229,7 +238,7 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
                 this._oAvailableFilters.filtersRuleTypes = RuleTypeFilter.createFiltersList(oData);
             },
             (oReason:any)=>{
-
+                this.handleErrorOnDataFetchForFilter(FilterType.RuleType);
             },
             ()=>{
                 this.setRuleTypeFilterInWaiting(false);
@@ -249,13 +258,50 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
                 this._oAvailableFilters.filtersMaterialDefinitions = MaterialDefinitionFilter.createFiltersListFromObjectList(oData, MaterialDefinitionFilter);
             },
             (oReason:any)=>{
-
+                this.handleErrorOnDataFetchForFilter(FilterType.Materials);
             },
             ()=>{
                 this.setMaterialsFilterInWaiting(false);
                 this.setMaterialsFilterEnabled();
             }
         )
+    }
+
+    private handleErrorOnDataFetchForFilter(oFilterType:FilterType)
+    {
+        let sFilterName = "";
+        if(oFilterType == FilterType.ProductionLine)
+        {
+            this.setProductionLineFilterDisabled();
+            this.setProductionLineFilterInWaiting(false);
+            sFilterName = "Production Line";
+        }
+        else if(oFilterType == FilterType.WorkCell)
+        {
+            this.setWorkCellFilterDisabled();
+            this.setWorkCellFilterInWaiting(false);
+            sFilterName = "Work Cell";
+        }
+        else if(oFilterType == FilterType.WorkUnit)
+        {
+            this.setWorkUnitFilterDisabled();
+            this.setWorkUnitFilterInWaiting(false);
+            sFilterName = "Work Unit";
+        }
+        else if(oFilterType == FilterType.RuleType)
+        {
+            this.setRuleTypeFilterDisabled();
+            this.setRuleTypeFilterInWaiting(false);
+            sFilterName = "Rule Type";
+        }
+        else if(oFilterType == FilterType.Materials)
+        {
+            this.setMaterialsFilterDisabled();
+            this.setMaterialsFilterInWaiting(false);
+            sFilterName = "Materials Definitions";
+        }
+
+        VexUtils.showErrorAlert("An error occurred loading data for " + sFilterName + " filter.")
     }
     ///</editor-fold>
 
@@ -308,6 +354,11 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     public clearAllFilters()
     {
         this._oSelectedFilters.clearAllFilters();
+    }
+
+    public clearAllOrderBy()
+    {
+
     }
     ///</editor-fold>
 
