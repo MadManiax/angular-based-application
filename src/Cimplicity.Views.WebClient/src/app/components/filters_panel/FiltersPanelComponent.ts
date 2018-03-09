@@ -8,6 +8,9 @@
 ///<reference path="../../../interfaces/IProductionLine.ts"/>
 ///<reference path="../../../classes/models/RulesReportFiltersContainer.ts"/>
 ///<reference path="../../../classes/models/Filter.ts"/>
+///<reference path="../../../classes/models/filters/RuleTypeFilter.ts"/>
+///<reference path="../../../classes/models/filters/MaterialDefinitionFilter.ts"/>
+///<reference path="../../../classes/models/filters/WorkCellFilter.ts"/>
 
 import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Utils = jsutils.Utils;
@@ -18,6 +21,9 @@ import IProductionLine = ge.cim.IProductionLine;
 import {LookupServiceMock} from "../../services/mocks/LookupServiceMock";
 import ProductionLineFilter = ge.cim.models.ProductionLineFilter;
 import WorkCellFilter = ge.cim.models.WorkCellFilter;
+import RuleTypeFilter = ge.cim.models.RuleTypeFilter;
+import IMaterial = ge.cim.IMaterial;
+import MaterialDefinitionFilter = ge.cim.models.MaterialDefinitionFilter;
 
 
 @Component({
@@ -85,29 +91,38 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
             this.refreshWorkCellsFilter();
         }
 
-        if(Utils.isNullOrUndef(this._oSelectedFilters.filtersWorkCells) == false && this._oSelectedFilters.filtersWorkCells.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_CELL])
+        else if(Utils.isNullOrUndef(this._oSelectedFilters.filtersWorkCells) == false && this._oSelectedFilters.filtersWorkCells.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_CELL])
         {
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = this._oSelectedFilters.filtersWorkCells.length;
             bAnyChange = true;
+
+            // then refresh the 'Materials Definition' available filters according with
+            // the selected 'Work Cells'
+            this.refreshMaterialsDefinitionsFilter();
         }
 
-        if(Utils.isNullOrUndef(this._oSelectedFilters.filtersWorkUnits) == false && this._oSelectedFilters.filtersWorkUnits.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_UNIT])
+        else if(Utils.isNullOrUndef(this._oSelectedFilters.filtersWorkUnits) == false && this._oSelectedFilters.filtersWorkUnits.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_UNIT])
         {
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = this._oSelectedFilters.filtersWorkUnits.length;
             bAnyChange = true;
+
+            // then refresh the 'Materials Definition' available filters according with
+            // the selected 'Work Unit'
+            this.refreshMaterialsDefinitionsFilter();
         }
 
-        if(Utils.isNullOrUndef(this._oSelectedFilters.filtersRuleTypes) == false && this._oSelectedFilters.filtersRuleTypes.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE])
+        else if(Utils.isNullOrUndef(this._oSelectedFilters.filtersRuleTypes) == false && this._oSelectedFilters.filtersRuleTypes.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE])
         {
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = this._oSelectedFilters.filtersRuleTypes.length;
             bAnyChange = true;
         }
 
-        if(Utils.isNullOrUndef(this._oSelectedFilters.filtersMaterialDefinitions) == false && this._oSelectedFilters.filtersMaterialDefinitions.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS])
+        else if(Utils.isNullOrUndef(this._oSelectedFilters.filtersMaterialDefinitions) == false && this._oSelectedFilters.filtersMaterialDefinitions.length != this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS])
         {
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS] = this._oSelectedFilters.filtersMaterialDefinitions.length;
             bAnyChange = true;
         }
+
 
         if(bAnyChange == true)
         {
@@ -143,9 +158,10 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
         this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = false;
         this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
 
-        // First step, load all available filters for 'Production Line'
+        // First step, load all available filters indipendent from other filters selections
         let sWorkArea = "";
         this.refreshProductionLineFilter(sWorkArea);
+        this.refreshRuleTypesFilter();
 
         //this._oAvailableFilters.filtersProductionLines = [new Filter("WR9000001"), new Filter("WR900002")];
         // this._oAvailableFilters.filtersWorkCells = [new Filter("WL9000001"), new Filter("WL900002")];
@@ -201,6 +217,43 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
             ()=>{
                 this.setWorkCellFilterInWaiting(false);
                 this.setWorkCellFilterEnabled();
+            }
+        )
+    }
+
+    private refreshRuleTypesFilter()
+    {
+        this.setRuleTypeFilterInWaiting(true);
+        this._oLookupService.getRuleTypes().subscribe(
+            (oData:string[])=>{
+                this._oAvailableFilters.filtersRuleTypes = RuleTypeFilter.createFiltersList(oData);
+            },
+            (oReason:any)=>{
+
+            },
+            ()=>{
+                this.setRuleTypeFilterInWaiting(false);
+                this.setRuleTypeFilterEnabled();
+            }
+        )
+    }
+
+    private refreshMaterialsDefinitionsFilter()
+    {
+        this.setMaterialsFilterInWaiting(true);
+        this._oLookupService.getMaterialDefinitions(
+            this._oSelectedFilters.filtersWorkCells,
+            this._oSelectedFilters.filtersWorkUnits
+        ).subscribe(
+            (oData:IMaterial[])=>{
+                this._oAvailableFilters.filtersMaterialDefinitions = MaterialDefinitionFilter.createFiltersListFromObjectList(oData, MaterialDefinitionFilter);
+            },
+            (oReason:any)=>{
+
+            },
+            ()=>{
+                this.setMaterialsFilterInWaiting(false);
+                this.setMaterialsFilterEnabled();
             }
         )
     }
