@@ -134,7 +134,7 @@ export class StationComponent implements OnInit
             .subscribe(
                 (oResponse) => {
                     oTempResponse = oResponse;
-                    this._aoRulesList = oResponse.RulesList;
+                    this._aoRulesList = oResponse.Rules;
                 },
                 (sMessage:string)=>{
                     this._bIsDataLoading = false;
