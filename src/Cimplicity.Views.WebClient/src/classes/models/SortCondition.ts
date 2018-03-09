@@ -3,7 +3,7 @@ module ge.cim.models {
 
     import Utils = jsutils.Utils;
 
-    enum SortingDirection {ASC, DESC}
+    export enum SortingDirection {Asc, Desc}
 
     export class SortCondition
     {
@@ -32,7 +32,7 @@ module ge.cim.models {
         {
             this._sFieldName = sFieldName;
             this._sCaption = sCaption;
-            this._oDirection = SortingDirection.ASC;    // see FdS, page 74
+            this._oDirection = SortingDirection.Asc;    // see FdS, page 74
 
             Utils.setObjectPropertyIfNotSet(this, "_sCaption",  this._sFieldName);
 
@@ -58,15 +58,18 @@ module ge.cim.models {
         ///<editor-fold desc="Public methods (+)>
         get fieldName(){ return this._sFieldName; }
         set fieldName(sValue:string){ this._sFieldName = sValue; }
-
         get caption(){ return this._sCaption; }
         set caption(sValue:string){ this._sCaption = sValue; }
+        get sortDirection(){ return this._oDirection; }
+        //set sortDirection(oValue:SortingDirection){ this._oDirection = oValue; }
 
-        public isDirectionAsc(){ return this._oDirection == SortingDirection.ASC; }
-        public isDirectionDesc(){ return this._oDirection == SortingDirection.DESC; }
 
-        public setDirectionAsc(){ this._oDirection = SortingDirection.ASC; }
-        public setDirectionDesc(){ this._oDirection = SortingDirection.DESC; }
+
+        public isDirectionAsc(){ return this._oDirection == SortingDirection.Asc; }
+        public isDirectionDesc(){ return this._oDirection == SortingDirection.Desc; }
+
+        public setDirectionAsc(){ this._oDirection = SortingDirection.Asc; }
+        public setDirectionDesc(){ this._oDirection = SortingDirection.Desc; }
 
         public canBeDeleted(){ return true;}
 

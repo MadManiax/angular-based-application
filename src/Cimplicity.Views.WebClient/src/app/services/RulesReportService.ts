@@ -5,6 +5,8 @@
 ///<reference path="../../interfaces/IRestRulesReport.ts"/>
 ///<reference path="../../classes/utils/Utils.ts"/>
 ///<reference path="../../dummy_data/report_dummy.ts"/>
+///<reference path="../../classes/models/RestRuleReportResponse.ts"/>
+///<reference path="../../classes/queryreport/ReportOverviewQuery.ts"/>
 import { Injectable } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
@@ -17,6 +19,8 @@ import Utils = jsutils.Utils;
 import DummyReport = ge.cim.dummydata.DUMMY_REPORT;
 import DUMMY_REPORT_FULL_RESPONSE = ge.cim.dummydata.DUMMY_REPORT_FULL_RESPONSE;
 import IBaseServerResponse = ge.cim.IBaseServerResponse;
+import RestRuleReportResponse = ge.cim.models.RestRuleReportResponse;
+import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
 
 @Injectable()
 export class RulesReportService
@@ -28,75 +32,21 @@ export class RulesReportService
     }
 
 
-    public getRules(aoParams : IRestRulesReportRequest) : Observable<IRestRulesReportResponse>
+    public getRules(query: ReportOverviewQuery) : Observable<RestRuleReportResponse>
     {
         //let aoRulesList: Rule[] = [] ;
 
-        let oResponse : IRestRulesReportResponse = {
-            TotalPages : 0,
-            TotalRows : 0,
-            CurrentPage : aoParams.CurrentPage,
-            RowsPerPage : aoParams.RowsPerPage,
-            Rules : []
-        }
+        let oResponse : RestRuleReportResponse = new RestRuleReportResponse();
+        oResponse.CurrentPage = query.Paging.PageNumber;
+        oResponse.RowsPerPage = query.Paging.PageSize;
 
-        let oObserver = new Observable<IRestRulesReportResponse>(observer => {
+        let oObserver = new Observable<RestRuleReportResponse>(observer => {
             // Immediately return an empty array just to avoid
             // undefined or null array
             observer.next(oResponse);
 
             // Then perform request
             setTimeout(()=>{
-
-                // Generate fake data
-                // splitting them into pages
-                let iPage = 0;
-                let iCounter = 0;
-
-                // let oPages = [];
-                // for (let i = 0; i < 100; i++)
-                // {
-                //     let oRule = null;
-                //     let fRand = Math.random();
-                //     if(fRand < 0.33){ oRule = new TimingRule().fillWithDummyData(); }
-                //     else if(fRand < 0.66){ oRule = new CounterRule().fillWithDummyData(); }
-                //     else{oRule = new EventRule().fillWithDummyData();}
-                //
-                //     if(Utils.isNullOrUndef(oPages[iPage]) == true)
-                //     {
-                //         oPages[iPage] = [];
-                //     }
-                //
-                //     oPages[iPage].push(oRule);
-                //
-                //     // If current page has reached limit, add new page
-                //     if(oPages[iPage].length == aoParams.RowsPerPage)
-                //     {
-                //         iCounter = 0;
-                //         iPage++;
-                //     }
-                //
-                // }
-                // console.debug(JSON.stringify(oPages));
-
-                // OLD DUMMY JSON
-                // let oPages = DummyReport;
-                // oResponse.TotalPages = oPages.length;
-                // if( aoParams.CurrentPage < oResponse.TotalPages )
-                // {
-                //     let oPageInJson : any = oPages[aoParams.CurrentPage];
-                //
-                //     for(let i = 0; i < oPageInJson.length; i++)
-                //     {
-                //         let oRuleInJson = oPageInJson[i];
-                //         if( EventRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new EventRule().fromJSON(oRuleInJson) ); }
-                //         if( TimingRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new TimingRule().fromJSON(oRuleInJson) ); }
-                //         if( CounterRule.isMyJsonInstance(oRuleInJson) == true){ oResponse.RulesList.push( new CounterRule().fromJSON(oRuleInJson) ); }
-                //     }
-                // }
-
-
-                // NEW DUMMY JSON (like the real one)
                 let oReportResponse : IBaseServerResponse = DUMMY_REPORT_FULL_RESPONSE;
 
                 // Calculate the total number of rows (in some way)
@@ -120,27 +70,29 @@ export class RulesReportService
     }
 
 
-    public saveRule(oRule:Rule) : Promise<boolean>
+    public editRule(oRule:Rule) : Observable<boolean>
     {
-        let oPromise = new Promise<boolean>((resolve, reject)=>{
+        let oObserver = new Observable<boolean>(observer => {
             setTimeout(()=>{
                 let oReponse : IBaseServerResponse;
                 //if(oReponse.)
-                resolve(false);
+                observer.complete();
             }, 1000);
         });
 
-        return oPromise;
+        return oObserver;
     }
 
-    public triggerNext(oRule:Rule)
+    public triggerRule(oRule:Rule) : Observable<boolean>
     {
-        let oPromise = new Promise<boolean>((resolve, reject)=>{
+        let oObserver = new Observable<boolean>(observer => {
             setTimeout(()=>{
-                resolve(true);
+                let oReponse : IBaseServerResponse;
+                //if(oReponse.)
+                observer.complete();
             }, 1000);
         });
-        return oPromise;
+        return oObserver;
     }
 
     // public getRules(aoFilters : Filter[])

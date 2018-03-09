@@ -1,8 +1,11 @@
 
 ///<reference path="Rule.ts"/>
 ///<reference path="TableColumn.ts"/>
+///<reference path="../utils/Utils.ts"/>
 
 module ge.cim.models {
+
+    import Utils = jsutils.Utils;
 
     export class RulesReportTableColumn extends TableColumn
     {
@@ -22,6 +25,7 @@ module ge.cim.models {
         //*******************************************************************************
         protected _bAllowFilters : boolean;
         protected _bAllowSorting : boolean;
+        protected _oSortCondition : SortCondition;
 
         public constructor(sId : string, sCaption : string)
         {
@@ -35,6 +39,7 @@ module ge.cim.models {
         //* Private methods
         //*******************************************************************************
         ///<editor-fold desc="Private methods (+)>
+        private allowSorting(){ this._bAllowSorting = true; return this;}
         ///</editor-fold>
 
         //*******************************************************************************
@@ -49,9 +54,21 @@ module ge.cim.models {
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
         public allowFilters(){ this._bAllowFilters = true; return this;}
-        public allowSorting(){ this._bAllowSorting = true; return this;}
+
 
         public isSortingAllowed(){ return this._bAllowSorting; }
+
+        public setSortCondition(oSortCondition:SortCondition)
+        {
+            if(Utils.isNullOrUndef(oSortCondition) == false)
+            {
+                this._oSortCondition = oSortCondition;
+                this.allowSorting();
+            }
+            return this;
+        }
+
+        public getSortCondition(){ return this._oSortCondition; }
 
         public getCssClasses()
         {

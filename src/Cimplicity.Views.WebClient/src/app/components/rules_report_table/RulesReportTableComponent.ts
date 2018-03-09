@@ -16,6 +16,7 @@ import TimingRule = ge.cim.models.TimingRule;
 import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 import VexUtils = jsutils.VexUtils;
 import IEventEmitterDataWithCallbacks = ge.cim.IEventEmitterDataWithCallbacks;
+import SortCondition = ge.cim.models.SortCondition;
 
 
 enum DialogMode {EDIT_RULE, TRIGER_NEXT};
@@ -65,15 +66,15 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
          * "Remaining" will be sortable only if the rules in the report are either only timing rules or only counter rules.
          */
         this._aoColumns = [
-            new RulesReportTableColumn("wl", "WL").setCssClasses("col-work-cell").allowSorting(),
+            new RulesReportTableColumn("wl", "WL").setCssClasses("col-work-cell").setSortCondition(new SortCondition("WlWt", "WL/WT")),
             new RulesReportTableColumn("wt", "WT").setCssClasses("col-work-unit"),
             new RulesReportTableColumn("actual", "Actual").setCssClasses("col-actual"),
             new RulesReportTableColumn("remaining", "Remain.").setCssClasses("col-remaining"),
             new RulesReportTableColumn("set", "Set").setCssClasses("col-set"),
-            new RulesReportTableColumn("overflow-remaining", "Ov. Remain").allowSorting().setCssClasses("col-overflow"),
+            new RulesReportTableColumn("overflow-remaining", "Ov. Remain").setCssClasses("col-overflow").setSortCondition(new SortCondition("RemainingOverflow", "Ov. Remaining")),
             new RulesReportTableColumn("overflow-set", "Ov. Set").setCssClasses("col-overflow-set"),
-            new RulesReportTableColumn("type", "Type").allowSorting().setCssClasses("col-rule-type"),
-            new RulesReportTableColumn("name", "Name").allowSorting().setCssClasses("col-rule-name")
+            new RulesReportTableColumn("type", "Type").setCssClasses("col-rule-type").setSortCondition(new SortCondition("RuleType", "Type")),
+            new RulesReportTableColumn("name", "Name").setCssClasses("col-rule-name").setSortCondition(new SortCondition("RuleName", "Name"))
         ]
     }
 
@@ -181,6 +182,12 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
                 this._sDialogExtraMessage = null;
             }, iDurationMs);
         }
+    }
+
+    private clearAllDialogMessages()
+    {
+        this.setDialogErrorMessage(null);
+        this.setDialogGenericMessage(null);
     }
     ///</editor-fold>
 
@@ -375,7 +382,10 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
             this.setDialogGenericMessage("Saving, please wait...", -1);
             let oThis = this;
             this._oEventEmitterSaveRule.emit({
-                onSuccess   : ()=>{ oThis.dismissDialog(); },
+                onSuccess   : ()=>{
+                    oThis.clearAllDialogMessages();
+                    oThis.dismissDialog();
+                },
                 onError     : (sMessage)=>{
                     // Overwrite the Message with a default one
                     sMessage = "An error occurred. Any change has been discarded.";
@@ -397,7 +407,10 @@ export class RulesReportTableComponent implements OnInit, OnChanges, AfterViewIn
         this.setDialogGenericMessage("Please wait...", -1);
         let oThis = this;
         this._oEventEmitterSaveRule.emit({
-            onSuccess   : ()=>{ oThis.dismissDialog(); },
+            onSuccess   : ()=>{
+                oThis.clearAllDialogMessages();
+                oThis.dismissDialog();
+            },
             onError     : (sMessage)=>{
                 // Overwrite the Message with a default one
                 sMessage = "An error occurred, operation cannot be completed";

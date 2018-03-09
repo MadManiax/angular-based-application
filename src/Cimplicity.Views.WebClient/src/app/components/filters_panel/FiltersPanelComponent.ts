@@ -69,7 +69,10 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
 
     constructor(private _oLookupService : LookupServiceMock)
     {
-        this.initFilters();
+        this.initFilters()
+            .then(()=>{
+                this._oEventEmitterFiltersChanged.emit(this._oSelectedFilters);
+            })
     }
 
     //*******************************************************************************
@@ -79,6 +82,9 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     ngOnInit()
     {
         console.log('FiltersPanelComponent -> ngOnInit');
+
+        // When all operation has been performed, send event to sync filters
+        this._oEventEmitterFiltersChanged.emit(this._oSelectedFilters);
 
     }
 
@@ -148,51 +154,57 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     ///<editor-fold desc="Private methods (+)>
     private initFilters()
     {
-        //
-        this._oAvailableFilters = new RulesReportFiltersContainer();
-        this._oSelectedFilters = new RulesReportFiltersContainer();
+        let oPromise = new Promise<boolean>((resolve, reject)=> {
+            this._oAvailableFilters = new RulesReportFiltersContainer();
+            this._oSelectedFilters = new RulesReportFiltersContainer();
 
-        // Init an array to keep trace of enabled/disabled filters
-        this._abEnabledFilters = [];
-        this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = false;
-        this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = false;
-        this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = false;
-        this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = false;
-        this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
+            // Init an array to keep trace of enabled/disabled filters
+            this._abEnabledFilters = [];
+            this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = false;
+            this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = false;
+            this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = false;
+            this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = false;
+            this._abEnabledFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
 
-        this._abInWaitingFilters = [];
-        this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = false;
-        this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = false;
-        this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = false;
-        this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = false;
-        this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
+            this._abInWaitingFilters = [];
+            this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = false;
+            this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = false;
+            this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = false;
+            this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = false;
+            this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
 
-        // First step, load all available filters indipendent from other filters selections
-        let sWorkArea = "";
-        this.refreshProductionLineFilter(sWorkArea);
-        this.refreshRuleTypesFilter();
+            // First step, load all available filters indipendent from other filters selections
+            let sWorkArea = "";
+            this.refreshProductionLineFilter(sWorkArea);
+            this.refreshRuleTypesFilter();
 
-        //this._oAvailableFilters.filtersProductionLines = [new Filter("WR9000001"), new Filter("WR900002")];
-        // this._oAvailableFilters.filtersWorkCells = [new Filter("WL9000001"), new Filter("WL900002")];
-        // this._oAvailableFilters.filtersWorkUnits = [new Filter("WT9000001"), new Filter("WT900002")];
-        // this._oAvailableFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Timing"), new Filter("Event")];
-        // this._oAvailableFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1"), new Filter("MaterialDefinitionId_2")];
-        //
-        //
-        // this._oSelectedFilters.filtersProductionLines = [new Filter("WR9000001")]; /* null means all */
-        // this._oSelectedFilters.filtersWorkCells = [new Filter("WL900002")];
-        // this._oSelectedFilters.filtersWorkUnits = [new Filter("WT9000001")];
-        // this._oSelectedFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Event")];
-        // this._oSelectedFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1")];
+            //this._oAvailableFilters.filtersProductionLines = [new Filter("WR9000001"), new Filter("WR900002")];
+            // this._oAvailableFilters.filtersWorkCells = [new Filter("WL9000001"), new Filter("WL900002")];
+            // this._oAvailableFilters.filtersWorkUnits = [new Filter("WT9000001"), new Filter("WT900002")];
+            // this._oAvailableFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Timing"), new Filter("Event")];
+            // this._oAvailableFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1"), new Filter("MaterialDefinitionId_2")];
+            //
+            //
+            // this._oSelectedFilters.filtersProductionLines = [new Filter("WR9000001")]; /* null means all */
+            // this._oSelectedFilters.filtersWorkCells = [new Filter("WL900002")];
+            // this._oSelectedFilters.filtersWorkUnits = [new Filter("WT9000001")];
+            // this._oSelectedFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Event")];
+            // this._oSelectedFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1")];
 
-        // Set the number of seleced item according with the selections retrieved
-        // from server configuration
-        this._aiSelectedFiltersCount = [];
-        this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = this._oSelectedFilters.filtersProductionLines.length;
-        this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = this._oSelectedFilters.filtersWorkCells.length;
-        this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = this._oSelectedFilters.filtersWorkUnits.length;
-        this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = this._oSelectedFilters.filtersRuleTypes.length;
-        this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS] = this._oSelectedFilters.filtersMaterialDefinitions.length;
+            // Set the number of seleced item according with the selections retrieved
+            // from server configuration
+            this._aiSelectedFiltersCount = [];
+            this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_PROD_LINE] = this._oSelectedFilters.filtersProductionLines.length;
+            this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_CELL] = this._oSelectedFilters.filtersWorkCells.length;
+            this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_WORK_UNIT] = this._oSelectedFilters.filtersWorkUnits.length;
+            this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = this._oSelectedFilters.filtersRuleTypes.length;
+            this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS] = this._oSelectedFilters.filtersMaterialDefinitions.length;
+
+            resolve();
+        });
+
+        return oPromise;
+
     }
 
 

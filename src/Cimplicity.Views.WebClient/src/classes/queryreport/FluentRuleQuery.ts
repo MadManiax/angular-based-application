@@ -1,5 +1,9 @@
-﻿module ge.cim.queryreport {
+﻿///<reference path="../models/SortCondition.ts"/>
+module ge.cim.queryreport
+{
     import Filter = ge.cim.models.Filter;
+    import SortCondition = ge.cim.models.SortCondition;
+    import SortingDirection = ge.cim.models.SortingDirection;
     /**
      * Class to build a query in fluent way
      */
@@ -93,10 +97,28 @@
          * @param fieldName field to order for
          * @param direction sort direction
          */
-        addOrderBy(fieldName: FieldOrder, direction: SortDirection): FluentRuleQuery{
+        private addOrderBy(fieldName: FieldOrder, direction: SortingDirection): FluentRuleQuery{
             this.QueryBuilt.OrderBy.push(new OrderByInfo(fieldName, direction));
             return this;
         }
+
+        /**
+         * Add to the query a list of 'Sorting Condition' which will be used as order by clause
+         * @param oOrderByList A list of 'SortCondition' objects
+         */
+        addOrderByList(oOrderByList:SortCondition[]): FluentRuleQuery
+        {
+            for(let i = 0; i < oOrderByList.length; i++)
+            {
+                this.addOrderBy(
+                    FieldOrder[oOrderByList[i].fieldName],
+                    oOrderByList[i].sortDirection
+                );
+            }
+            return this;
+        }
+
+
         /**
          * Create paging info instance
          * @param pageNumber

@@ -126,12 +126,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-ge btn-ge-cancel" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-ge btn-ge-success"
-                            (click)="onSaveRule()"
-                            [hidden]="isDialogModeEditRule() == false">Save changes</button>
-                    <button type="button" class="btn btn-ge btn-ge-success" data-dismiss="modal"
-                            (click)="onTriggerNext()"
-                            [hidden]="isDialogModeTriggerNext() == false">Trigger next</button>
+                    <button type="button" class="btn btn-ge btn-ge-success" (click)="onSaveRule()" [hidden]="isDialogModeEditRule() == false">Save changes</button>
+                    <button type="button" class="btn btn-ge btn-ge-success" (click)="onTriggerNext()" [hidden]="isDialogModeTriggerNext() == false">Trigger next</button>
                 </div>
             </div>
         </div>

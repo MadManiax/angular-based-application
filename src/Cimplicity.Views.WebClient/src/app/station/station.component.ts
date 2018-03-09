@@ -10,6 +10,8 @@
 ///<reference path="../../classes/models/RulesReportTableColumn.ts"/>
 ///<reference path="../../interfaces/IRestRulesReport.ts"/>
 ///<reference path="../../interfaces/IEventEmitterDataWithCallbacks.ts"/>
+///<reference path="../../classes/queryreport/ReportOverviewQuery.ts"/>
+///<reference path="../../classes/queryreport/FluentRuleQuery.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -31,6 +33,9 @@ import RulesReportTableColumn = ge.cim.models.RulesReportTableColumn;
 import {PageEvent, MatSlideToggleChange} from "@angular/material";
 import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
 import IEventEmitterDataWithCallbacks = ge.cim.IEventEmitterDataWithCallbacks;
+import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
+import FluentRuleQuery = ge.cim.queryreport.FluentRuleQuery;
+import FieldOrder = ge.cim.queryreport.FieldOrder;
 
 @Component({
     selector: 'station',
@@ -52,17 +57,19 @@ export class StationComponent implements OnInit
     private _bIsFiltersPanelVisible: boolean;
     private _aoSortConditions : SortCondition[];
     private _aiAvailablePageSizes : number[];
+    private _oFilters : RulesReportFiltersContainer;
 
 
     /*
      * TIPS on Services:
-     * The parameter '_oRulesReportService' simultaneously defines a private '_oRulesReportService' property
+     * The parameter '_oReportOverviewService' simultaneously defines a private '_oReportOverviewService' property
      * and identifies it as a RulesReportService injection site.
      * When Angular creates a the component, the Dependency Injection system
      * sets the service parameter to the singleton instance of the service class
      */
     constructor(
-        private _oRulesReportService: RulesReportService,
+        private _oReportOverviewService: RulesReportService,
+        private _oSamplingRuleExecutionService: RulesReportService,
         private _oAuthService : AuthService
     )
     {
@@ -123,14 +130,28 @@ export class StationComponent implements OnInit
         this._bIsDataLoading = true;
         LoadingScreen.show();
 
-        let oParam : IRestRulesReportRequest = {
-            CurrentPage : this._iCurrentPageNumber,
-            RowsPerPage : this._iCurrentRowsPerPage,
-            Filters : []
-        };
+        // let oParam : IRestRulesReportRequest = {
+        //     CurrentPage : this._iCurrentPageNumber,
+        //     RowsPerPage : this._iCurrentRowsPerPage,
+        //     Filters : []
+        // };
+
+        let sWorkArea = "";
+        let oFluentQuery = FluentRuleQuery.onWorkArea(sWorkArea)
+            // Set filters
+            .withFiltersOnProductionLines(this._oFilters.filtersProductionLines)
+            .withFiltersOnWorkCells(this._oFilters.filtersWorkCells)
+            .withFiltersOnWorkUnits(this._oFilters.filtersWorkUnits)
+            .withFiltersOnRuleTypes(this._oFilters.filtersRuleTypes)
+            .withFiltersOnMaterialDefinitions(this._oFilters.filtersMaterialDefinitions)
+            // Set order-by
+            .addOrderByList(this.sortConditionsList)
+            // Set pagination info
+            .withPagingInfo(this._iCurrentPageNumber, this._iCurrentRowsPerPage);
+
 
         let oTempResponse : IRestRulesReportResponse = null;
-        this._oRulesReportService.getRules(oParam)
+        this._oReportOverviewService.getRules(oFluentQuery.build())
             .subscribe(
                 (oResponse) => {
                     oTempResponse = oResponse;
@@ -183,13 +204,14 @@ export class StationComponent implements OnInit
 
     public onColumnHeaderClick(oColumn : RulesReportTableColumn)
     {
-        let sCaption = oColumn.caption;
-        if(sCaption == "WL"){
-            sCaption = "WL/WT";
-        }
-        let sFieldName = oColumn.caption;
-
-        this.addSortConditionIfNotExist(new SortCondition(sFieldName, sCaption));
+        // let sCaption = oColumn.caption;
+        // if(sCaption == "WL"){
+        //     sCaption = "WL/WT";
+        // }
+        // let sFieldName = oColumn.caption;
+        //
+        // this.addSortConditionIfNotExist(new SortCondition(sFieldName, sCaption));
+        this.addSortConditionIfNotExist(oColumn.getSortCondition());
     }
 
     public reloadData()
@@ -201,7 +223,7 @@ export class StationComponent implements OnInit
 
     public onFiltersChanged(oFilters : RulesReportFiltersContainer)
     {
-        console.log("Save new filters:", oFilters);
+        this._oFilters = oFilters;
     }
 
 
@@ -235,25 +257,17 @@ export class StationComponent implements OnInit
 
         // LoadingScreen.updateMessage("Saving changes...");
         //LoadingScreen.show();
-        this._oRulesReportService.saveRule(oRule)
-            .then((bHasBeenSaved:boolean)=>{
-                if(bHasBeenSaved == true)
-                {
-                    // LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+        this._oSamplingRuleExecutionService.editRule(oRule)
+            .subscribe(
+                ()=>{},
+                ()=>{
+                    fnOnError(null);
+                },
+            ()=>{
                     fnOnSuccess();
                     this.doSearch();
                 }
-                else
-                {
-                    fnOnError(null);
-                }
-
-            })
-            .catch((oReason)=>{
-                fnOnError(null);
-            });
-
-
+            )
     }
 
     /**
@@ -268,23 +282,17 @@ export class StationComponent implements OnInit
 
         // LoadingScreen.updateMessage("Saving changes...");
         //LoadingScreen.show();
-        this._oRulesReportService.triggerNext(oRule)
-            .then((bHasTriggerBeenExecuted:boolean)=>{
-                if(bHasTriggerBeenExecuted == true)
-                {
-                    // LoadingScreen.updateMessage("Saved succesfully, reaload data...");
+        this._oSamplingRuleExecutionService.triggerRule(oRule)
+            .subscribe(
+                ()=>{},
+                ()=>{
+                    fnOnError(null);
+                },
+                ()=>{
                     fnOnSuccess();
                     this.doSearch();
                 }
-                else
-                {
-                    fnOnError(null);
-                }
-
-            })
-            .catch((oReason)=>{
-                fnOnError(null);
-            });
+            )
     }
 
 
