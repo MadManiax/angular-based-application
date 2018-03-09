@@ -10,6 +10,7 @@ import Filter = ge.cim.models.Filter;
 
 /* ---- VIEWMODELS ----- */
 import Rule = ge.cim.models.Rule;
+import RestRuleReportResponse = ge.cim.models.RestRuleReportResponse;
 import IBaseServerResponse = ge.cim.IBaseServerResponse;
 import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
 /* ---------------- */
@@ -27,8 +28,8 @@ export class ReportOverviewService {
      * Retrieve the List of rules according to given query
      * @param query the query to filter for
      */
-    getRules(query: ReportOverviewQuery): Observable<Rule[]> {
-        let observer = new Observable<Rule[]>(observer => {
+    getRules(query: ReportOverviewQuery): Observable<RestRuleReportResponse> {
+        let observer = new Observable<RestRuleReportResponse>(observer => {
 
             this.http.post(`reportoverview/getrules`, query)
                 .map((rsp: Response) => rsp.json() as IBaseServerResponse)
@@ -37,7 +38,7 @@ export class ReportOverviewService {
                     return Observable.of(false);
                 })
                 .subscribe((rsp: IBaseServerResponse) => {
-                    observer.next(rsp.Result as Rule[]);
+                    observer.next(rsp.Result as RestRuleReportResponse);
                     observer.complete();
                 });
         });
