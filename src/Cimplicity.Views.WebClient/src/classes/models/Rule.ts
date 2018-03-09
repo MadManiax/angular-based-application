@@ -31,6 +31,7 @@ module ge.cim.models {
         private _Name: string;
         private _WorkArea: string;
         private _ProductionLine: string;
+        private _RuleExecutionId : string;
 
 
         public constructor()
@@ -118,6 +119,8 @@ module ge.cim.models {
         set WorkArea(value: string) { this._WorkArea = value; }
         get ProductionLine(): string { return this._ProductionLine; }
         set ProductionLine(value: string) { this._ProductionLine = value; }
+        get RuleExecutionId(): string { return this._RuleExecutionId; }
+        set RuleExecutionId(value: string) { this._RuleExecutionId = value; }
 
         public abstract getRemainingToString():string;
         public abstract getSetToString():string;

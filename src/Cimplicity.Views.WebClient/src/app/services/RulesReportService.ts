@@ -124,10 +124,22 @@ export class RulesReportService
     {
         let oPromise = new Promise<boolean>((resolve, reject)=>{
             setTimeout(()=>{
-                resolve(true);
+                let oReponse : IBaseServerResponse;
+                //if(oReponse.)
+                resolve(false);
             }, 1000);
         });
 
+        return oPromise;
+    }
+
+    public triggerNext(oRule:Rule)
+    {
+        let oPromise = new Promise<boolean>((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve(true);
+            }, 1000);
+        });
         return oPromise;
     }
 

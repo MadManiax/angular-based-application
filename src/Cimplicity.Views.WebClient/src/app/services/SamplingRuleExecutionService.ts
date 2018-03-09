@@ -1,23 +1,12 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Response, Headers } from '@angular/http';
-
 import { HttpBaseService } from "./base/HttpBaseService";
-
 import { Observable } from "rxjs/Rx";
-
-/* ---- VIEWMODELS ----- */
 import Rule = ge.cim.models.Rule;
-/*----UI----*/
-import EventRule = ge.cim.models.EventRule;
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
-/*----REST SERVICE---*/
-import IRestCounterRule = ge.cim.IRestCounterRule;
-import IRestTimingRule = ge.cim.IRestTimingRule;
-import IRestBaseRule = ge.cim.IRestBaseRule;
 import RestCounterRule = ge.cim.models.RestCounterRule;
 import RestTimingRule = ge.cim.models.RestTimingRule;
-/* ---------------- */
 
 
 /**
@@ -57,7 +46,7 @@ export class SamplingRuleExectionService {
 
                     let obj = new RestTimingRule(timingRule.RuleExecutionId);
                     //obj.Actual = timingRule.ActualDateTime.toDate() || null;
-                    obj.Actual = new Date();
+                    obj.Actual = timingRule.getActualToString();
                     obj.Set = timingRule.Set;
 
                     return obj;
@@ -107,7 +96,7 @@ export class SamplingRuleExectionService {
 
                     let obj = new RestTimingRule(timingRule.RuleExecutionId);
                     //obj.Actual = timingRule.ActualDateTime.toDate() || null;
-                    obj.Actual = new Date();
+                    obj.Actual = timingRule.getActualToString();
                     obj.Set = timingRule.Set;
                     
                     return obj;

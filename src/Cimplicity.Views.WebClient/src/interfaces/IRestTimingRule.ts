@@ -2,7 +2,7 @@
 
 module ge.cim {
     import IRestBaseRule = ge.cim.IRestBaseRule;
-    export interface IRestTimingRule extends IRestBaseRule<Date> {
+    export interface IRestTimingRule extends IRestBaseRule<string> {
         Seconds: number;
         LastSamplingDate: Date;
     }

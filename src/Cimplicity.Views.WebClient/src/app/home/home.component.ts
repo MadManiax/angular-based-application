@@ -3,20 +3,9 @@
 import { LookupService } from "../services/LookupService";
 import { SamplingRuleExectionService } from "../services/SamplingRuleExecutionService";
 import { ReportOverviewService } from "../services/ReportOverviewService";
-import { Observable } from "rxjs/Rx";
-import IProductionLine = ge.cim.IProductionLine;
-import IWorkCell = ge.cim.IWorkCell;
-import IWorkUnit = ge.cim.IWorkUnit;
-import Rule = ge.cim.models.Rule;
-import IMaterial = ge.cim.IMaterial;
-import FieldOrder = ge.cim.queryreport.FieldOrder;
-import SortDirection = ge.cim.queryreport.SortDirection;
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
-import Filter = ge.cim.models.Filter;
-import FluentQuery = ge.cim.queryreport.FluentRuleQuery;
-import RestCounterRule = ge.cim.models.RestCounterRule;
-import RestTimingRule = ge.cim.models.RestTimingRule;
+
 @Component({
     selector: 'home',
     template: `

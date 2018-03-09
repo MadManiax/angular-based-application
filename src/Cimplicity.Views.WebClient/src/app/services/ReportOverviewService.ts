@@ -1,19 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Response, Headers } from '@angular/http';
-
 import { HttpBaseService } from "./base/HttpBaseService";
-
 import { Observable, Subscriber } from "rxjs/Rx";
-
-import Filter = ge.cim.models.Filter;
-
-
-/* ---- VIEWMODELS ----- */
 import Rule = ge.cim.models.Rule;
 import IBaseServerResponse = ge.cim.IBaseServerResponse;
 import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
-/* ---------------- */
-
 
 /**
  * Define the class use to performs request to Report Overview Service

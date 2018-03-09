@@ -26,6 +26,7 @@ import { LookupService } from "./services/LookupService";
 import { SamplingRuleExectionService } from "./services/SamplingRuleExecutionService";
 import { ReportOverviewService } from "./services/ReportOverviewService";
 import { HttpBaseService } from "./services/base/HttpBaseService";
+import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { HttpBaseService } from "./services/base/HttpBaseService";
         ReportOverviewService,
         SamplingRuleExectionService,
         LookupService,
+        LookupServiceMock,
         {
             provide: HttpBaseService,
             deps: [XHRBackend, RequestOptions],
