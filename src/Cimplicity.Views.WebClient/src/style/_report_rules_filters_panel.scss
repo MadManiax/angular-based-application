@@ -1,8 +1,10 @@
 .filters-panel-wrapper{
-    $size-btn-close-panel-height: 32px;
-    $size-panel-height: 500px + $size-btn-close-panel-height;
+    //$size-btn-close-panel-height: 32px;
+    $size-btn-close-panel-height: 0px;
+    $size-panel-height: 330px + $size-btn-close-panel-height;
     $size-panel-border-radius: 20px;
     $size-panel-shadow-thickness: 20px;
+    $size-panel-padding-left-right: 30px;
 
     position: absolute;
     left: 0px;
@@ -10,7 +12,7 @@
     bottom: -($size-panel-height + $size-panel-shadow-thickness + 2px);
     height: $size-panel-height;
     transition: 0.4s all ease-in-out;
-    padding: 10px 30px;
+    padding: 10px $size-panel-padding-left-right;
     padding-top: 30px + $size-btn-close-panel-height;
 
     background: $color-filters-panel-bg;
@@ -57,13 +59,19 @@
 
     .toolbar-bottom{
         position: absolute;
-        left: 0px;
-        right: 0px;
-        bottom: 40px;
+        left: $size-panel-padding-left-right;
+        right: $size-panel-padding-left-right;
+        bottom: 20px;
 
         .btn-ge{
-            margin: 0px 18px;
+            margin: 0px 2px;
         }
+    }
+
+    .clear-all-filters-btn{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
     }
 
     // Customize some 'advanced dropdown' parts to better
@@ -74,7 +82,11 @@
         }
 
         .dropdown-menu{
-            width: 88%;
+            width: 90%;
+        }
+
+        .dropdown-toggle{
+            height: $size-table-header-height;
         }
 
         .advanced-dropdown-caption{
@@ -91,17 +103,25 @@
 
     }
 
-
-    .clear-all-filters-btn{
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-    }
-
-
+    // Customize some 'advanced dropdown' parts to better
+    // match the UI of the filters panel
     .sorting-panel{
         label{
             color: $color-sort-panel-label;
+            margin-bottom: 2px;
+        }
+
+        .sort-condition{
+            height: $size-table-header-height;
+        }
+
+        .static-arrow{
+            padding-top: 0px !important;
+        }
+
+        .sort-direction-wrapper{
+            .fa-caret-up{ top: -6px !important;}
+            .fa-caret-down{ bottom: 21px !important;}
         }
     }
 }

@@ -139,13 +139,19 @@ gulp.task('copy:css_to_dist', function() {
 //***********************************************************************************
 //* Task to copy assets
 //***********************************************************************************
-gulp.task("copy:images", function () {
+gulp.task('copy:images', function () {
     gulp.src(config.imagesDirSrc + "/*.*")
         .pipe(gulp.dest(config.imagesDirDest + "/"));
 });
 
+gulp.task('copy:fonts', function () {
+    gulp.src(config.srcAllFonts)
+        .pipe(gulp.dest(config.destFonts));
+});
+
 gulp.task('copy:all_assets', [
-    'copy:images'
+    'copy:images',
+    'copy:fonts'
 ]);
 
 

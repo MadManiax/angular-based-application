@@ -103,10 +103,10 @@
 				}
 
 				&.selected{
-					background-color: $color-advanced-dropdown-selected-bg;
-					color: $color-advanced-dropdown-selected-color;
+					background-color: $color-advanced-dropdown-option-selected-bg;
+					color: $color-advanced-dropdown-option-selected-text;
 					.fa{
-						color: $color-advanced-dropdown-selected-color;
+						color: $color-advanced-dropdown-option-selected-text;
 					}
 				}
 			}

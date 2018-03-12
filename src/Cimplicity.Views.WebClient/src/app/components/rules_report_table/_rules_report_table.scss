@@ -56,7 +56,7 @@
 				background-color: $color-rules-table-header-bg;
 				color: $color-rules-table-header-text;
 				//font-weight: bold;
-				height: 36px;
+				height: $size-table-header-height;
 				padding: 2px $size-cell-padding-left-right;
 				text-transform: uppercase;
 				letter-spacing: 1.408px;

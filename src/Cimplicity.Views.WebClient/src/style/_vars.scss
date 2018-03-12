@@ -8,4 +8,7 @@ $font-weight-roboto-regular	: 400;
 $font-weight-roboto-medium	: 500;
 
 $var-path-to-assets: "../assets";
-$var-path-to-images: $var-path-to-assets + "/images"
+$var-path-to-images: $var-path-to-assets + "/images";
+$var-path-to-fonts: $var-path-to-assets + "/fonts";
+
+$size-table-header-height: 36px;

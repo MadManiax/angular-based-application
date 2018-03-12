@@ -57,11 +57,10 @@ $color-sort-order-arrow: #cccccc !default;
 
 // ADVANCED DROPDOWN
 $color-advanced-dropdown-caption: whitesmoke !default;
-$color-advanced-dropdown-selected-bg : $color-cimplicity-blue-dark !default;
-$color-advanced-dropdown-selected-color : whitesmoke !default;
+$color-advanced-dropdown-option-selected-bg: $color-primary !default;
+$color-advanced-dropdown-option-selected-text: whitesmoke !default;
 $color-advanced-dropdown-option-hover-bg: $color-cimplicity-btn-hover-light !default;
 $color-advanced-dropdown-option-hover-text : #333 !default;
-$color-advanced-dropdown-option-selected-bg: $color-primary;
 
 
 // LOADING SCREEN

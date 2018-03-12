@@ -22,6 +22,7 @@
         jsFilesSrc              : base.source + "js/*.js",
         assetsDirSrc            : base.source + "assets",
         imagesDirSrc            : base.source + "assets/images",
+        srcAllFonts             : base.source + "assets/fonts/{**, *.*}",
         libExtraSrcDir          : base.source + "lib-extra",
 
         destBaseDir             : base.webroot,
@@ -31,6 +32,7 @@
         htmlDest                : base.webroot,
         assetsDirDest           : base.webroot + "assets",
         imagesDirDest           : base.webroot + "assets/images",
+        destFonts               : base.webroot + "assets/fonts",
 
         lib             : base.webroot + "lib/",
         libExtraDextDir : base.webroot + "lib-extra/",

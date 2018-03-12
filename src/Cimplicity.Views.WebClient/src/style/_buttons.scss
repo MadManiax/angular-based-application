@@ -55,7 +55,7 @@
 
 	&-secondary{
 		color: #555;
-		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		border: $color-cimplicity-gray-light;
 		background-color: $color-cimplicity-gray-light;
 		&:hover{
 			background-color: darken($color-cimplicity-gray-light, 6%);
@@ -63,7 +63,13 @@
 	}
 
 	&-secondary-outline{
-
+		color: $color-cimplicity-gray-light;
+		border: 1px solid darken($color-cimplicity-gray-light, 20%);
+		background-color: transparent;
+		&:hover{
+			color: #555;
+			background-color: darken($color-cimplicity-gray-light, 6%);
+		}
 	}
 
 
