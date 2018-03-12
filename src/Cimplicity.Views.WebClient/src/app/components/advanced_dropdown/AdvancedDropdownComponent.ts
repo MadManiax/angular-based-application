@@ -39,6 +39,8 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     _bIsWaiting : boolean;
     @Input('isDisabled')
     _bIsDisabled : boolean;
+    @Input('useDropUp')
+    _useDropUp : boolean;
     @Output('onOptionClick')
     _fnOnOptionClick = new EventEmitter<any>();
     @Output('onClose')
@@ -147,6 +149,8 @@ export class AdvancedDropdownComponent implements OnInit, OnChanges, AfterViewIn
     //* Public methods
     //*******************************************************************************
     ///<editor-fold desc="Public methods (+)>
+    get useDropUp(){ return this._useDropUp; }
+
     public getOptions(){ return this._aoOptionList; }
     public getOptionCaptionPropertyName(){ return this._sOptionCaptionPropertyName;}
     public getOptionCaptionValue(oOption:any)

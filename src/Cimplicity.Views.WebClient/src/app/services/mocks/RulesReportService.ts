@@ -1,22 +1,18 @@
-///<reference path="../../classes/models/TimingRule.ts"/>
-///<reference path="../../classes/models/CounterRule.ts"/>
-///<reference path="../../classes/models/EventRule.ts"/>
-///<reference path="../../classes/models/Rule.ts"/>
-///<reference path="../../interfaces/IRestRulesReport.ts"/>
-///<reference path="../../classes/utils/Utils.ts"/>
-///<reference path="../../dummy_data/report_dummy.ts"/>
-///<reference path="../../classes/models/RestRuleReportResponse.ts"/>
-///<reference path="../../classes/queryreport/ReportOverviewQuery.ts"/>
+///<reference path="../../../classes/models/TimingRule.ts"/>
+///<reference path="../../../classes/models/CounterRule.ts"/>
+///<reference path="../../../classes/models/EventRule.ts"/>
+///<reference path="../../../classes/models/Rule.ts"/>
+///<reference path="../../../interfaces/IRestRulesReport.ts"/>
+///<reference path="../../../classes/utils/Utils.ts"/>
+///<reference path="../../../dummy_data/report_dummy.ts"/>
+///<reference path="../../../classes/models/RestRuleReportResponse.ts"/>
+///<reference path="../../../classes/queryreport/ReportOverviewQuery.ts"/>
 import { Injectable } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
 import EventRule = ge.cim.models.EventRule;
 import {Observable} from "rxjs/Observable";
 import Rule = ge.cim.models.Rule;
-import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
-import IRestRulesReportResponse = ge.cim.IRestRulesReportResponse;
-import Utils = jsutils.Utils;
-import DummyReport = ge.cim.dummydata.DUMMY_REPORT;
 import DUMMY_REPORT_FULL_RESPONSE = ge.cim.dummydata.DUMMY_REPORT_FULL_RESPONSE;
 import IBaseServerResponse = ge.cim.IBaseServerResponse;
 import RestRuleReportResponse = ge.cim.models.RestRuleReportResponse;

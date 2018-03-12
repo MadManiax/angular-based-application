@@ -12,6 +12,7 @@
 ///<reference path="../../interfaces/IEventEmitterDataWithCallbacks.ts"/>
 ///<reference path="../../classes/queryreport/ReportOverviewQuery.ts"/>
 ///<reference path="../../classes/queryreport/FluentRuleQuery.ts"/>
+///<reference path="../services/mocks/ReportConfigurationServiceMock.ts"/>
 
 import { Component, OnInit } from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
@@ -20,7 +21,7 @@ import EventRule = ge.cim.models.EventRule;
 import * as jQuery from "jquery";
 import Utils = jsutils.Utils;
 import Rule = ge.cim.models.Rule;
-import {RulesReportService} from "../services/RulesReportService";
+import {RulesReportService} from "../services/mocks/RulesReportService";
 import {LoadingScreen, LoadingScreenComponent} from "../components/loading_screen/LoadingScreenComponent";
 import {AuthService} from "../services/AuthService";
 import IRestRulesReportRequest = ge.cim.IRestRulesReportRequest;
@@ -36,6 +37,7 @@ import IEventEmitterDataWithCallbacks = ge.cim.IEventEmitterDataWithCallbacks;
 import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
 import FluentRuleQuery = ge.cim.queryreport.FluentRuleQuery;
 import FieldOrder = ge.cim.queryreport.FieldOrder;
+import {ReportConfigurationServiceMock} from "../services/mocks/ReportConfigurationServiceMock";
 
 @Component({
     selector: 'station',
@@ -49,15 +51,19 @@ export class StationComponent implements OnInit
     private _bIsDataLoading : boolean;
     private _iCurrentPageNumber: number;
     private _iTotalPagesCount: number;
-    private _iCurrentRowsPerPage: number;
+
     private _iTotalRowsCount : number;
-    private _iAutoRefreshIntervalId: number;
+    private _iAutoRefreshTimerIntervalId: number;
     private _oLatestRefresh : moment.Moment;
-    private _iAutoRefreshIntervalInSeconds: number;
     private _bIsFiltersPanelVisible: boolean;
+
+    private _iPageSize: number;
     private _aoSortConditions : SortCondition[];
     private _aiAvailablePageSizes : number[];
     private _oFilters : RulesReportFiltersContainer;
+    private _iAutoRefreshIntervalInSeconds: number;
+
+    private _oReportPageSettings : ReportOverviewSetting;
 
 
     /*
@@ -70,15 +76,19 @@ export class StationComponent implements OnInit
     constructor(
         private _oReportOverviewService: RulesReportService,
         private _oSamplingRuleExecutionService: RulesReportService,
+        private _oReportSettingsService : ReportConfigurationServiceMock,
         private _oAuthService : AuthService
     )
     {
         console.log('StationComponent -> constructor');
-        this._iAutoRefreshIntervalId = null;
+        this._iAutoRefreshTimerIntervalId = null;
         this._iAutoRefreshIntervalInSeconds = 20;
         this._bIsFiltersPanelVisible = false;
 
-        this.fetchConfigurationFromServer();
+        this.fetchConfigurationFromServer().then(()=>{
+            this.resetPagination();
+            LoadingScreen.hide();
+        })
     }
 
     ngOnInit() {
@@ -92,30 +102,40 @@ export class StationComponent implements OnInit
      * Fetch the full report overview configuration
      * from server (filters, sorting, pagination size, etc.)
      */
-    private fetchConfigurationFromServer()
+    private fetchConfigurationFromServer() : Promise<boolean>
     {
-        // TODO: perform a server request to get the full page config (filters, sorting, pagination size, etc.)
+        LoadingScreen.show();
+        let oPromise = new Promise<boolean>((resolve, reject)=> {
+            let oSettings = null;
 
-        // DEBUG (+)
-        this._aoSortConditions = [
-            new WlWtSortCondition(),
-            // new SortCondition("Remaining"),
-            // new SortCondition("Overflow Remaining"),
-            // new SortCondition("Rule Type"),
-        ]
+            this._oReportSettingsService.getConfig()
+                .then((oData: ReportOverviewSetting) => {
+                    oSettings = oData;
+                    this._aoSortConditions = oSettings.sortConditions;
+                    this._iPageSize = oSettings.pageSize;
+                    this._aiAvailablePageSizes = oSettings.availablePageSizes;
 
-        this.initPagination();
-        // DEBUG (-)
+                    resolve(true);
+                })
+                .catch((oReason) => {
+                    oSettings = ReportOverviewSetting.createDefault();
+                    this._aoSortConditions = oSettings.sortConditions;
+                    this._iPageSize = oSettings.pageSize;
+                    this._aiAvailablePageSizes = oSettings.availablePageSizes;
+
+                    resolve(true);
+                })
+                // .finally(() => {
+                //
+                // })
+        });
+
+        return oPromise;
     }
 
-
-
-    private initPagination()
+    private resetPagination()
     {
-        this._iCurrentRowsPerPage = 20;
         this._iCurrentPageNumber = 0;
-        this._iTotalPagesCount = 0;
-        this._aiAvailablePageSizes = [10, 25, 50, 100];
     }
 
 
@@ -132,7 +152,7 @@ export class StationComponent implements OnInit
 
         // let oParam : IRestRulesReportRequest = {
         //     CurrentPage : this._iCurrentPageNumber,
-        //     RowsPerPage : this._iCurrentRowsPerPage,
+        //     RowsPerPage : this._iPageSize,
         //     Filters : []
         // };
 
@@ -147,7 +167,7 @@ export class StationComponent implements OnInit
             // Set order-by
             .addOrderByList(this.sortConditionsList)
             // Set pagination info
-            .withPagingInfo(this._iCurrentPageNumber, this._iCurrentRowsPerPage);
+            .withPagingInfo(this._iCurrentPageNumber, this._iPageSize);
 
 
         let oTempResponse : IRestRulesReportResponse = null;
@@ -166,7 +186,7 @@ export class StationComponent implements OnInit
                     this._iTotalPagesCount = oTempResponse.TotalPages;
                     this._iTotalRowsCount = oTempResponse.TotalRows
                     this._iCurrentPageNumber = oTempResponse.CurrentPage;
-                    this._iCurrentRowsPerPage = oTempResponse.RowsPerPage;
+                    this._iPageSize = oTempResponse.RowsPerPage;
 
                     this._bIsDataLoading = false;
                     this._oLatestRefresh = moment();
@@ -216,7 +236,7 @@ export class StationComponent implements OnInit
 
     public reloadData()
     {
-        this.initPagination();
+        this.resetPagination();
         this.doSearch();
     }
 
@@ -328,12 +348,12 @@ export class StationComponent implements OnInit
         }
     }
 
-    public getCurrentRowsPerPage(){ return this._iCurrentRowsPerPage; }
+    public getCurrentRowsPerPage(){ return this._iPageSize; }
 
 
     public onPageEvent(oEvent:PageEvent)
     {
-        this._iCurrentRowsPerPage = oEvent.pageSize;
+        this._iPageSize = oEvent.pageSize;
         this._iCurrentPageNumber = oEvent.pageIndex;
         this.doSearch();
     }
@@ -345,11 +365,11 @@ export class StationComponent implements OnInit
 
     public isEditButtonEnabled(){ return this._oAuthService.isLoggedUserAuthorizedRulesReport();}
 
-    public isAutoRefreshEnabled(){ return (this._iAutoRefreshIntervalId != null); }
+    public isAutoRefreshEnabled(){ return (this._iAutoRefreshTimerIntervalId != null); }
     public getAutoRefreshIntervalInSeconds(){ return this._iAutoRefreshIntervalInSeconds; }
     public enableAutoRefresh()
     {
-        this._iAutoRefreshIntervalId = <any>setInterval(()=>{
+        this._iAutoRefreshTimerIntervalId = <any>setInterval(()=>{
             this.reloadData();
         }, this._iAutoRefreshIntervalInSeconds * 1000);
     }
@@ -374,8 +394,8 @@ export class StationComponent implements OnInit
 
     public disableAutoRefresh()
     {
-        clearInterval(this._iAutoRefreshIntervalId);
-        this._iAutoRefreshIntervalId = null;
+        clearInterval(this._iAutoRefreshTimerIntervalId);
+        this._iAutoRefreshTimerIntervalId = null;
     }
 
     /**
@@ -416,7 +436,7 @@ export class StationComponent implements OnInit
     //         .then((oValue)=>{
     //             if( (Utils.isNumber(oValue) == true || Utils.isNumeric(oValue) == true ) && parseInt(oValue) > 0)
     //             {
-    //                 this._iCurrentRowsPerPage = parseInt(oValue);
+    //                 this._iPageSize = parseInt(oValue);
     //                 this.doSearch();
     //             }
     //             else{
@@ -424,7 +444,7 @@ export class StationComponent implements OnInit
     //             }
     //         })
     //         .catch(()=>{
-    //             this._iCurrentRowsPerPage = ReportOverviewSetting.createDefault().rowsPerPage;
+    //             this._iPageSize = ReportOverviewSetting.createDefault().rowsPerPage;
     //         });
     // }
     ///</editor-fold>

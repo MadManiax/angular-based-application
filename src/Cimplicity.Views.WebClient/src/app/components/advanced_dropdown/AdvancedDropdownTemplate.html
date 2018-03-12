@@ -1,6 +1,6 @@
 <div class="advanced-dropdown" [ngClass]="{'disabled' : isDisabled() == true}">
     <div class="advanced-dropdown-caption" [ngClass]="{'inline' : useInlineCaption() == true}">{{getCaption()}}</div>
-    <div class="button-group">
+    <div class="button-group" [ngClass]="{'dropup' : useDropUp == true}">
         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-filter padding-right" aria-hidden="true"></i>
             <div class="advanced-dropdown-summary">

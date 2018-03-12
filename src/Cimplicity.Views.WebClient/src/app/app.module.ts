@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { StationComponent } from './station/station.component';
-import {RulesReportService} from "./services/RulesReportService";
+import {RulesReportService} from "./services/mocks/RulesReportService";
 import {LoadingScreenComponent} from "./components/loading_screen/LoadingScreenComponent";
 import {RulesReportRouteGuard} from "./route_guards/RulesReportRouteGuard";
 import {AuthService} from "./services/AuthService";
@@ -27,6 +27,7 @@ import { SamplingRuleExectionService } from "./services/SamplingRuleExecutionSer
 import { ReportOverviewService } from "./services/ReportOverviewService";
 import { HttpBaseService } from "./services/base/HttpBaseService";
 import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
+import {ReportConfigurationServiceMock} from "./services/mocks/ReportConfigurationServiceMock";
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
         StationComponent,
         LoadingScreenComponent,
         RulesReportTableComponent,
-        DatetimePickerComponent,
+        // DatetimePickerComponent,
         AdvancedDropdownComponent,
         FiltersPanelComponent,
         SortingPanelComponent,
@@ -71,6 +72,7 @@ import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
         SamplingRuleExectionService,
         LookupService,
         LookupServiceMock,
+        ReportConfigurationServiceMock,
         {
             provide: HttpBaseService,
             deps: [XHRBackend, RequestOptions],

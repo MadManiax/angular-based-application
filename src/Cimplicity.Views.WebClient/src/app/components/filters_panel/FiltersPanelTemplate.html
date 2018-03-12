@@ -1,3 +1,11 @@
+<!--<div class="row filters-panel-toolbar-top">-->
+    <!--<div class="col-12 text-right">-->
+        <!--<button class="btn btn-ge btn-ge-secondary" (click)="clearAllFilters()"><i class="fa fa-floppy-o padding-right"></i>Save</button>-->
+        <!--<button class="btn btn-ge btn-ge-secondary" (click)="clearAllFilters()"><i class="fa fa-hdd-o padding-right"></i>Load</button>-->
+        <!--<button class="btn btn-ge btn-ge-secondary" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>-->
+    <!--</div>-->
+<!--</div>-->
+
 <div class="row row-ge-has-4-cols">
     <div class="col">
         <advanced-dropdown caption="Production line"
@@ -6,7 +14,8 @@
                            optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
                            optionCompareProperty="{{getFilterCaptionPropertyName()}}"
                            [isDisabled]="isProductionLineFilterEnabled() == false"
-                           [isWaiting]="isProductionLineFilterInWaiting()">
+                           [isWaiting]="isProductionLineFilterInWaiting()"
+                           [useDropUp]="true"]>
         </advanced-dropdown>
     </div>
     <div class="col">
@@ -16,7 +25,8 @@
                            optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
                            optionCompareProperty="{{getFilterCaptionPropertyName()}}"
                            [isDisabled]="isWorkCellFilterEnabled() == false"
-                           [isWaiting]="isWorkCellFilterInWaiting()">
+                           [isWaiting]="isWorkCellFilterInWaiting()"
+                           [useDropUp]="true"]>
         </advanced-dropdown>
     </div>
     <div class="col">
@@ -26,7 +36,8 @@
                            optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
                            optionCompareProperty="{{getFilterCaptionPropertyName()}}"
                            [isDisabled]="isRuleTypeFilterEnabled() == false"
-                           [isWaiting]="isRuleTypeFilterInWaiting()">
+                           [isWaiting]="isRuleTypeFilterInWaiting()"
+                           [useDropUp]="true"]>
         </advanced-dropdown>
     </div>
     <div class="col">
@@ -36,7 +47,8 @@
                            optionCaptionProperty="{{getFilterCaptionPropertyName()}}"
                            optionCompareProperty="{{getFilterCaptionPropertyName()}}"
                            [isDisabled]="isMaterialsFilterEnabled() == false"
-                           [isWaiting]="isMaterialsFilterInWaiting()">
+                           [isWaiting]="isMaterialsFilterInWaiting()"
+                           [useDropUp]="true"]>
         </advanced-dropdown>
     </div>
     <!--<div class="col">-->
@@ -58,9 +70,11 @@
     </div>
 </div>
 
+
 <div class="row toolbar-bottom">
-    <div class="col-12 text-center">
-        <button class="btn btn-ge btn-ge-secondary" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
-        <!--<button class="btn btn-ge btn-ge-secondary" (click)="clearAllOrderBy()"><i class="fa fa-trash-o padding-right"></i>Clear all order-by</button>-->
+    <div class="col-12 text-right">
+        <button class="btn btn-ge btn-ge-secondary-outline" (click)="clearAllFilters()"><i class="fa fa-trash-o padding-right"></i>Clear all filters</button>
+        <button class="btn btn-ge btn-ge-secondary-outline" (click)="clearAllFilters()"><i class="fa fa-floppy-o padding-right"></i>Save</button>
+        <button class="btn btn-ge btn-ge-secondary-outline" (click)="clearAllFilters()"><i class="fa fa-hdd-o padding-right"></i>Load</button>
     </div>
 </div>
