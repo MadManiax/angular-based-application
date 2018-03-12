@@ -35,6 +35,12 @@ enum FilterType{
     Materials       = 4
 }
 
+export enum FiltersPanelAction {
+    CLEAR_ALL_FILTERS,
+    SAVE,
+    LOAD
+}
+
 @Component({
     selector: 'rules-report-filters-panel',
     templateUrl: 'app/components/filters_panel/FiltersPanelTemplate.html'
@@ -59,6 +65,8 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     private _oEventEmitterFiltersChanged= new EventEmitter<RulesReportFiltersContainer>()
     //@Output('onSortChanged')
     //private _oEventEmitterSortChanged= new EventEmitter<...>()
+    @Output('onPanelAction')
+    private _oEventEmitterPanelAction= new EventEmitter<FiltersPanelAction>()
 
 
     private _oAvailableFilters : RulesReportFiltersContainer;
@@ -366,12 +374,16 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     public clearAllFilters()
     {
         this._oSelectedFilters.clearAllFilters();
+        this._oEventEmitterPanelAction.emit(FiltersPanelAction.CLEAR_ALL_FILTERS);
     }
 
     public clearAllOrderBy()
     {
 
     }
+
+    public save(){ this._oEventEmitterPanelAction.emit(FiltersPanelAction.SAVE); }
+    public load(){ this._oEventEmitterPanelAction.emit(FiltersPanelAction.LOAD); }
     ///</editor-fold>
 
 

@@ -38,6 +38,7 @@ import ReportOverviewQuery = ge.cim.queryreport.ReportOverviewQuery;
 import FluentRuleQuery = ge.cim.queryreport.FluentRuleQuery;
 import FieldOrder = ge.cim.queryreport.FieldOrder;
 import {ReportConfigurationServiceMock} from "../services/mocks/ReportConfigurationServiceMock";
+import {FiltersPanelAction} from "../components/filters_panel/FiltersPanelComponent";
 
 @Component({
     selector: 'station',
@@ -221,6 +222,32 @@ export class StationComponent implements OnInit
     set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
 
     get autoRefreshEnabled(){ return this.isAutoRefreshEnabled(); }
+
+    public onFilterPanelAction(oAction : FiltersPanelAction)
+    {
+        if( oAction == FiltersPanelAction.CLEAR_ALL_FILTERS)
+        {
+
+        }
+        else if( oAction == FiltersPanelAction.SAVE)
+        {
+            LoadingScreen.show();
+            this._oReportSettingsService.saveConfig(this._oReportPageSettings)
+                .then((bSuccess : boolean)=>{
+                    LoadingScreen.hide();
+                })
+                .catch(()=>{
+                    LoadingScreen.hide();
+                })
+        }
+        else if( oAction == FiltersPanelAction.LOAD)
+        {
+            this.fetchConfigurationFromServer().then(()=>{
+                this.resetPagination();
+                LoadingScreen.hide();
+            })
+        }
+    }
 
     public onColumnHeaderClick(oColumn : RulesReportTableColumn)
     {

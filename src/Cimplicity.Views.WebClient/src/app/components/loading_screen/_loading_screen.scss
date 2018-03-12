@@ -28,7 +28,7 @@
 		width: 300px;
 		height: 300px;
 		margin: auto;
-		margin-top: 20%;
+		margin-top: 16%;
 		text-align: center;
 		position: relative;
 
@@ -55,10 +55,56 @@
 		font-size: 1.3rem;
 	}
 
+	// New way to achieve it but needs some tuning
 	.loader-container{
 		background-color: rgba(200,200,200,0.4);
 		@include makeSquare($size-spinning-circles-diameter);
 		margin: auto;
+		position: relative;
+		top: -198px;
+
+		.circle{
+			$common-border-style: 3px solid transparent;
+			$common-border-radius: 50%;
+
+			$speed-external: 2s;
+			$speed-medium: 3s;
+			$speed-internal: 2s;
+
+			$diameter-difference-medium: 10px;
+			$diameter-difference-internal: $diameter-difference-medium * 2;
+
+			display: block;
+			position: absolute;
+			//left: 100px;
+			//top: 22px;
+			z-index: 1001;
+			//margin: -75px 0 0 -75px;
+
+			border-radius: $common-border-radius;
+			border: $common-border-style;
+
+			&-external {
+				@include makeSquare($size-spinning-circles-diameter);
+				border-top-color: $color-loading-screen-spinning-circle-external !important;
+				@include create-spinning-circle($speed-external);
+			}
+			&-medium {
+				@include makeSquare($size-spinning-circles-diameter - 10px);
+				border-top-color: $color-loading-screen-spinning-circle-medium !important;
+				@include create-spinning-circle($speed-medium);
+				top: $diameter-difference-medium / 2;
+				left: $diameter-difference-medium / 2;
+			}
+			&-internal {
+				@include makeSquare($size-spinning-circles-diameter - 20px);
+				border-top-color: $color-loading-screen-spinning-circle-internal !important;
+				@include create-spinning-circle($speed-internal);
+				top: $diameter-difference-internal / 2;
+				left: $diameter-difference-internal / 2;
+			}
+		}
+
 	}
 
 

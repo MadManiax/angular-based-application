@@ -214,7 +214,7 @@
     width: 300px;
     height: 300px;
     margin: auto;
-    margin-top: 20%;
+    margin-top: 16%;
     text-align: center;
     position: relative; }
     .loading-screen-container .loading-screen-content .logo {
@@ -235,7 +235,46 @@
     background-color: rgba(200, 200, 200, 0.4);
     width: 250px;
     height: 250px;
-    margin: auto; }
+    margin: auto;
+    position: relative;
+    top: -198px; }
+    .loading-screen-container .loader-container .circle {
+      display: block;
+      position: absolute;
+      z-index: 1001;
+      border-radius: 50%;
+      border: 3px solid transparent; }
+      .loading-screen-container .loader-container .circle-external {
+        width: 250px;
+        height: 250px;
+        border-top-color: #e2e2e2 !important;
+        -webkit-animation: spin 2s linear infinite;
+        -moz-animation: spin 2s linear infinite;
+        -ms-animation: spin 2s linear infinite;
+        -o-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite; }
+      .loading-screen-container .loader-container .circle-medium {
+        width: 240px;
+        height: 240px;
+        border-top-color: #cfcfcf !important;
+        -webkit-animation: spin 3s linear infinite;
+        -moz-animation: spin 3s linear infinite;
+        -ms-animation: spin 3s linear infinite;
+        -o-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+        top: 5px;
+        left: 5px; }
+      .loading-screen-container .loader-container .circle-internal {
+        width: 230px;
+        height: 230px;
+        border-top-color: #a8a8a8 !important;
+        -webkit-animation: spin 2s linear infinite;
+        -moz-animation: spin 2s linear infinite;
+        -ms-animation: spin 2s linear infinite;
+        -o-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        top: 10px;
+        left: 10px; }
   .loading-screen-container #loader {
     display: block;
     position: absolute;

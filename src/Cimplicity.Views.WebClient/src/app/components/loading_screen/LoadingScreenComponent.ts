@@ -1,5 +1,7 @@
+///<reference path="../../../classes/utils/Utils.ts"/>
 
 import {Component, Input, OnInit} from '@angular/core';
+import Utils = jsutils.Utils;
 
 
 @Component({
@@ -77,8 +79,13 @@ export class LoadingScreenComponent implements OnInit
 
 export class LoadingScreen
 {
-    public static show(){
-       LoadingScreenComponent.showLoadingScreen();
+    public static show(sMessage : string = null)
+    {
+        if( Utils.isStrNullOrEmpty(sMessage) == false)
+        {
+            LoadingScreen.updateMessage(sMessage);
+        }
+        LoadingScreenComponent.showLoadingScreen();
     }
 
     public static hide(){
