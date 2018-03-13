@@ -25,5 +25,20 @@ module ge.cim.models {
             super(sCaption, sValue);
             this._oData= oData;
         }
+
+
+
+        public fromJSON(oJson)
+        {
+
+        }
+
+        public toJSON()
+        {
+            let oReval = super.toJSON();
+            oReval["data"] = this._oData;
+            return oReval;
+
+        }
     }
 }

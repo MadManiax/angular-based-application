@@ -17,6 +17,12 @@ module ge.cim.models {
         //*******************************************************************************
         //* Static methods
         //*******************************************************************************
+        public static deserializeFromJson(oJson)
+        {
+            let oRetval = new SortCondition();
+            oRetval.fromJSON(oJson);
+            return oRetval;
+        }
 
 
         //*******************************************************************************
@@ -81,6 +87,28 @@ module ge.cim.models {
             else{
                 this.setDirectionAsc();
             }
+        }
+
+
+
+        public fromJSON(oJson)
+        {
+            this._sFieldName = oJson["fieldName"];
+            this._sCaption = oJson["caption"];
+
+            if( parseInt(oJson["direction"]) == 0) { this._oDirection = SortingDirection.Asc; }
+            else{ this._oDirection = SortingDirection.Desc; }
+        }
+
+        public toJSON()
+        {
+            let oReval = {
+                "fieldName"     : this._sFieldName,
+                "caption"       : this._sCaption,
+                "direction"     : this._oDirection,
+            };
+            return oReval;
+
         }
         ///</editor-fold>
     }

@@ -1,10 +1,11 @@
 ///<reference path="Rule.ts"/>
+///<reference path="../BaseClass.ts"/>
 
 module ge.cim.models {
 
     import Utils = jsutils.Utils;
 
-    export class Filter
+    export class Filter extends BaseClass
     {
 
 
@@ -28,6 +29,7 @@ module ge.cim.models {
 
         public constructor(sCaption:string = null, oValue : any = null)
         {
+            super();
             this._sCaption = sCaption;
             this._oValue = oValue;
             if( Utils.isNullOrUndef(this._oValue) == true && Utils.isNullOrUndef(this._oValue) == false)
@@ -54,7 +56,19 @@ module ge.cim.models {
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        public fromJSON(oJson)
+        {
 
+        }
+
+        public toJSON()
+        {
+            let oReval = this.createObjectForToJSON();
+            oReval["caption"] = this._sCaption;
+            oReval["value"] = this._oValue;
+            return oReval;
+
+        }
         ///</editor-fold>
     }
 

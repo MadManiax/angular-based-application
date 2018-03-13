@@ -107,22 +107,24 @@ export class StationComponent implements OnInit
     {
         LoadingScreen.show();
         let oPromise = new Promise<boolean>((resolve, reject)=> {
-            let oSettings = null;
+            //let oSettings = null;
 
             this._oReportSettingsService.getConfig()
                 .then((oData: ReportOverviewSetting) => {
-                    oSettings = oData;
-                    this._aoSortConditions = oSettings.sortConditions;
-                    this._iPageSize = oSettings.pageSize;
-                    this._aiAvailablePageSizes = oSettings.availablePageSizes;
+                    this._oReportPageSettings = oData;
+                    this._oFilters = this._oReportPageSettings.filters;
+                    this._aoSortConditions = this._oReportPageSettings.sortConditions;
+                    this._iPageSize = this._oReportPageSettings.pageSize;
+                    this._aiAvailablePageSizes = this._oReportPageSettings.availablePageSizes;
 
                     resolve(true);
                 })
                 .catch((oReason) => {
-                    oSettings = ReportOverviewSetting.createDefault();
-                    this._aoSortConditions = oSettings.sortConditions;
-                    this._iPageSize = oSettings.pageSize;
-                    this._aiAvailablePageSizes = oSettings.availablePageSizes;
+                    this._oReportPageSettings = ReportOverviewSetting.createDefault();
+                    this._oFilters = this._oReportPageSettings.filters;
+                    this._aoSortConditions = this._oReportPageSettings.sortConditions;
+                    this._iPageSize = this._oReportPageSettings.pageSize;
+                    this._aiAvailablePageSizes = this._oReportPageSettings.availablePageSizes;
 
                     resolve(true);
                 })
@@ -223,6 +225,12 @@ export class StationComponent implements OnInit
 
     get autoRefreshEnabled(){ return this.isAutoRefreshEnabled(); }
 
+
+    public getSavedFilters()
+    {
+        return this._oReportPageSettings.filters;
+    }
+
     public onFilterPanelAction(oAction : FiltersPanelAction)
     {
         if( oAction == FiltersPanelAction.CLEAR_ALL_FILTERS)
@@ -232,6 +240,11 @@ export class StationComponent implements OnInit
         else if( oAction == FiltersPanelAction.SAVE)
         {
             LoadingScreen.show();
+
+            this._oReportPageSettings.filters = this._oFilters;
+            this._oReportPageSettings.sortConditions = this._aoSortConditions;
+            this._oReportPageSettings.pageSize = this._iPageSize;
+
             this._oReportSettingsService.saveConfig(this._oReportPageSettings)
                 .then((bSuccess : boolean)=>{
                     LoadingScreen.hide();

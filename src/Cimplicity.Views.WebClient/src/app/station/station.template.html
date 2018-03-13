@@ -2,7 +2,9 @@
     <div class="filters-panel-wrapper" [ngClass]="{'visible' : isFiltersPanelVisible() == true}">
         <!--<div class="close-filters-panel-btn-wrapper" (click)="closeFiltersPanel()">Close</div>-->
         <rules-report-filters-panel (onFiltersChanged)="onFiltersChanged($event)"
-                                    [(sortConditions)]="sortConditionsList" (onPanelAction)="onFilterPanelAction($event)">
+                                    [(sortConditions)]="sortConditionsList"
+                                    [savedFilters]="getSavedFilters()"
+                                    (onPanelAction)="onFilterPanelAction($event)">
         </rules-report-filters-panel>
     </div>
     <div class="station-toolbar row">

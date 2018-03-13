@@ -40,6 +40,15 @@ module ge.cim {
         {
             return this.constructor.name;
         }
+
+        protected createObjectForToJSON()
+        {
+            let oReval = {
+                dummy : null    // required to make 'oRetval' an object and not an array
+            };
+            delete oReval.dummy;
+            return oReval;
+        }
         ///</editor-fold>
 
         //*******************************************************************************

@@ -11,5 +11,7 @@ module ge.cim.models {
         {
             super(oData, oData.MaterialDefinitionId, oData.S95Id);
         }
+
+
     }
 }

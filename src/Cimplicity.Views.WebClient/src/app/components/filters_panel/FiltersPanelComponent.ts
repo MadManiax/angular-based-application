@@ -61,6 +61,8 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
 
     @Input('sortConditions')
     private _aoSortConditions : SortCondition[];
+    @Input('savedFilters')
+    private _aoSavedFilters : RulesReportFiltersContainer;
     @Output('onFiltersChanged')
     private _oEventEmitterFiltersChanged= new EventEmitter<RulesReportFiltersContainer>()
     //@Output('onSortChanged')
@@ -98,7 +100,7 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
 
     ngOnChanges(changes: SimpleChanges): void
     {
-        //debugger;
+        debugger;
     }
 
     ngDoCheck()

@@ -143,8 +143,6 @@ export class LookupServiceMock extends LookupService
                     })
                 }
 
-                observer.error();
-
                 observer.next(oData);
                 observer.complete();
             }, 1000)

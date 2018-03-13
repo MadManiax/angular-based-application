@@ -1,10 +1,11 @@
 ///<reference path="Rule.ts"/>
+///<reference path="../BaseClass.ts"/>
 
 module ge.cim.models {
 
     import Utils = jsutils.Utils;
 
-    export class RulesReportFiltersContainer
+    export class RulesReportFiltersContainer extends BaseClass
     {
         //*******************************************************************************
         //* Static variables
@@ -20,6 +21,13 @@ module ge.cim.models {
         //* Static methods
         //*******************************************************************************
 
+        public static deserializeFromJson(oJson)
+        {
+            let oRetval = new RulesReportFiltersContainer();
+            oRetval.fromJSON(oJson);
+            return oRetval;
+        }
+
 
         //*******************************************************************************
         //* Members
@@ -30,6 +38,7 @@ module ge.cim.models {
 
         public constructor()
         {
+            super();
             this._aoFilters = {};
             this._aoFilters[RulesReportFiltersContainer.JSON_FIELD_PRODUCTION_LINES]= [];
             this._aoFilters[RulesReportFiltersContainer.JSON_FIELD_WORK_CELLS]= [];
@@ -76,11 +85,11 @@ module ge.cim.models {
         set filtersMaterialDefinitions(value){ this._aoFilters[RulesReportFiltersContainer.JSON_FIELD_MAT_DEFINITIONS] = value; }
 
 
-        public addFilterToProductionLines(sKey:string, oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_PRODUCTION_LINES, oFilter);}
-        public addFilterToWorkCells(sKey:string, oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_WORK_CELLS, oFilter);}
-        public addFilterToWorkUnits(sKey:string, oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_WORK_UNITS, oFilter);}
-        public addFilterToRuleTypes(sKey:string, oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_RULE_TYPES, oFilter);}
-        public addFilterToMaterialDefinitions(sKey:string, oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_MAT_DEFINITIONS, oFilter);}
+        public addFilterToProductionLines(oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_PRODUCTION_LINES, oFilter);}
+        public addFilterToWorkCells(oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_WORK_CELLS, oFilter);}
+        public addFilterToWorkUnits(oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_WORK_UNITS, oFilter);}
+        public addFilterToRuleTypes(oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_RULE_TYPES, oFilter);}
+        public addFilterToMaterialDefinitions(oFilter:Filter) { this.addFilterTo(RulesReportFiltersContainer.JSON_FIELD_MAT_DEFINITIONS, oFilter);}
 
 
         public clearAllFilters()
@@ -90,6 +99,26 @@ module ge.cim.models {
                 Utils.clearArray(this._aoFilters[sKey]);
             }
         }
+
+
+        public fromJSON(oJson)
+        {
+            // TODO: deserialize each array
+        }
+
+        public toJSON()
+        {
+            let oRetval = this.createObjectForToJSON();
+            oRetval[RulesReportFiltersContainer.JSON_FIELD_PRODUCTION_LINES] = this.filtersProductionLines;
+            oRetval[RulesReportFiltersContainer.JSON_FIELD_WORK_CELLS]       = this.filtersWorkCells;
+            oRetval[RulesReportFiltersContainer.JSON_FIELD_WORK_UNITS]       = this.filtersWorkUnits;
+            oRetval[RulesReportFiltersContainer.JSON_FIELD_RULE_TYPES]       = this.filtersRuleTypes;
+            oRetval[RulesReportFiltersContainer.JSON_FIELD_MAT_DEFINITIONS]  = this.filtersMaterialDefinitions;
+
+            return oRetval;
+
+        }
+
         ///</editor-fold>
     }
 

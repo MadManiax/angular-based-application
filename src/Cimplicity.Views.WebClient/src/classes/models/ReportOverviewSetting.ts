@@ -1,6 +1,9 @@
 ///<reference path="Settings.ts"/>
+///<reference path="../utils/Utils.ts"/>
 
 module ge.cim.models {
+
+    import Utils = jsutils.Utils;
 
     export class ReportOverviewSetting extends Settings
     {
@@ -22,6 +25,13 @@ module ge.cim.models {
             oRetval._aiAvailablePageSizes = [10, 25, 50, 100];
             oRetval._oFilters = new RulesReportFiltersContainer();
             oRetval._iAutoRefreshIntervalInSeconds = 20;
+            return oRetval;
+        }
+
+        public static deserializeFromJson(oJson)
+        {
+            let oRetval = new ReportOverviewSetting();
+            oRetval.fromJSON(oJson);
             return oRetval;
         }
 
@@ -74,6 +84,58 @@ module ge.cim.models {
 
 
 
+        public fromJSON(oJson)
+        {
+            let oDefault = ReportOverviewSetting.createDefault();
+
+            let sUser = oJson.user;
+            let sArea = oJson.area;
+            let oData = oJson.data;
+
+            this.pageSize = Utils.getObjectProperty(oData, "pageSize", oDefault.pageSize);
+            this.availablePageSizes = Utils.getObjectProperty(oData, "availablePageSize", oDefault.availablePageSizes);
+            this.autoRefreshIntervalInSeconds = Utils.getObjectProperty(oData, "autoRefreshIntervalSeconds", oDefault.autoRefreshIntervalInSeconds);
+
+            let oJsonFilters = Utils.getObjectProperty(oData, "filters", null);
+            if( oJsonFilters != null){
+                this.filters = RulesReportFiltersContainer.deserializeFromJson(oJsonFilters);
+            }
+            else {
+                this.filters = oDefault.filters;
+            }
+
+            let oJsonSortConditions = Utils.getObjectProperty(oData, "sortConditions", oDefault.filters);
+            if( oJsonSortConditions != null)
+            {
+                let aoTemp = [];
+                for(let i = 0; i < oJsonSortConditions.length; i++)
+                {
+                    aoTemp.push( SortCondition.deserializeFromJson(oJsonSortConditions[i]))
+                }
+                this.sortConditions = aoTemp;
+            }
+            else {
+                this.sortConditions = oDefault.sortConditions;
+            }
+        }
+
+        public toJSON()
+        {
+            let oReval = {
+                user : "gooduser",
+                area : "workarea0123456789",
+                data : {
+                    "pageSize"                      : this.pageSize,
+                    "availablePageSize"             : this.availablePageSizes,
+                    "filters"                       : this.filters,
+                    "sortConditions"                : this.sortConditions,
+                    "autoRefreshIntervalSeconds"    : this.autoRefreshIntervalInSeconds
+                }
+        };
+
+            return oReval;
+
+        }
 
 
         ///</editor-fold>
