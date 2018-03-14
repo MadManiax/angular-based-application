@@ -17,7 +17,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'station/', redirectTo: 'home' }, // not allowed 'station' without a user ID, go to home
-    { path: 'station/:uid', component: StationComponent, canActivate: [RulesReportRouteGuard] }
+    { path: 'station/:uid', component: StationComponent, canActivate: [RulesReportRouteGuard] },
+    { path: 'station/:uid/:workarea', component: StationComponent, canActivate: [RulesReportRouteGuard] }
 ];
 
 @NgModule({

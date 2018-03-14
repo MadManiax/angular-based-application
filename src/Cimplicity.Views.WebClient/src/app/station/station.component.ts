@@ -14,7 +14,7 @@
 ///<reference path="../../classes/queryreport/FluentRuleQuery.ts"/>
 ///<reference path="../services/mocks/ReportConfigurationServiceMock.ts"/>
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import TimingRule = ge.cim.models.TimingRule;
 import CounterRule = ge.cim.models.CounterRule;
 import EventRule = ge.cim.models.EventRule;
@@ -39,12 +39,13 @@ import FluentRuleQuery = ge.cim.queryreport.FluentRuleQuery;
 import FieldOrder = ge.cim.queryreport.FieldOrder;
 import {ReportConfigurationServiceMock} from "../services/mocks/ReportConfigurationServiceMock";
 import {FiltersPanelAction} from "../components/filters_panel/FiltersPanelComponent";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'station',
     templateUrl: 'app/station/station.template.html'
 })
-export class StationComponent implements OnInit
+export class StationComponent implements OnInit, OnDestroy
 {
     private _aoRulesList: ge.cim.models.Rule[];
 
@@ -57,14 +58,14 @@ export class StationComponent implements OnInit
     private _iAutoRefreshTimerIntervalId: number;
     private _oLatestRefresh : moment.Moment;
     private _bIsFiltersPanelVisible: boolean;
-
     private _iPageSize: number;
     private _aoSortConditions : SortCondition[];
     private _aiAvailablePageSizes : number[];
     private _oFilters : RulesReportFiltersContainer;
     private _iAutoRefreshIntervalInSeconds: number;
-
     private _oReportPageSettings : ReportOverviewSetting;
+    private _oActivatedRouteSubscription: any;
+    private _sWorkArea : string;
 
 
     /*
@@ -78,7 +79,8 @@ export class StationComponent implements OnInit
         private _oReportOverviewService: RulesReportService,
         private _oSamplingRuleExecutionService: RulesReportService,
         private _oReportSettingsService : ReportConfigurationServiceMock,
-        private _oAuthService : AuthService
+        private _oAuthService : AuthService,
+        private _oActivatedRoute : ActivatedRoute
     )
     {
         console.log('StationComponent -> constructor');
@@ -86,16 +88,32 @@ export class StationComponent implements OnInit
         this._iAutoRefreshIntervalInSeconds = 20;
         this._bIsFiltersPanelVisible = false;
 
-        this.fetchConfigurationFromServer().then(()=>{
-            this.resetPagination();
-            LoadingScreen.hide();
-        })
     }
 
     ngOnInit() {
         console.log('StationComponent -> ngOnInit');
         //this.enableAutoRefresh(this._iAutoRefreshIntervalInSeconds);
         //this.doSearch();
+
+        this._oActivatedRouteSubscription = this._oActivatedRoute.params.subscribe(params => {
+            console.debug("Station page params", params);
+                this._sWorkArea = Utils.getObjectProperty(params, "workarea", null);
+                if( this.hasWorkArea() == true)
+                {
+                    this.fetchConfigurationFromServer().then(()=>{
+                        this.resetPagination();
+                        LoadingScreen.hide();
+                    })
+                }
+                else
+                {
+                    VexUtils.showErrorAlert("Missing 'workarea' parameter");
+                }
+        });
+    }
+
+    ngOnDestroy() {
+        this._oActivatedRouteSubscription.unsubscribe();
     }
 
 
@@ -142,6 +160,9 @@ export class StationComponent implements OnInit
     }
 
 
+    private hasWorkArea(){ return Utils.isStrNullOrEmpty(this._sWorkArea) == false; }
+
+
     /**
      * Execute a call to the data service to retrieve data from
      * server and handle the response
@@ -149,6 +170,12 @@ export class StationComponent implements OnInit
     private doSearch()
     {
         this.closeFiltersPanel();
+
+        if( this.hasWorkArea() == false)
+        {
+            VexUtils.showErrorAlert("Missing 'workarea' parameter");
+            return;
+        }
 
         this._bIsDataLoading = true;
         LoadingScreen.show();
@@ -159,8 +186,7 @@ export class StationComponent implements OnInit
         //     Filters : []
         // };
 
-        let sWorkArea = "";
-        let oFluentQuery = FluentRuleQuery.onWorkArea(sWorkArea)
+        let oFluentQuery = FluentRuleQuery.onWorkArea(this._sWorkArea)
             // Set filters
             .withFiltersOnProductionLines(this._oFilters.filtersProductionLines)
             .withFiltersOnWorkCells(this._oFilters.filtersWorkCells)
@@ -222,14 +248,9 @@ export class StationComponent implements OnInit
     ///<editor-fold desc="Public methods (+)>
     get sortConditionsList(){ return this._aoSortConditions; }
     set sortConditionsList(aoValue){ this._aoSortConditions = aoValue; }
-
     get autoRefreshEnabled(){ return this.isAutoRefreshEnabled(); }
-
-
-    public getSavedFilters()
-    {
-        return this._oReportPageSettings.filters;
-    }
+    get savedFilters() { return this._oReportPageSettings.filters;}
+    set savedFilters(value : RulesReportFiltersContainer) { /* do nothing */}
 
     public onFilterPanelAction(oAction : FiltersPanelAction)
     {

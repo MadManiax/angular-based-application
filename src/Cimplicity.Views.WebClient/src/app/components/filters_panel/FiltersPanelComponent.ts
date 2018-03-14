@@ -75,12 +75,13 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
     private _oSelectedFilters : RulesReportFiltersContainer;
     private _aiSelectedFiltersCount : number[];
     private _abEnabledFilters : boolean[];
-    private _abInWaitingFilters : boolean[]
+    private _abInWaitingFilters : boolean[];
+    private _oInitFiltersPromise : Promise<boolean>
 
     constructor(private _oLookupService : LookupServiceMock)
     {
-        this.initFilters()
-            .then(()=>{
+        this._oInitFiltersPromise = this.initFilters();
+        this._oInitFiltersPromise.then(()=>{
                 this._oEventEmitterFiltersChanged.emit(this._oSelectedFilters);
             })
     }
@@ -100,7 +101,22 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
 
     ngOnChanges(changes: SimpleChanges): void
     {
-        debugger;
+        // For each 'changes' element (identified by the property name) there are those fields:
+        //  - currentValue
+        //  - firstChange
+        //  - previousValue
+        if( Utils.hasKey(changes, '_aoSortConditions') == true)
+        {
+
+        }
+        if( Utils.hasKey(changes, '_aoSavedFilters') == true)
+        {
+            let aoChangedSavedFilters = changes['_aoSavedFilters'];
+            if( aoChangedSavedFilters.isFirstChange() == false )
+            {
+                this.restoreSavedFilters();
+            }
+        }
     }
 
     ngDoCheck()
@@ -184,22 +200,10 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
             this._abInWaitingFilters[FiltersPanelComponent.ARR_INDEX_MATERIALS] = false;
 
             // First step, load all available filters indipendent from other filters selections
+            let aoWaitForTheseFiltersToBeLoaded = [];
             let sWorkArea = "";
-            this.refreshProductionLineFilter(sWorkArea);
-            this.refreshRuleTypesFilter();
-
-            //this._oAvailableFilters.filtersProductionLines = [new Filter("WR9000001"), new Filter("WR900002")];
-            // this._oAvailableFilters.filtersWorkCells = [new Filter("WL9000001"), new Filter("WL900002")];
-            // this._oAvailableFilters.filtersWorkUnits = [new Filter("WT9000001"), new Filter("WT900002")];
-            // this._oAvailableFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Timing"), new Filter("Event")];
-            // this._oAvailableFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1"), new Filter("MaterialDefinitionId_2")];
-            //
-            //
-            // this._oSelectedFilters.filtersProductionLines = [new Filter("WR9000001")]; /* null means all */
-            // this._oSelectedFilters.filtersWorkCells = [new Filter("WL900002")];
-            // this._oSelectedFilters.filtersWorkUnits = [new Filter("WT9000001")];
-            // this._oSelectedFilters.filtersRuleTypes = [new Filter("Counter"), new Filter("Event")];
-            // this._oSelectedFilters.filtersMaterialDefinitions = [new Filter("MaterialDefinitionId_1")];
+            aoWaitForTheseFiltersToBeLoaded.push(this.refreshProductionLineFilter(sWorkArea));
+            aoWaitForTheseFiltersToBeLoaded.push(this.refreshRuleTypesFilter());
 
             // Set the number of seleced item according with the selections retrieved
             // from server configuration
@@ -210,83 +214,156 @@ export class FiltersPanelComponent implements OnInit, OnChanges, DoCheck
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_RULE_TYPE] = this._oSelectedFilters.filtersRuleTypes.length;
             this._aiSelectedFiltersCount[FiltersPanelComponent.ARR_INDEX_MATERIALS] = this._oSelectedFilters.filtersMaterialDefinitions.length;
 
-            resolve();
+            Promise.all(aoWaitForTheseFiltersToBeLoaded).then(()=>{
+                resolve();
+            })
+
         });
 
         return oPromise;
 
     }
 
+    private restoreSavedFilters()
+    {
+        this._oInitFiltersPromise.then(()=>{
+            // To restore filters, wait filters initialization
+            // has been completed
+            this.restoreProductionLine()
+            this.refreshWorkCellsFilter()
+                .then(()=>{
+                    this.restoreWorkCells();
+                    this.refreshMaterialsDefinitionsFilter()
+                        .then(()=>{
+                            this.restoreMaterialDefinitions();
+                        })
+                })
+
+            this.restoreRuleTypes();
+        })
+    }
+
+
+    private restoreSpecificFilter(sId : string)
+    {
+        let aoSavedFiltersSubset : Filter[] = this._aoSavedFilters[sId];
+        let aoAvailableFiltersSubset  : Filter[] = this._oAvailableFilters[sId];
+
+        let aoTemp = [];
+        for(let i = 0; i < aoSavedFiltersSubset.length; i++)
+        {
+            for(let j = 0; j < aoAvailableFiltersSubset.length; j++)
+            {
+                if( aoSavedFiltersSubset[i].value == aoAvailableFiltersSubset[j].value)
+                {
+                    aoTemp.push(aoAvailableFiltersSubset[j]);
+                    break;
+                }
+            }
+        }
+        this._oSelectedFilters[sId] = aoTemp;
+    }
+
+    private restoreProductionLine() { this.restoreSpecificFilter('filtersProductionLines'); }
+    private restoreWorkCells() { this.restoreSpecificFilter('filtersWorkCells'); }
+    private restoreWorkUnits() { this.restoreSpecificFilter('filtersWorkUnits'); }
+    private restoreRuleTypes() { this.restoreSpecificFilter('filtersRuleTypes'); }
+    private restoreMaterialDefinitions() { this.restoreSpecificFilter('filtersMaterialDefinitions'); }
+
 
     private refreshProductionLineFilter(sWorkArea : string)
     {
-        this.setProductionLineFilterInWaiting(true);
-        this._oLookupService.getProductionLines(sWorkArea).subscribe(
-            (oData:IProductionLine[])=>{
-                this._oAvailableFilters.filtersProductionLines = ProductionLineFilter.createFiltersListFromObjectList(oData, ProductionLineFilter);
-            },
-            (oReason:any)=>{
-                this.handleErrorOnDataFetchForFilter(FilterType.ProductionLine);
-            },
-            ()=>{
-                this.setProductionLineFilterInWaiting(false);
-                this.setProductionLineFilterEnabled();
-            }
-        )
+        let oPromise = new Promise<boolean>((resolve, reject)=> {
+            this.setProductionLineFilterInWaiting(true);
+            this._oLookupService.getProductionLines(sWorkArea).subscribe(
+                (oData: IProductionLine[]) => {
+                    this._oAvailableFilters.filtersProductionLines = ProductionLineFilter.createFiltersListFromObjectList(oData, ProductionLineFilter);
+                },
+                (oReason: any) => {
+                    this.handleErrorOnDataFetchForFilter(FilterType.ProductionLine);
+                    reject();
+                },
+                () => {
+                    this.setProductionLineFilterInWaiting(false);
+                    this.setProductionLineFilterEnabled();
+
+                    resolve(true);
+                }
+            )
+        })
+        return oPromise;
     }
 
     private refreshWorkCellsFilter()
     {
-        this.setWorkCellFilterInWaiting(true);
-        this._oLookupService.getWorkCells(this._oSelectedFilters.filtersProductionLines).subscribe(
-            (oData:IProductionLine[])=>{
-                this._oAvailableFilters.filtersWorkCells = WorkCellFilter.createFiltersListFromObjectList(oData, WorkCellFilter);
-            },
-            (oReason:any)=>{
-                this.handleErrorOnDataFetchForFilter(FilterType.WorkCell);
-            },
-            ()=>{
-                this.setWorkCellFilterInWaiting(false);
-                this.setWorkCellFilterEnabled();
-            }
-        )
+        let oPromise = new Promise<boolean>((resolve, reject)=>{
+            this.setWorkCellFilterInWaiting(true);
+            this._oLookupService.getWorkCells(this._oSelectedFilters.filtersProductionLines).subscribe(
+                (oData:IProductionLine[])=>{
+                    this._oAvailableFilters.filtersWorkCells = WorkCellFilter.createFiltersListFromObjectList(oData, WorkCellFilter);
+                },
+                (oReason:any)=>{
+                    this.handleErrorOnDataFetchForFilter(FilterType.WorkCell);
+                    reject();
+                },
+                ()=>{
+                    this.setWorkCellFilterInWaiting(false);
+                    this.setWorkCellFilterEnabled();
+
+                    resolve(true);
+                }
+            )
+        })
+        return oPromise;
     }
 
     private refreshRuleTypesFilter()
     {
-        this.setRuleTypeFilterInWaiting(true);
-        this._oLookupService.getRuleTypes().subscribe(
-            (oData:string[])=>{
-                this._oAvailableFilters.filtersRuleTypes = RuleTypeFilter.createFiltersList(oData);
-            },
-            (oReason:any)=>{
-                this.handleErrorOnDataFetchForFilter(FilterType.RuleType);
-            },
-            ()=>{
-                this.setRuleTypeFilterInWaiting(false);
-                this.setRuleTypeFilterEnabled();
-            }
-        )
+        let oPromise = new Promise<boolean>((resolve, reject)=> {
+            this.setRuleTypeFilterInWaiting(true);
+            this._oLookupService.getRuleTypes().subscribe(
+                (oData: string[]) => {
+                    this._oAvailableFilters.filtersRuleTypes = RuleTypeFilter.createFiltersList(oData);
+                },
+                (oReason: any) => {
+                    this.handleErrorOnDataFetchForFilter(FilterType.RuleType);
+                    reject();
+                },
+                () => {
+                    this.setRuleTypeFilterInWaiting(false);
+                    this.setRuleTypeFilterEnabled();
+
+                    resolve(true);
+                }
+            )
+        })
+        return oPromise;
     }
 
     private refreshMaterialsDefinitionsFilter()
     {
-        this.setMaterialsFilterInWaiting(true);
-        this._oLookupService.getMaterialDefinitions(
-            this._oSelectedFilters.filtersWorkCells,
-            this._oSelectedFilters.filtersWorkUnits
-        ).subscribe(
-            (oData:IMaterial[])=>{
-                this._oAvailableFilters.filtersMaterialDefinitions = MaterialDefinitionFilter.createFiltersListFromObjectList(oData, MaterialDefinitionFilter);
-            },
-            (oReason:any)=>{
-                this.handleErrorOnDataFetchForFilter(FilterType.Materials);
-            },
-            ()=>{
-                this.setMaterialsFilterInWaiting(false);
-                this.setMaterialsFilterEnabled();
-            }
-        )
+        let oPromise = new Promise<boolean>((resolve, reject)=> {
+            this.setMaterialsFilterInWaiting(true);
+            this._oLookupService.getMaterialDefinitions(
+                this._oSelectedFilters.filtersWorkCells,
+                this._oSelectedFilters.filtersWorkUnits
+            ).subscribe(
+                (oData: IMaterial[]) => {
+                    this._oAvailableFilters.filtersMaterialDefinitions = MaterialDefinitionFilter.createFiltersListFromObjectList(oData, MaterialDefinitionFilter);
+                },
+                (oReason: any) => {
+                    this.handleErrorOnDataFetchForFilter(FilterType.Materials);
+                    reject();
+                },
+                () => {
+                    this.setMaterialsFilterInWaiting(false);
+                    this.setMaterialsFilterEnabled();
+
+                    resolve(true);
+                }
+            )
+        })
+        return oPromise;
     }
 
     private handleErrorOnDataFetchForFilter(oFilterType:FilterType)

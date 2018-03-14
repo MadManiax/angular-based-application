@@ -1,6 +1,6 @@
 .filters-panel-wrapper{
-    //$size-btn-close-panel-height: 32px;
-    $size-btn-close-panel-height: 0px;
+    $size-btn-close-panel-height: 32px;
+    //$size-btn-close-panel-height: 0px;
     $size-panel-height: 330px + $size-btn-close-panel-height;
     $size-panel-border-radius: 20px;
     $size-panel-shadow-thickness: 20px;
@@ -87,6 +87,7 @@
 
         .dropdown-toggle{
             height: $size-table-header-height;
+            padding-top: 6px;
         }
 
         .advanced-dropdown-caption{

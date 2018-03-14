@@ -103,7 +103,15 @@ module ge.cim.models {
 
         public fromJSON(oJson)
         {
-            // TODO: deserialize each array
+            // Deserialize each filters array from JSON
+            // WARNING: the filter obtained from deserialization are 'Filters' base class,
+            // they do NOT have the any extra data, so the real filters must be obtained with a compare
+            // with available filters and the 'selected filters' deserialized here
+            this.filtersProductionLines = Filter.deserializeFiltersListFromJson(oJson[RulesReportFiltersContainer.JSON_FIELD_PRODUCTION_LINES]);
+            this.filtersWorkCells = Filter.deserializeFiltersListFromJson(oJson[RulesReportFiltersContainer.JSON_FIELD_WORK_CELLS]);
+            this.filtersWorkUnits = Filter.deserializeFiltersListFromJson(oJson[RulesReportFiltersContainer.JSON_FIELD_WORK_UNITS]);
+            this.filtersRuleTypes = Filter.deserializeFiltersListFromJson(oJson[RulesReportFiltersContainer.JSON_FIELD_RULE_TYPES]);
+            this.filtersMaterialDefinitions = Filter.deserializeFiltersListFromJson(oJson[RulesReportFiltersContainer.JSON_FIELD_MAT_DEFINITIONS]);
         }
 
         public toJSON()

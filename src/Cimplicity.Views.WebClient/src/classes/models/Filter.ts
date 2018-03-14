@@ -17,6 +17,22 @@ module ge.cim.models {
         //*******************************************************************************
         //* Static methods
         //*******************************************************************************
+        public static deserializeFromJson(oJson)
+        {
+            let oRetval = new Filter();
+            oRetval.fromJSON(oJson);
+            return oRetval;
+        }
+
+        public static deserializeFiltersListFromJson(oJson)
+        {
+            let aoRetval = [];
+            for(let i = 0; i < oJson.length; i++)
+            {
+                aoRetval.push(Filter.deserializeFromJson(oJson[i]))
+            }
+            return aoRetval;
+        }
 
 
         //*******************************************************************************
@@ -56,9 +72,13 @@ module ge.cim.models {
         //* Public methods
         //*******************************************************************************
         ///<editor-fold desc="Public methods (+)>
+        get value(){ return this._oValue; }
+        set value(oValue){ this._oValue = oValue; }
+
         public fromJSON(oJson)
         {
-
+            this._sCaption = oJson["caption"];
+            this._oValue = oJson["value"];
         }
 
         public toJSON()

@@ -467,18 +467,18 @@
   position: absolute;
   left: 0px;
   right: 0px;
-  bottom: -352px;
-  height: 330px;
+  bottom: -384px;
+  height: 362px;
   transition: 0.4s all ease-in-out;
   padding: 10px 30px;
-  padding-top: 30px;
+  padding-top: 62px;
   background: rgba(34, 70, 109, 0.95);
   box-shadow: 0px 0px 20px #495057;
   z-index: 10; }
   .filters-panel-wrapper.visible {
     bottom: 0px; }
   .filters-panel-wrapper .close-filters-panel-btn-wrapper {
-    height: 0px;
+    height: 32px;
     text-transform: uppercase;
     color: #aaaaaa;
     position: absolute;
@@ -507,7 +507,8 @@
   .filters-panel-wrapper .advanced-dropdown .dropdown-menu {
     width: 90%; }
   .filters-panel-wrapper .advanced-dropdown .dropdown-toggle {
-    height: 36px; }
+    height: 36px;
+    padding-top: 6px; }
   .filters-panel-wrapper .advanced-dropdown .advanced-dropdown-caption {
     color: whitesmoke; }
   .filters-panel-wrapper .advanced-dropdown .fa {
