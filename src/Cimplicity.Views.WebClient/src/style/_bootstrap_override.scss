@@ -4,3 +4,23 @@
 		box-shadow: none !important;
 	}
 }
+
+// Enable the use of 'span' for tabs instead of '<a>'
+.nav-tabs{
+	span{
+		&.nav-link{
+			color: #007bff;
+			text-decoration: none;
+			background-color: transparent;
+
+			@include clickable(){
+
+			};
+
+			&.active{
+
+			}
+		}
+
+	}
+}

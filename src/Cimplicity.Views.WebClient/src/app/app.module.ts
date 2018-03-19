@@ -1,5 +1,6 @@
 ///<reference path="components/filters_panel/FiltersPanelComponent.ts"/>
 ///<reference path="../../node_modules/@angular/material/button/typings/button-module.d.ts"/>
+///<reference path="components/page_loading_station/LoadingStationComponent.ts"/>
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { XHRBackend, RequestOptions, HttpModule } from "@angular/http";
@@ -28,6 +29,7 @@ import { ReportOverviewService } from "./services/ReportOverviewService";
 import { HttpBaseService } from "./services/base/HttpBaseService";
 import {LookupServiceMock} from "./services/mocks/LookupServiceMock";
 import {ReportConfigurationServiceMock} from "./services/mocks/ReportConfigurationServiceMock";
+import {LoadingStationComponent} from "./components/page_loading_station/LoadingStationComponent";
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import {ReportConfigurationServiceMock} from "./services/mocks/ReportConfigurati
         AdvancedDropdownComponent,
         FiltersPanelComponent,
         SortingPanelComponent,
+        LoadingStationComponent,
 
         DropdownOptionSearchPipe
     ],

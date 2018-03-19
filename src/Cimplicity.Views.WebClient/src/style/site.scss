@@ -28,6 +28,7 @@
 @import "../app/components/rules_report_table/rules_report_table";
 @import "../app/components/advanced_dropdown/advanced_dropdown";
 @import "../app/components/sorting_panel/sorting_panel";
+@import "../app/components/page_loading_station/loading_station";
 
 body{
 	overflow: hidden;
@@ -41,6 +42,11 @@ body{
 	}
 }
 
+.page-container{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
 
 // Create some classes to use to specify how many columns
 // a 'bootstrap' row will has

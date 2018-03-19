@@ -1,0 +1,141 @@
+.loading-station-container{
+    $size-current-material-list-margin-left: 200px;
+    $size-material-box-height: 100px;
+
+    .nav-tabs{
+        width: 100%;
+        .nav-link{
+            text-transform: uppercase;
+        }
+    }
+
+    .current-materials-list{
+        border: 3px dashed #666;
+        padding: 30px;
+        margin-left: $size-current-material-list-margin-left;
+        margin-top: 20px;
+    }
+
+    .incoming-materials-wrapper{
+        margin-left: $size-current-material-list-margin-left;
+        margin-top: 10px;
+
+        .next-material-wrapper{
+            float: left;
+            width: 280px;
+            height: $size-material-box-height;
+            color: $color-material-cube-next;
+
+            .next-material-info{
+                font-size: 1.4rem;
+                text-transform: uppercase;
+                float: left;
+                width: 160px;
+                height: 100%;
+                font-weight: 500;
+                line-height: 24px;
+                text-align: center;
+
+                div{
+                    font-size: 1.4rem;
+                    letter-spacing: .1em;
+                    text-transform: uppercase;
+                    position: relative;
+
+                    .fa{
+                        font-size: 2.2rem;
+                        position: absolute;
+                        top: -9px;
+                    }
+                }
+                .material-name{
+                    font-size: 1.0rem;
+                    text-transform: uppercase;
+                }
+            }
+
+            .material{
+                float: right;
+                .box{
+                    color: $color-material-cube-next;
+                    display: inline-block;
+                }
+            }
+
+        }
+        .queued-materials-list{
+            display: inline-block;
+            height: $size-material-box-height;
+            margin-top: 30px;
+
+            .material{
+                display: inline-block;
+                margin-left: 14px;
+            }
+        }
+
+    }
+}
+
+
+
+// MOVE TO MATERIAL COMPONENT WHEN READY
+.material{
+    $size-material-item-height: 100px;
+    $size-material-box-default-height: 100px;
+
+    height: $size-material-item-height;
+
+    .box-wrapper{
+        position: relative;
+        //background-color: burlywood;
+        @include makeSquare($size-material-box-default-height);
+
+        .box {
+            font-size: (21/20) * $size-material-box-default-height + 1; // (100,106) (60,64)
+            position: relative;
+            top: (-3/10) * $size-material-box-default-height - 2;  // (100,-32) (60,-20)
+
+            &.blue{ color: $color-material-cube-blue; }
+            &.green{ color: $color-material-cube-green; }
+            &.red{ color: $color-material-cube-red; }
+            &.next{ color: $color-material-cube-next; }
+            &.queued{ color: $color-material-cube-queued; }
+        }
+        .box-icon{
+            $size-icon-font: (9/20) * $size-material-box-default-height + 1; // (100,46) (60,28)
+            position: absolute;
+            left: -(1/10) * $size-material-box-default-height ;    // (100,-10) (60,-6)
+            top: (3/10) * $size-material-box-default-height + 2;      // (100,32) (60,20)
+            font-size: $size-icon-font;
+            width: $size-icon-font;
+            text-align: center;
+
+            &.warning{ color: $color-material-cube-icon-warning; }
+            &.info{ color: $color-material-cube-icon-info; }
+        }
+    }
+
+
+    &.extended-info{
+        margin-bottom: 12px;
+
+        .box-wrapper{
+            float: left;
+        }
+
+        .material-info-wrapper{
+            width: 400px;
+            float: left;
+            padding-left: 30px;
+            height: 100%;
+            padding-top: 12px;
+            ul{
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+            }
+        }
+    }
+
+}

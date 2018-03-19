@@ -1,4 +1,5 @@
 src/.vs/
+documentation/
 bin/
 obj/
 node_modules/

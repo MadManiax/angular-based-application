@@ -21,6 +21,9 @@ $color-rule-cell-red-text : whitesmoke !default;
 //**************************************************************
 
 
+
+//**************************************************************
+// PALETTE - OTHERS COMMON COLOR
 $color-cancel-text			: #da4949 !default;
 $color-cancel-bg			: #dc3545 !default;
 $color-cancel-border		: #dc3545 !default;
@@ -33,13 +36,16 @@ $color-red-error-text			:#da4949 !default;
 
 
 $color-primary: #3288e6;
+$color-primary-light: #a9cdf4;
+//**************************************************************
+
 
 // RULES TABLE
 $color-rules-table-border					: #ccc !default;	//#2b2b5e;
 $color-rules-table-header-border			: #aaa !default;						//#2b2b5e;
 $color-rules-table-header-bg				: #e0e0e0 !default;	//#5076b7;
 $color-rules-table-header-text				: #555 !default;;
-$color-rules-table-highlighted-header-blue	: #a9cdf4;
+$color-rules-table-highlighted-header-blue	: $color-primary-light;
 $color-rules-table-column-separator-blue	: darken($color-rules-table-highlighted-header-blue, 10%);
 
 
@@ -61,6 +67,17 @@ $color-advanced-dropdown-option-selected-bg: $color-primary !default;
 $color-advanced-dropdown-option-selected-text: whitesmoke !default;
 $color-advanced-dropdown-option-hover-bg: $color-cimplicity-btn-hover-light !default;
 $color-advanced-dropdown-option-hover-text : #333 !default;
+
+
+// MATERIAL for loading station (cube, info, etc.)
+$color-material-cube-blue           : $color-primary-light;
+$color-material-cube-green          : $color-rule-cell-green-bg;
+$color-material-cube-red            : lighten($color-rule-cell-red-bg, 21%);
+$color-material-cube-next           : #b45f00;
+$color-material-cube-queued         : #aaa;
+$color-material-cube-icon-warning   : darken($color-rule-cell-red-bg, 10%);
+$color-material-cube-icon-info      : #ffaa00;
+
 
 
 // LOADING SCREEN
